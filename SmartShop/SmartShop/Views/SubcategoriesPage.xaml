@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartShop.Views.SubcategoriesPage"
+             xmlns:vm="clr-namespace:SmartShop.ViewModels"
+             xmlns:m="clr-namespace:SmartShop.Models"
+             x:DataType="vm:SubcategoriesViewModel"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <CollectionView ItemsSource="{Binding Subcategories}">
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Subcategory">
+                        <StackLayout>
+                            <StackLayout HeightRequest="40" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <Label VerticalOptions="Center" FontSize="16"  HorizontalOptions="FillAndExpand" Text="{Binding Name}" TextColor="Black"></Label>
+                                <Image Source="angle_small_right" Opacity="0.4" HeightRequest="30" WidthRequest="30" Aspect="AspectFit" VerticalOptions="Center"></Image>
+                            </StackLayout>
+                            <BoxView HeightRequest="0.5" Opacity="0.5" BackgroundColor="Black"></BoxView>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartShop.Views.ExplorePage"
+             Shell.NavBarIsVisible="False"
+             xmlns:local="clr-namespace:SmartShop"
+             Visual="Material">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid Margin="15, 10" RowDefinitions="40" ColumnDefinitions="85*, 15*">
+                <Frame VerticalOptions="FillAndExpand" BackgroundColor="#ededed" CornerRadius="10" Padding="0">
+                    <local:CustomSearchBar HorizontalOptions="FillAndExpand" Placeholder="Search..." HeightRequest="40"/>
+                </Frame>
+                <ImageButton Grid.Column="1" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="40" Padding="10" CornerRadius="40" BackgroundColor="#ededed" Source="settings_sliders"/>
+            </Grid>
+            <ScrollView VerticalScrollBarVisibility="Never">
+                <StackLayout Padding="15" Spacing="15">
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Frame HeightRequest="70" WidthRequest="70" Padding="0" CornerRadius="10">
+                            <Image Source="Image4" Aspect="AspectFill"></Image>
+                        </Frame>
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label TextColor="Black" FontSize="20" FontAttributes="Bold" Text="Item 7"></Label>
+                            <Label FontSize="16" Text="100"></Label>
+                        </StackLayout>
+                        <ImageButton HeightRequest="25" VerticalOptions="Center" WidthRequest="25" BackgroundColor="Transparent" Source="heart"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Frame HeightRequest="70" WidthRequest="70" Padding="0" CornerRadius="10">
+                            <Image Source="Image4" Aspect="AspectFill"></Image>
+                        </Frame>
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label TextColor="Black" FontSize="20" FontAttributes="Bold" Text="Item 7"></Label>
+                            <Label FontSize="16" Text="100"></Label>
+                        </StackLayout>
+                        <ImageButton HeightRequest="25" VerticalOptions="Center" WidthRequest="25" BackgroundColor="Transparent" Source="heart"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Frame HeightRequest="70" WidthRequest="70" Padding="0" CornerRadius="10">
+                            <Image Source="Image4" Aspect="AspectFill"></Image>
+                        </Frame>
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label TextColor="Black" FontSize="20" FontAttributes="Bold" Text="Item 7"></Label>
+                            <Label FontSize="16" Text="100"></Label>
+                        </StackLayout>
+                        <ImageButton HeightRequest="25" VerticalOptions="Center" WidthRequest="25" BackgroundColor="Transparent" Source="heart"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Frame HeightRequest="70" WidthRequest="70" Padding="0" CornerRadius="10">
+                            <Image Source="Image4" Aspect="AspectFill"></Image>
+                        </Frame>
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label TextColor="Black" FontSize="20" FontAttributes="Bold" Text="Item 7"></Label>
+                            <Label FontSize="16" Text="100"></Label>
+                        </StackLayout>
+                        <ImageButton HeightRequest="25" VerticalOptions="Center" WidthRequest="25" BackgroundColor="Transparent" Source="heart"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Frame HeightRequest="70" WidthRequest="70" Padding="0" CornerRadius="10">
+                            <Image Source="Image4" Aspect="AspectFill"></Image>
+                        </Frame>
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label TextColor="Black" FontSize="20" FontAttributes="Bold" Text="Item 7"></Label>
+                            <Label FontSize="16" Text="100"></Label>
+                        </StackLayout>
+                        <ImageButton HeightRequest="25" VerticalOptions="Center" WidthRequest="25" BackgroundColor="Transparent" Source="heart"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Frame HeightRequest="70" WidthRequest="70" Padding="0" CornerRadius="10">
+                            <Image Source="Image4" Aspect="AspectFill"></Image>
+                        </Frame>
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label TextColor="Black" FontSize="20" FontAttributes="Bold" Text="Item 7"></Label>
+                            <Label FontSize="16" Text="100"></Label>
+                        </StackLayout>
+                        <ImageButton HeightRequest="25" VerticalOptions="Center" WidthRequest="25" BackgroundColor="Transparent" Source="heart"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Frame HeightRequest="70" WidthRequest="70" Padding="0" CornerRadius="10">
+                            <Image Source="Image4" Aspect="AspectFill"></Image>
+                        </Frame>
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label TextColor="Black" FontSize="20" FontAttributes="Bold" Text="Item 7"></Label>
+                            <Label FontSize="16" Text="100"></Label>
+                        </StackLayout>
+                        <ImageButton HeightRequest="25" VerticalOptions="Center" WidthRequest="25" BackgroundColor="Transparent" Source="heart"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Frame HeightRequest="70" WidthRequest="70" Padding="0" CornerRadius="10">
+                            <Image Source="Image4" Aspect="AspectFill"></Image>
+                        </Frame>
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label TextColor="Black" FontSize="20" FontAttributes="Bold" Text="Item 7"></Label>
+                            <Label FontSize="16" Text="100"></Label>
+                        </StackLayout>
+                        <ImageButton HeightRequest="25" VerticalOptions="Center" WidthRequest="25" BackgroundColor="Transparent" Source="heart"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Frame HeightRequest="70" WidthRequest="70" Padding="0" CornerRadius="10">
+                            <Image Source="Image4" Aspect="AspectFill"></Image>
+                        </Frame>
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label TextColor="Black" FontSize="20" FontAttributes="Bold" Text="Item 7"></Label>
+                            <Label FontSize="16" Text="100"></Label>
+                        </StackLayout>
+                        <ImageButton HeightRequest="25" VerticalOptions="Center" WidthRequest="25" BackgroundColor="Transparent" Source="heart"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
