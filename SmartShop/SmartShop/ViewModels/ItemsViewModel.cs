@@ -1,6 +1,7 @@
 ﻿using SmartShop.Models;
 using SmartShop.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace SmartShop.ViewModels
 
         public Command OpenCategoriesPageCommand { get; }
         public Command AddItemCommand { get; }
-        public Command ItemTapped { get; }
+        public Command ProductTapped { get; }
 
         public ItemsViewModel()
         {
@@ -28,9 +29,9 @@ namespace SmartShop.ViewModels
             Categories = new ObservableCollection<Category>();
             Products = new ObservableCollection<Product>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadCategoriesCommand());
-            OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new CategoriesPage(), true));
+            OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
 
-            ItemTapped = new Command(OnItemSelected);
+            ProductTapped = new Command<Product>(OnProductSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -109,11 +110,11 @@ namespace SmartShop.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected()
+        async void OnProductSelected(Product product)
         {
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage());
+            await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product, new List<Product>(Products)));
         }
     }
 }

@@ -3,7 +3,9 @@ using SmartShop.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
@@ -14,37 +16,43 @@ namespace SmartShop.ViewModels
         public Command<Category> ForwardCommand { get; }
         public CategoriesAndBrandsViewModel()
         {
+            Categories = new ObservableCollection<Category>();
             ForwardCommand = new Command<Category>(async (category) => await Shell.Current.Navigation.PushAsync(new SubcategoriesPage(category)));
-            Categories = new ObservableCollection<Category>()
-            {
-                new Category
-            {
-                Img = "washing_machine",
-                Name = "Washing Machines",
-            },
-            new Category
-            {
-                Img = "computer",
-                Name = "PC's",
-            },
-            new Category
-            {
-                Img = "joystick",
-                Name = "Gaming Consoles",
-            },
+        }
 
-            new Category
-            {
-                Img = "smartphone",
-                Name = "Smartphones",
-            },
+        public async void OnAppearing()
+        {
+            await GetCategories();
+        }
 
-            new Category
+        async Task GetCategories()
+        {
+            if (IsBusy)
             {
-                Img = "speaker",
-                Name = "Audio Speakers",
-            },
-        };
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                Categories.Clear();
+
+                var categories = await DataStore.GetCategoriesAsync();
+
+                foreach (var category in categories)
+                {
+                    Categories.Add(category);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

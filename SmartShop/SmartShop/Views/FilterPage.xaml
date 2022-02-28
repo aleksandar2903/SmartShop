@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="SmartShop.Views.FilterPage" VerticalOptions="End" Color="Transparent"
+             x:Name="CustomPopup"
+           >
+        <AbsoluteLayout>
+        <Frame AbsoluteLayout.LayoutBounds="0, 0, 1, 0.87" Padding="0" AbsoluteLayout.LayoutFlags="All" BackgroundColor="White" CornerRadius="20" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="50" Padding="15, 10, 15, 5">
+                        <ImageButton HorizontalOptions="Start" HeightRequest="40" WidthRequest="40" VerticalOptions="Center" CornerRadius="40" Opacity="0.5" BackgroundColor="White" Source="cross" Padding="10" Clicked="ImageButton_Clicked"></ImageButton>
+                        <Label HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" FontAttributes="Bold" TextColor="Black" Text="Filter &amp; Sort"></Label>
+                    </Grid>
+                    <BoxView HeightRequest="0.1" Opacity="0.2" Color="Black"></BoxView>
+                </StackLayout>
+                <ScrollView Margin="15">
+                    <StackLayout Spacing="15">
+                        <StackLayout>
+
+                            <!--Filter by Categories-->
+                            <StackLayout>
+                                <Label Text="Categories" FontSize="20" TextColor="Black" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <CheckBox Color="Black"></CheckBox>
+                                    <Label Text="PC's" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <CheckBox Color="Black"></CheckBox>
+                                    <Label Text="Gaming Consoles" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <CheckBox Color="Black"></CheckBox>
+                                    <Label Text="Video Games" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <CheckBox Color="Black"></CheckBox>
+                                    <Label Text="PC's Components" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <!--Filter by Brands-->
+                            <StackLayout>
+                                <Label Text="Brands" FontSize="20" TextColor="Black" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <CheckBox Color="Black"></CheckBox>
+                                    <Label Text="Sony" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <CheckBox Color="Black"></CheckBox>
+                                    <Label Text="Xbox" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <CheckBox Color="Black"></CheckBox>
+                                    <Label Text="Actvison" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <CheckBox Color="Black"></CheckBox>
+                                    <Label Text="Gigabyte" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <CheckBox Color="Black"></CheckBox>
+                                    <Label Text="Samsung" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <CheckBox Color="Black"></CheckBox>
+                                    <Label Text="Cooler Master" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <!--Filter by Price-->
+                            <StackLayout>
+                                <Label Text="Prices" FontSize="20" TextColor="Black" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <RadioButton GroupName="prices"></RadioButton>
+                                    <Label Text="10 - 20$" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <RadioButton GroupName="prices"></RadioButton>
+                                    <Label Text="20 - 50$" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <RadioButton GroupName="prices"></RadioButton>
+                                    <Label Text="50 - 70$" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <RadioButton GroupName="prices"></RadioButton>
+                                    <Label Text="70 - 100$" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <RadioButton GroupName="prices"></RadioButton>
+                                    <Label Text="100 - 150$" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <RadioButton GroupName="prices"></RadioButton>
+                                    <Label Text="150 - 250$" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                            </StackLayout>
+
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+    </Frame>
+            <StackLayout BackgroundColor="White" Padding="20" Spacing="20" Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  AbsoluteLayout.LayoutBounds="0, 1, 1, 0.15" AbsoluteLayout.LayoutFlags="All">
+                <Button Text="Reset" TextColor="Black" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="Start" CornerRadius="5" BackgroundColor="White" BorderWidth="1" BorderColor="Black"></Button>
+                <Button Text="Apply" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="FillAndExpand" CornerRadius="5" BackgroundColor="Black"></Button>
+            </StackLayout>
+        </AbsoluteLayout>
+</xct:Popup>

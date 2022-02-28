@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartShop.Views.CategoriesPage"
-             Title="Categories and Brands"
-            BarBackgroundColor="Black" SelectedTabColor="#ededed" BarTextColor="White"
             xmlns:vm="clr-namespace:SmartShop.ViewModels"
             xmlns:m="clr-namespace:SmartShop.Models"
-            x:DataType="vm:CategoriesAndBrandsViewModel">
-    <ContentPage Title="Categories">
-        <StackLayout Padding="10">
+            x:DataType="vm:CategoriesAndBrandsViewModel"
+            Title="Browse">
+    <ContentPage.Content>
+        <StackLayout Padding="15" Spacing="10">
+            <StackLayout>
+                <Label Text="Shop by category" FontSize="20" FontAttributes="Bold" TextColor="Black"></Label>
+            </StackLayout>
             <CollectionView ItemsSource="{Binding Categories}">
 
                 <CollectionView.ItemsLayout>
@@ -30,10 +32,5 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </StackLayout>
-    </ContentPage>
-    <ContentPage Title="Brands">
-        <StackLayout Padding="4">
-            <!-- Content of the second tab -->
-        </StackLayout>
-    </ContentPage>
-</TabbedPage>
+    </ContentPage.Content>
+</ContentPage>

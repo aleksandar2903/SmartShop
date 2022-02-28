@@ -22,6 +22,9 @@
                                 <Image Source="angle_small_right" Opacity="0.4" HeightRequest="30" WidthRequest="30" Aspect="AspectFit" VerticalOptions="Center"></Image>
                             </StackLayout>
                             <BoxView HeightRequest="0.5" Opacity="0.5" BackgroundColor="Black"></BoxView>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubcategoriesViewModel}}, Path=SubcategoryTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

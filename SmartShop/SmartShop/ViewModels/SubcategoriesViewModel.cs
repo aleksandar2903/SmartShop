@@ -1,52 +1,25 @@
 ﻿using SmartShop.Models;
+using SmartShop.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
 {
     public class SubcategoriesViewModel : BaseViewModel
     {
-        private Category _category;
         public List<Subcategory> Subcategories { get; }
+        public Command SubcategoryTapped { get; }
         public SubcategoriesViewModel(Category category) : this()
         {
             Title = category.Name;
-            _category = category;
+            Subcategories = category.Subcategories;
         }
         public SubcategoriesViewModel()
         {
             Title = "Subcategories";
-            Subcategories = new List<Subcategory>()
-            {
-                new Subcategory
-            {
-                Img = "Icon_Mens_Shoe",
-                Name = "Men",
-            },
-            new Subcategory
-            {
-                Img = "women_shoe",
-                Name = "Women",
-            },
-            new Subcategory
-            {
-                Img = "devices",
-                Name = "Devices",
-            },
-
-            new Subcategory
-            {
-                Img = "headphone",
-                Name = "Gadgets",
-            },
-
-            new Subcategory
-            {
-                Img = "Icon_Gaming",
-                Name = "Gaming",
-            },
-        };
+            SubcategoryTapped = new Command<Subcategory>(async (subcategory) => await Shell.Current.Navigation.PushAsync(new ExplorePage(subcategory)));
         }
     }
 }

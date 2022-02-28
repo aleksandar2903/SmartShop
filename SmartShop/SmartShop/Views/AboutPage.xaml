@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartShop.Views.AboutPage"
+             x:Name="About"
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
              Shell.NavBarIsVisible="False"
              xmlns:local="clr-namespace:SmartShop" 
@@ -11,7 +12,7 @@
              Visual="Material">
 
     <StackLayout>
-        
+
         <StackLayout>
 
             <ScrollView VerticalScrollBarVisibility="Never">
@@ -23,7 +24,7 @@
                         <!--Top Search Bar-->
                         <StackLayout Padding="15" BackgroundColor="Transparent" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                             <StackLayout HorizontalOptions="FillAndExpand">
-                                <ImageButton VerticalOptions="Center" WidthRequest="40" HeightRequest="40" CornerRadius="40" HorizontalOptions="Start" Aspect="AspectFit" BackgroundColor="White" Padding="10" Source="apps" Command="{Binding OpenCategoriesPageCommand}"></ImageButton>
+                                <ImageButton VerticalOptions="Center" WidthRequest="40" HeightRequest="40" CornerRadius="40" HorizontalOptions="Start" Aspect="AspectFit" BackgroundColor="White" Padding="10" Source="search" Command="{Binding OpenCategoriesPageCommand}"></ImageButton>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
                                 <StackLayout VerticalOptions="Center" Margin="0, 0, 5, 0">
@@ -38,12 +39,11 @@
                         </StackLayout>
                     </Grid>
                     <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-                        
-                    <StackLayout Orientation="Horizontal">
-                            <Frame HasShadow="True" CornerRadius="20" WidthRequest="385" Padding="0" Margin="0,10,15,20">
+                        <StackLayout x:Name="FeaturesFrame" Orientation="Horizontal">
+                            <Frame HasShadow="True" CornerRadius="20" WidthRequest="390" Padding="0" Margin="0,10,15,20">
                                 <Image Source="rtx3080" Aspect="AspectFill" HeightRequest="200"></Image>
                             </Frame>
-                            <Frame HasShadow="True" CornerRadius="20" WidthRequest="385" Padding="0" Margin="0,10,15,20">
+                            <Frame HasShadow="True" CornerRadius="20" WidthRequest="390" Padding="0" Margin="0,10,15,20">
                                 <Image Source="rtx2060" Aspect="AspectFill" HeightRequest="200"></Image>
                             </Frame>
                         </StackLayout>
@@ -54,7 +54,7 @@
                             <Label
                                     FontAttributes="Bold"
                                     FontSize="18"
-                                    Text="Categories"
+                                    Text="Top Categories"
                                     TextColor="Black">
                             </Label>
 
@@ -77,15 +77,16 @@
                                                         Padding="0"
                                                         CornerRadius="30"
                                                         HasShadow="True"
+                                                        HorizontalOptions="Center"
                                                         HeightRequest="60"
                                                         IsClippedToBounds="False"
                                                         WidthRequest="60">
                                                     <Image
                                                             Margin="15"
                                                             Aspect="AspectFit"
-                                                            HorizontalOptions="CenterAndExpand"
+                                                            HorizontalOptions="Center"
                                                             Source="{Binding Img}"
-                                                            VerticalOptions="CenterAndExpand" />
+                                                            VerticalOptions="Center" />
                                                 </Frame>
                                                 <Label
                                                         FontSize="12"
@@ -93,8 +94,74 @@
                                                         Text="{Binding Name}"
                                                         TextColor="Black">
                                                 </Label>
-                                                <StackLayout.GestureRecognizers>
+                                                <!--<StackLayout.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=ItemTapped}" />
+                                                </StackLayout.GestureRecognizers>-->
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <!--  Top Products  -->
+                    <StackLayout Margin="0, 0, 0, 20">
+                        <StackLayout Margin="0,0,0,5">
+                            <Label
+                                    FontAttributes="Bold"
+                                    FontSize="18"
+                                    Text="Top Sellers"
+                                    TextColor="Black">
+                            </Label>
+
+                            <StackLayout
+                                    Margin="0,20,0,0"
+                                    HeightRequest="250"
+                                    Orientation="Horizontal">
+                                <CollectionView ItemsSource="{Binding Products}">
+
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+                                    </CollectionView.ItemsLayout>
+
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="model:Product">
+                                            <StackLayout WidthRequest="160">
+                                                <Frame
+                                                        BackgroundColor="#ededed"
+                                                        Margin="1,5,10,5"
+                                                        Padding="0"
+                                                        CornerRadius="20"
+                                                        HasShadow="True"
+                                                        IsClippedToBounds="False"
+                                                        HeightRequest="200"
+                                                        WidthRequest="150">
+                                                    <Image
+                                                            Aspect="AspectFit"
+                                                            Source="{Binding Image}" />
+                                                </Frame>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <StackLayout HorizontalOptions="FillAndExpand">
+                                                        <Label
+                                                        FontSize="16"
+                                                        Text="{Binding Name}"
+                                                        LineBreakMode="TailTruncation"
+                                                        MaxLines="1"
+                                                        TextColor="Black"
+                                                        FontAttributes="Bold">
+                                                        </Label>
+                                                        <Label
+                                                        FontSize="14"
+                                                        Text="{Binding Price}"
+                                                        TextColor="DarkGray">
+                                                        </Label>
+                                                    </StackLayout>
+                                                    <ImageButton VerticalOptions="Center" WidthRequest="40" HeightRequest="40" BackgroundColor="White" CornerRadius="40" Padding="10" Source="heart"></ImageButton>
+                                                </StackLayout>
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
                                                 </StackLayout.GestureRecognizers>
                                             </StackLayout>
                                         </DataTemplate>
@@ -111,7 +178,7 @@
                             <Label
                                     FontAttributes="Bold"
                                     FontSize="18"
-                                    Text="Products"
+                                    Text="Recommended For You"
                                     TextColor="Black">
                             </Label>
 
@@ -129,6 +196,7 @@
                                         <DataTemplate x:DataType="model:Product">
                                             <StackLayout WidthRequest="160">
                                                 <Frame
+                                                        BackgroundColor="#ededed"
                                                         Margin="1,5,10,5"
                                                         Padding="0"
                                                         CornerRadius="20"
@@ -137,8 +205,8 @@
                                                         HeightRequest="200"
                                                         WidthRequest="150">
                                                     <Image
-                                                            Aspect="AspectFill"
-                                                            Source="{Binding Img}" />
+                                                            Aspect="AspectFit"
+                                                            Source="{Binding Image}" />
                                                 </Frame>
                                                 <StackLayout Orientation="Horizontal">
                                                     <StackLayout HorizontalOptions="FillAndExpand">
@@ -158,9 +226,9 @@
                                                     </StackLayout>
                                                     <ImageButton VerticalOptions="Center" WidthRequest="40" HeightRequest="40" BackgroundColor="White" CornerRadius="40" Padding="10" Source="heart"></ImageButton>
                                                 </StackLayout>
-                                                <!--<StackLayout.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference mainView}, Path=BindingContext.CatTapCommand}" CommandParameter="{Binding .}" />
-                                                </StackLayout.GestureRecognizers>-->
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
+                                                </StackLayout.GestureRecognizers>
                                             </StackLayout>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
@@ -170,71 +238,6 @@
                         </StackLayout>
                     </StackLayout>
 
-                    <!--  Top Products  -->
-                    <StackLayout>
-                        <StackLayout Margin="0,0,0,5">
-                            <Label
-                                    FontAttributes="Bold"
-                                    FontSize="18"
-                                    Text="Products"
-                                    TextColor="Black">
-                            </Label>
-
-                            <StackLayout
-                                    Margin="0,20,0,0"
-                                    HeightRequest="250"
-                                    Orientation="Horizontal">
-                                <CollectionView ItemsSource="{Binding Products}">
-
-                                    <CollectionView.ItemsLayout>
-                                        <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
-                                    </CollectionView.ItemsLayout>
-
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate x:DataType="model:Product">
-                                            <StackLayout WidthRequest="160">
-                                                <Frame
-                                                        Margin="1,5,10,5"
-                                                        Padding="0"
-                                                        CornerRadius="20"
-                                                        HasShadow="True"
-                                                        IsClippedToBounds="False"
-                                                        HeightRequest="200"
-                                                        WidthRequest="150">
-                                                    <Image
-                                                            Aspect="AspectFill"
-                                                            Source="{Binding Img}" />
-                                                </Frame>
-                                                <StackLayout Orientation="Horizontal">
-                                                    <StackLayout HorizontalOptions="FillAndExpand">
-                                                        <Label
-                                                        FontSize="16"
-                                                        Text="{Binding Name}"
-                                                        LineBreakMode="TailTruncation"
-                                                        MaxLines="1"
-                                                        TextColor="Black"
-                                                        FontAttributes="Bold">
-                                                        </Label>
-                                                        <Label
-                                                        FontSize="14"
-                                                        Text="{Binding Price}"
-                                                        TextColor="DarkGray">
-                                                        </Label>
-                                                    </StackLayout>
-                                                    <ImageButton VerticalOptions="Center" WidthRequest="40" HeightRequest="40" BackgroundColor="White" CornerRadius="40" Padding="10" Source="heart"></ImageButton>
-                                                </StackLayout>
-                                                <!--<StackLayout.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference mainView}, Path=BindingContext.CatTapCommand}" CommandParameter="{Binding .}" />
-                                                </StackLayout.GestureRecognizers>-->
-                                            </StackLayout>
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
-
-                            </StackLayout>
-                        </StackLayout>
-                    </StackLayout>
-                    
                 </StackLayout>
             </ScrollView>
         </StackLayout>

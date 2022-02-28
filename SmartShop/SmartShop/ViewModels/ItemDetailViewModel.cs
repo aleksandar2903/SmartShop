@@ -14,34 +14,30 @@ namespace SmartShop.ViewModels
         private string itemId;
         private string text;
         private string description;
-        private string photo = "Image1";
+        private Uri photo;
         public Command BackwardCommand { get; }
 
+        public ItemDetailViewModel(Product product, List<Product> products) : this()
+        {
+            Product = product;
+            Photo = product.Images[0].Source;
+            Products = products;
+        }
         public ItemDetailViewModel()
         {
-            Photos = new List<Product>()
-            {
-                new Product { Id = 1, Name = "Item 1", Description="This is an item description.", Img="Image1", Price=100, Quantity=10 },
-                new Product { Id = 1, Name = "Item 2", Description="This is an item description.", Img="Image2", Price=110, Quantity=10 },
-                new Product { Id = 1, Name = "Item 3", Description="This is an item description.", Img="Image3", Price=120, Quantity=10 },
-                new Product { Id = 1, Name = "Item 4", Description="This is an item description.", Img="Image4", Price=130, Quantity=10 },
-                new Product { Id = 1, Name = "Item 5", Description="This is an item description.", Img="Image5", Price=140, Quantity=10 },
-                new Product { Id = 1, Name = "Item 5", Description="This is an item description.", Img="Image5", Price=140, Quantity=10 },
-                new Product { Id = 1, Name = "Item 5", Description="This is an item description.", Img="Image5", Price=140, Quantity=10 },
-                new Product { Id = 1, Name = "Item 5", Description="This is an item description.", Img="Image5", Price=140, Quantity=10 },
-                new Product { Id = 1, Name = "Item 5", Description="This is an item description.", Img="Image5", Price=140, Quantity=10 },
-            };
-            SelectedPhoto = new Command<Product>(ChangePhoto);
+            Products = new List<Product>();
+            SelectedPhoto = new Command<Models.Image>(ChangePhoto);
             BackwardCommand = new Command(async () => await Shell.Current.Navigation.PopModalAsync());
         }
 
-        private void ChangePhoto(Product photo)
+        private void ChangePhoto(Models.Image photo)
         {
-            Photo = photo.Img;
+            Photo = photo.Source;
         }
 
-        public List<Product> Photos { get; }
-        public Command<Product> SelectedPhoto { get; }
+        public Product Product { get; }
+        public List<Product> Products { get; }
+        public Command<Models.Image> SelectedPhoto { get; }
         public string Id { get; set; }
 
         public string Text
@@ -69,7 +65,7 @@ namespace SmartShop.ViewModels
             }
         }
 
-        public string Photo
+        public Uri Photo
         {
             get => photo;
             set => SetProperty(ref photo, value);
