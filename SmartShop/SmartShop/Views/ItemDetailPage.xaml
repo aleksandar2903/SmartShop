@@ -4,24 +4,24 @@
              x:Class="SmartShop.Views.ItemDetailPage"
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
              xmlns:m="clr-namespace:SmartShop.Models"
-             xmlns:fontawesome="clr-namespace:SmartShop.Helpers"
+             xmlns:fontawesome="clr-namespace:SmartShop.Helpers" 
+             xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
              x:DataType="vm:ItemDetailViewModel">
-    <AbsoluteLayout>
 
-        <ScrollView Padding="0, 0, 0, 50" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-            <StackLayout>
+    <AbsoluteLayout BackgroundColor="White">
+        <ScrollView Padding="0, 0, 0, 60" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <StackLayout HorizontalOptions="FillAndExpand">
                 <Grid RowDefinitions="500">
                     <Frame HeightRequest="450" Margin="0, -40, 0, 0" Padding="0, 40, 0, 0" BackgroundColor="#ededed" CornerRadius="40" IsClippedToBounds="True">
                         <Image Source="{Binding Photo}" Aspect="AspectFit"></Image>
                     </Frame>
-                    <ImageButton WidthRequest="40" HeightRequest="40" CornerRadius="40" Margin="10" HorizontalOptions="Start" BackgroundColor="White" Padding="5" VerticalOptions="Start" Source="angle_small_down"  Command="{Binding BackwardCommand}"></ImageButton>
-                    <ImageButton WidthRequest="40" HeightRequest="40" CornerRadius="40" Margin="10" HorizontalOptions="End" BackgroundColor="White" Padding="10" VerticalOptions="Start" Source="heart"  Command="{Binding BackwardCommand}"></ImageButton>
+                    <ImageButton WidthRequest="40" HeightRequest="40" CornerRadius="40" Margin="10" HorizontalOptions="Start" BackgroundColor="White" Padding="5" VerticalOptions="Start" Source="angle_small_down.png"  Command="{Binding BackwardCommand}"></ImageButton>
+                    <buttons:FavouriteButton VerticalOptions="Start" HorizontalOptions="End" BindingContext="{Binding Product.Id}" Margin="10"></buttons:FavouriteButton>
                 </Grid>
-                <StackLayout
-                 HeightRequest="90"
-                 Margin="10, 10, 0, 0"
-                 Orientation="Horizontal">
-                    <CollectionView ItemsSource="{Binding Product.Images}">
+                <StackLayout HeightRequest="90"
+                 Margin="10, 10, 0, 0" Orientation="Horizontal">
+
+                    <CollectionView ItemsSource="{Binding Product.Images}"  HorizontalOptions="FillAndExpand">
 
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
@@ -51,8 +51,9 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-
                 </StackLayout>
+
+
                 <StackLayout Padding="15, 0">
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                         <Label Text="{Binding Product.Name}" TextColor="Black" FontAttributes="Bold" FontSize="24" HorizontalOptions="FillAndExpand"></Label>
@@ -161,7 +162,7 @@
         </ScrollView>
 
         <Frame Padding="15, 10"
-            AbsoluteLayout.LayoutBounds="0,1,1,0.1" AbsoluteLayout.LayoutFlags="All">
+            AbsoluteLayout.LayoutBounds="0,1,1,0.1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="White">
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                 <Label VerticalOptions="Center" FontAttributes="Bold" TextColor="Black" Margin="0, 0, 15, 0" Text="{Binding Product.Price, StringFormat='{0}$'}" FontSize="24"></Label>
                 <Button VerticalOptions="Center" CornerRadius="10" BackgroundColor="Black" FontAttributes="Bold" Text="Add To Cart" HorizontalOptions="FillAndExpand"></Button>

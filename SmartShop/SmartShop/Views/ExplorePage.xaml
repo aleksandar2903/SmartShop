@@ -2,20 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartShop.Views.ExplorePage"
-             Shell.NavBarIsVisible="False"
              xmlns:local="clr-namespace:SmartShop"
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
              xmlns:m="clr-namespace:SmartShop.Models"
              x:DataType="vm:BrowseViewModel"
+             Shell.NavBarIsVisible="False"
              Visual="Material">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout BackgroundColor="White">
             <Grid Margin="10, 10" RowDefinitions="40" ColumnDefinitions="12*, 76*, 12*">
-                <ImageButton Grid.Column="0" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="40" Padding="5" CornerRadius="40" BackgroundColor="White" Source="angle_small_left" Command="{Binding BackwardCommand}"/>
-                <Frame Grid.Column="1" HorizontalOptions="Center" VerticalOptions="FillAndExpand" BackgroundColor="#ededed" CornerRadius="10" Padding="0">
-                    <local:CustomSearchBar HorizontalOptions="FillAndExpand" Placeholder="Search..." HeightRequest="40"/>
+                <ImageButton Grid.Column="0" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="40" Padding="5" CornerRadius="40" BackgroundColor="White" Source="angle_small_left.png" Command="{Binding BackwardCommand}"/>
+                <Frame Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#ededed" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="0">
+                    <local:CustomSearchBar  CancelButtonColor="DarkGray" TextColor="Black" PlaceholderColor="DarkGray" HorizontalOptions="FillAndExpand" Placeholder="Search..." HeightRequest="40"/>
                 </Frame>
-                <ImageButton Grid.Column="2" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="40" Padding="10" CornerRadius="40" BackgroundColor="#ededed" Source="settings_sliders" Command="{Binding OpenFilterPopupCommand}"/>
+                <ImageButton IsVisible="{OnIdiom Desktop=False, Phone=True}" Grid.Column="2" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="40" Padding="10" CornerRadius="40" BackgroundColor="#ededed" Source="settings_sliders.png" Command="{Binding OpenFilterPopupCommand}"/>
             </Grid>
             <CollectionView Margin="15" ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>
@@ -24,14 +24,14 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:Product">
                         <StackLayout Orientation="Horizontal" Spacing="10">
-                            <Frame HeightRequest="70" WidthRequest="70" Padding="0" CornerRadius="10">
+                            <Frame HeightRequest="70" BackgroundColor="White" WidthRequest="70" Padding="0" CornerRadius="10">
                                 <Image Source="{Binding Image}" Aspect="AspectFill"></Image>
                             </Frame>
                             <StackLayout HorizontalOptions="FillAndExpand">
                                 <Label TextColor="Black" FontSize="16" Text="{Binding Name}"></Label>
                                 <Label FontSize="16" FontAttributes="Bold" TextColor="Black" Text="{Binding Price, StringFormat='{0}$'}"></Label>
                             </StackLayout>
-                            <ImageButton HeightRequest="40" VerticalOptions="Center" WidthRequest="40" CornerRadius="40" Padding="10" BackgroundColor="White" Source="heart"/>
+                            <ImageButton HeightRequest="40" VerticalOptions="Center" WidthRequest="40" CornerRadius="40" Padding="10" BackgroundColor="White" Source="heart.png"/>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

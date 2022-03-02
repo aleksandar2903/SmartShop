@@ -20,7 +20,7 @@
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="White" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="Black"/>
                 <Setter Property="Shell.TabBarUnselectedColor" Value="DarkGray"/>
                 <Setter Property="Shell.TabBarTitleColor" Value="Black"/>
             </Style>
@@ -30,11 +30,11 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Title="Home" Icon="home.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-        <ShellContent Title="Browse" Icon="search.png" Route="ExplorePage" ContentTemplate="{DataTemplate local:CategoriesPage}" />
-        <ShellContent Title="Cart" Icon="shopping_cart.png" Route="CartPage" ContentTemplate="{DataTemplate local:ExplorePage}" />
-        <ShellContent Title="Favourites" Icon="heart.png" Route="CartPage" ContentTemplate="{DataTemplate local:ExplorePage}" />
-        <ShellContent Title="Profile" Icon="user.png" Route="ProfilePage" ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <ShellContent Title="Home" Icon="{OnIdiom Desktop=Resources\\home.png, Phone=home.png}" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+        <ShellContent Title="Browse" Icon="{OnIdiom Desktop=Resources\\search.png, Phone=search.png}" Route="ExplorePage" ContentTemplate="{DataTemplate local:CategoriesPage}" />
+        <ShellContent Title="Cart" Icon="{OnIdiom Desktop=Resources\\shopping_cart.png, Phone=shopping_cart.png}" Route="CartPage" ContentTemplate="{DataTemplate local:ExplorePage}" />
+        <ShellContent Title="Favourites" Icon="{OnIdiom Desktop=Resources\\heart.png, Phone=heart.png}" Route="CartPage" ContentTemplate="{DataTemplate local:ExplorePage}" />
+        <ShellContent Title="Profile" Icon="{OnIdiom Desktop=Resources\\user.png, Phone=user.png}" Route="ProfilePage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </TabBar>
 
     <!--

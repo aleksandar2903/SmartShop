@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.Widget;
 using SmartShop;
 using SmartShop.Droid;
 using Xamarin.Forms;
@@ -20,6 +21,8 @@ namespace SmartShop.Droid
             {
                 var plateId = Resources.GetIdentifier("android:id/search_plate", null, null);
                 var plate = Control.FindViewById(plateId);
+                var icon = Control?.FindViewById(Context.Resources.GetIdentifier("android:id/search_mag_icon", null, null));
+                (icon as ImageView)?.SetColorFilter(Color.DarkGray.ToAndroid());
                 plate.SetBackgroundColor(Android.Graphics.Color.Transparent);
             }
         }

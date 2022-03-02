@@ -1,4 +1,5 @@
-﻿using SmartShop.Models;
+﻿using MonkeyCache.FileStore;
+using SmartShop.Models;
 using SmartShop.Views;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace SmartShop.ViewModels
         public Command OpenCategoriesPageCommand { get; }
         public Command AddItemCommand { get; }
         public Command ProductTapped { get; }
+        public Command FavouriteProduct { get; }
 
         public ItemsViewModel()
         {
@@ -32,6 +34,7 @@ namespace SmartShop.ViewModels
             OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
 
             ProductTapped = new Command<Product>(OnProductSelected);
+            FavouriteProduct = new Command<Product>(OnProductFavourited);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -115,6 +118,23 @@ namespace SmartShop.ViewModels
 
             // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product, new List<Product>(Products)));
+        }
+
+        void OnProductFavourited(Product product)
+        {
+            if(product is null || product.Id == 0)
+            {
+                return;
+            }
+
+            if (Barrel.Current.Exists($"f-{product.Id}"))
+            {
+                Barrel.Current.Empty($"f-{product.Id}");
+            }
+            else
+            {
+                Barrel.Current.Add($"f-{product.Id}", product.Id, TimeSpan.FromDays(90));
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using SmartShop.Services;
+﻿using MonkeyCache.FileStore;
+using SmartShop.Services;
 using SmartShop.Views;
 using System;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,7 +14,7 @@ namespace SmartShop
         public App()
         {
             InitializeComponent();
-
+            Barrel.ApplicationId = AppInfo.PackageName;
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }

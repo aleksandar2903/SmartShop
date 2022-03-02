@@ -27764,127 +27764,130 @@ namespace SmartShop.Droid
 			public const int projector = 2131165395;
 			
 			// aapt resource value: 0x7F0700D4
-			public const int rtx2060 = 2131165396;
+			public const int red_heart = 2131165396;
 			
 			// aapt resource value: 0x7F0700D5
-			public const int rtx3080 = 2131165397;
+			public const int rtx2060 = 2131165397;
 			
 			// aapt resource value: 0x7F0700D6
-			public const int rtx3080ti = 2131165398;
+			public const int rtx3080 = 2131165398;
 			
 			// aapt resource value: 0x7F0700D7
-			public const int rtx3080ti1 = 2131165399;
+			public const int rtx3080ti = 2131165399;
 			
 			// aapt resource value: 0x7F0700D8
-			public const int rtx3080ti2 = 2131165400;
+			public const int rtx3080ti1 = 2131165400;
 			
 			// aapt resource value: 0x7F0700D9
-			public const int rtx3080ti3 = 2131165401;
+			public const int rtx3080ti2 = 2131165401;
 			
 			// aapt resource value: 0x7F0700DA
-			public const int rtx3080ti4 = 2131165402;
+			public const int rtx3080ti3 = 2131165402;
 			
 			// aapt resource value: 0x7F0700DB
-			public const int rtx3080ti5 = 2131165403;
+			public const int rtx3080ti4 = 2131165403;
 			
 			// aapt resource value: 0x7F0700DC
-			public const int rtx3080ti6 = 2131165404;
+			public const int rtx3080ti5 = 2131165404;
 			
 			// aapt resource value: 0x7F0700DD
-			public const int rtx3080ti7 = 2131165405;
+			public const int rtx3080ti6 = 2131165405;
 			
 			// aapt resource value: 0x7F0700DE
-			public const int rtx3080ti8 = 2131165406;
+			public const int rtx3080ti7 = 2131165406;
 			
 			// aapt resource value: 0x7F0700DF
-			public const int rtx3080ti9 = 2131165407;
+			public const int rtx3080ti8 = 2131165407;
 			
 			// aapt resource value: 0x7F0700E0
-			public const int rtx3080ti_1 = 2131165408;
+			public const int rtx3080ti9 = 2131165408;
 			
 			// aapt resource value: 0x7F0700E1
-			public const int rtx3080ti_2 = 2131165409;
+			public const int rtx3080ti_1 = 2131165409;
 			
 			// aapt resource value: 0x7F0700E2
-			public const int rtx3080ti_3 = 2131165410;
+			public const int rtx3080ti_2 = 2131165410;
 			
 			// aapt resource value: 0x7F0700E3
-			public const int rtx3080ti_4 = 2131165411;
+			public const int rtx3080ti_3 = 2131165411;
 			
 			// aapt resource value: 0x7F0700E4
-			public const int search = 2131165412;
+			public const int rtx3080ti_4 = 2131165412;
 			
 			// aapt resource value: 0x7F0700E5
-			public const int search1 = 2131165413;
+			public const int search = 2131165413;
 			
 			// aapt resource value: 0x7F0700E6
-			public const int Search_Camera = 2131165414;
+			public const int search1 = 2131165414;
 			
 			// aapt resource value: 0x7F0700E7
-			public const int server = 2131165415;
+			public const int Search_Camera = 2131165415;
 			
 			// aapt resource value: 0x7F0700E8
-			public const int settings_sliders = 2131165416;
+			public const int server = 2131165416;
 			
 			// aapt resource value: 0x7F0700E9
-			public const int Shape = 2131165417;
+			public const int settings_sliders = 2131165417;
 			
 			// aapt resource value: 0x7F0700EA
-			public const int shopping_cart = 2131165418;
+			public const int Shape = 2131165418;
 			
 			// aapt resource value: 0x7F0700EB
-			public const int smartphone = 2131165419;
+			public const int shopping_cart = 2131165419;
 			
 			// aapt resource value: 0x7F0700EC
-			public const int smartwatch = 2131165420;
+			public const int smartphone = 2131165420;
 			
 			// aapt resource value: 0x7F0700ED
-			public const int sort = 2131165421;
+			public const int smartwatch = 2131165421;
 			
 			// aapt resource value: 0x7F0700EE
-			public const int speaker = 2131165422;
+			public const int sort = 2131165422;
 			
 			// aapt resource value: 0x7F0700EF
-			public const int star = 2131165423;
+			public const int speaker = 2131165423;
 			
 			// aapt resource value: 0x7F0700F0
-			public const int test_custom_background = 2131165424;
+			public const int star = 2131165424;
 			
 			// aapt resource value: 0x7F0700F1
-			public const int tooltip_frame_dark = 2131165425;
+			public const int test_custom_background = 2131165425;
 			
 			// aapt resource value: 0x7F0700F2
-			public const int tooltip_frame_light = 2131165426;
+			public const int tooltip_frame_dark = 2131165426;
 			
 			// aapt resource value: 0x7F0700F3
-			public const int user = 2131165427;
+			public const int tooltip_frame_light = 2131165427;
 			
 			// aapt resource value: 0x7F0700F4
-			public const int user1 = 2131165428;
+			public const int user = 2131165428;
 			
 			// aapt resource value: 0x7F0700F5
-			public const int user2 = 2131165429;
+			public const int user1 = 2131165429;
 			
 			// aapt resource value: 0x7F0700F6
-			public const int washing_machine = 2131165430;
+			public const int user2 = 2131165430;
 			
 			// aapt resource value: 0x7F0700F7
-			public const int wave = 2131165431;
+			public const int washing_machine = 2131165431;
 			
 			// aapt resource value: 0x7F0700F8
-			public const int wave1 = 2131165432;
+			public const int wave = 2131165432;
 			
 			// aapt resource value: 0x7F0700F9
-			public const int wave_haikei = 2131165433;
+			public const int wave1 = 2131165433;
 			
 			// aapt resource value: 0x7F0700FA
-			public const int wifi_router = 2131165434;
+			public const int wave_haikei = 2131165434;
 			
 			// aapt resource value: 0x7F0700FB
-			public const int women_shoe = 2131165435;
+			public const int wifi_router = 2131165435;
 			
 			// aapt resource value: 0x7F0700FC
-			public const int xamarin_logo = 2131165436;
+			public const int women_shoe = 2131165436;
+			
+			// aapt resource value: 0x7F0700FD
+			public const int xamarin_logo = 2131165437;
 			
 			static Drawable()
 			{

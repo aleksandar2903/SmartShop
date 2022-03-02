@@ -136,6 +136,39 @@ namespace SmartShop.Services
                              new Image { Id = 5, Source = new Uri("https://www.gigabyte.com/Image/179c9a6d6754bfdb65a4e0d7f5cdb905/Product/30315/webp/1000") },
                              }
                             },
+                            new Product { Id = 1, Name = "AORUS MODEL X 12th", SubcategoryId = 4, Description="The cherry-pick Intel Core i9-12900K with factory-overclocked setting and the latest DDR5 32GB high speed RAM," +
+                            " which brings the stable and ultimate overclocking performance. Powered with the GeForce RTX 3080 graphics card, high efficiency chassis cooling design and liquid cooling system, " +
+                            "the AORUS MODEL X brings a quiet, low-temperature and high performance while delivering smooth frame rates and lifelike gaming experience.", Image = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000"), Price=2500, Quantity=10, Images = new List<Image>()
+                            {
+                             new Image { Id = 1, Source = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000") },
+                             new Image { Id = 2, Source = new Uri("https://www.gigabyte.com/Image/872e9f9f714839c6e46387c2c43e2919/Product/30312/webp/1000") },
+                             new Image { Id = 3, Source = new Uri("https://www.gigabyte.com/Image/0575c2cdca7f582ff362ac2f992b2a0a/Product/30313/webp/1000") },
+                             new Image { Id = 4, Source = new Uri("https://www.gigabyte.com/Image/4c7b1af5acd20d12e975e010427ce0db/Product/30314/webp/1000") },
+                             new Image { Id = 5, Source = new Uri("https://www.gigabyte.com/Image/179c9a6d6754bfdb65a4e0d7f5cdb905/Product/30315/webp/1000") },
+                             }
+                            },
+                            new Product { Id = 1, Name = "AORUS MODEL X 12th", SubcategoryId = 4, Description="The cherry-pick Intel Core i9-12900K with factory-overclocked setting and the latest DDR5 32GB high speed RAM," +
+                            " which brings the stable and ultimate overclocking performance. Powered with the GeForce RTX 3080 graphics card, high efficiency chassis cooling design and liquid cooling system, " +
+                            "the AORUS MODEL X brings a quiet, low-temperature and high performance while delivering smooth frame rates and lifelike gaming experience.", Image = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000"), Price=2500, Quantity=10, Images = new List<Image>()
+                            {
+                             new Image { Id = 1, Source = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000") },
+                             new Image { Id = 2, Source = new Uri("https://www.gigabyte.com/Image/872e9f9f714839c6e46387c2c43e2919/Product/30312/webp/1000") },
+                             new Image { Id = 3, Source = new Uri("https://www.gigabyte.com/Image/0575c2cdca7f582ff362ac2f992b2a0a/Product/30313/webp/1000") },
+                             new Image { Id = 4, Source = new Uri("https://www.gigabyte.com/Image/4c7b1af5acd20d12e975e010427ce0db/Product/30314/webp/1000") },
+                             new Image { Id = 5, Source = new Uri("https://www.gigabyte.com/Image/179c9a6d6754bfdb65a4e0d7f5cdb905/Product/30315/webp/1000") },
+                             }
+                            },
+                            new Product { Id = 1, Name = "AORUS MODEL X 12th", SubcategoryId = 4, Description="The cherry-pick Intel Core i9-12900K with factory-overclocked setting and the latest DDR5 32GB high speed RAM," +
+                            " which brings the stable and ultimate overclocking performance. Powered with the GeForce RTX 3080 graphics card, high efficiency chassis cooling design and liquid cooling system, " +
+                            "the AORUS MODEL X brings a quiet, low-temperature and high performance while delivering smooth frame rates and lifelike gaming experience.", Image = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000"), Price=2500, Quantity=10, Images = new List<Image>()
+                            {
+                             new Image { Id = 1, Source = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000") },
+                             new Image { Id = 2, Source = new Uri("https://www.gigabyte.com/Image/872e9f9f714839c6e46387c2c43e2919/Product/30312/webp/1000") },
+                             new Image { Id = 3, Source = new Uri("https://www.gigabyte.com/Image/0575c2cdca7f582ff362ac2f992b2a0a/Product/30313/webp/1000") },
+                             new Image { Id = 4, Source = new Uri("https://www.gigabyte.com/Image/4c7b1af5acd20d12e975e010427ce0db/Product/30314/webp/1000") },
+                             new Image { Id = 5, Source = new Uri("https://www.gigabyte.com/Image/179c9a6d6754bfdb65a4e0d7f5cdb905/Product/30315/webp/1000") },
+                             }
+                            },
                         }
                     },
                     new Subcategory

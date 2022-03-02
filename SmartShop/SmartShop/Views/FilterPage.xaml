@@ -26,19 +26,19 @@
                             <StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <CheckBox Color="Black"></CheckBox>
-                                    <Label Text="PC's" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="PC's" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <CheckBox Color="Black"></CheckBox>
-                                    <Label Text="Gaming Consoles" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="Gaming Consoles" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <CheckBox Color="Black"></CheckBox>
-                                    <Label Text="Video Games" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="Video Games" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <CheckBox Color="Black"></CheckBox>
-                                    <Label Text="PC's Components" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="PC's Components" VerticalOptions="Center"></Label>
                                 </StackLayout>
                             </StackLayout>
 
@@ -49,27 +49,27 @@
                             <StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <CheckBox Color="Black"></CheckBox>
-                                    <Label Text="Sony" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="Sony" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <CheckBox Color="Black"></CheckBox>
-                                    <Label Text="Xbox" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="Xbox" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <CheckBox Color="Black"></CheckBox>
-                                    <Label Text="Actvison" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="Actvison" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <CheckBox Color="Black"></CheckBox>
-                                    <Label Text="Gigabyte" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="Gigabyte" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <CheckBox Color="Black"></CheckBox>
-                                    <Label Text="Samsung" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="Samsung" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <CheckBox Color="Black"></CheckBox>
-                                    <Label Text="Cooler Master" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="Cooler Master" VerticalOptions="Center"></Label>
                                 </StackLayout>
                             </StackLayout>
 
@@ -80,27 +80,27 @@
                             <StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <RadioButton GroupName="prices"></RadioButton>
-                                    <Label Text="10 - 20$" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="10 - 20$" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <RadioButton GroupName="prices"></RadioButton>
-                                    <Label Text="20 - 50$" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="20 - 50$" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <RadioButton GroupName="prices"></RadioButton>
-                                    <Label Text="50 - 70$" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="50 - 70$" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <RadioButton GroupName="prices"></RadioButton>
-                                    <Label Text="70 - 100$" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="70 - 100$" VerticalOptions="Center"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <RadioButton  GroupName="prices"></RadioButton>
+                                    <Label TextColor="Black" Text="100 - 150$" VerticalOptions="Center"></Label>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="10">
                                     <RadioButton GroupName="prices"></RadioButton>
-                                    <Label Text="100 - 150$" VerticalOptions="Center"></Label>
-                                </StackLayout>
-                                <StackLayout Orientation="Horizontal" Spacing="10">
-                                    <RadioButton GroupName="prices"></RadioButton>
-                                    <Label Text="150 - 250$" VerticalOptions="Center"></Label>
+                                    <Label TextColor="Black" Text="150 - 250$" VerticalOptions="Center"></Label>
                                 </StackLayout>
                             </StackLayout>
 
