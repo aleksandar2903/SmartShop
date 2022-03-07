@@ -323,9 +323,32 @@ namespace SmartShop.Services
             return await Task.FromResult(categories);
         }
 
-        public Task<IEnumerable<Product>> GetProductsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Product>> GetProductsAsync(bool forceRefresh = false)
         {
-            return Task.FromResult<IEnumerable<Product>>(products);
+            await Task.Delay(3000);
+            return products;
+        }
+
+        public async Task<IEnumerable<Image>> GetFeatureImagesAsync(bool forceRefresh = false)
+        {
+            var features = new List<Image>
+            {
+
+                new Image { Id = 4, Source = new Uri("https://wallpaperaccess.com/full/2325987.jpg") },
+                new Image { Id = 5, Source = new Uri("https://p4.wallpaperbetter.com/wallpaper/427/1009/251/nvidia-nvidia-rtx-gpus-graphics-card-fans-hd-wallpaper-thumb.jpg") },
+            };
+            return await Task.FromResult<IEnumerable<Image>>(features);
+        }
+
+        public async Task<Product> GetProductAsync(int id)
+        {
+            await Task.Delay(3000);
+            return products.FirstOrDefault(s => s.Id == id);
+        }
+
+        public async Task<IEnumerable<Product>> GetRelatedProductsAsync(int subcategoryId, bool forceRefresh = false)
+        {
+            return await Task.FromResult<IEnumerable<Product>>(products.Where(s => s.SubcategoryId == subcategoryId).ToList());
         }
     }
 }

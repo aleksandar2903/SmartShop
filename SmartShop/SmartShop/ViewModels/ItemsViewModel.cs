@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
@@ -17,6 +18,7 @@ namespace SmartShop.ViewModels
         public ObservableCollection<Item> Items { get; }
         public ObservableCollection<Category> Categories { get; }
         public ObservableCollection<Product> Products { get; }
+        public ObservableCollection<Models.Image> Features { get; }
         public Command LoadItemsCommand { get; }
 
         public Command OpenCategoriesPageCommand { get; }
@@ -30,6 +32,7 @@ namespace SmartShop.ViewModels
             Items = new ObservableCollection<Item>();
             Categories = new ObservableCollection<Category>();
             Products = new ObservableCollection<Product>();
+            Features = new ObservableCollection<Models.Image>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadCategoriesCommand());
             OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
 
@@ -37,6 +40,9 @@ namespace SmartShop.ViewModels
             FavouriteProduct = new Command<Product>(OnProductFavourited);
 
             AddItemCommand = new Command(OnAddItem);
+
+            var deviceInfo = DeviceDisplay.MainDisplayInfo;
+            FrameSize = (int)(deviceInfo.Width / deviceInfo.Density / 1.15);
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -68,6 +74,13 @@ namespace SmartShop.ViewModels
 
             try
             {
+                Features.Clear();
+                var features = await DataStore.GetFeatureImagesAsync(true);
+                foreach (var feature in features)
+                {
+                    Features.Add(feature);
+                }
+
                 Categories.Clear();
                 var categories = await DataStore.GetCategoriesAsync(true);
                 foreach (var category in categories)
@@ -81,7 +94,9 @@ namespace SmartShop.ViewModels
                 {
                     Products.Add(product);
                 }
+
             }
+
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
@@ -108,6 +123,8 @@ namespace SmartShop.ViewModels
             }
         }
 
+        public int FrameSize { get; }
+
         private async void OnAddItem(object obj)
         {
             await Shell.Current.GoToAsync(nameof(NewItemPage));
@@ -117,7 +134,7 @@ namespace SmartShop.ViewModels
         {
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product, new List<Product>(Products)));
+            await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id));
         }
 
         void OnProductFavourited(Product product)

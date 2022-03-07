@@ -8,24 +8,19 @@ using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
 {
-    [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
-        private string itemId;
-        private string text;
-        private string description;
+        private int productId;
         private Uri photo;
         public Command BackwardCommand { get; }
 
-        public ItemDetailViewModel(Product product, List<Product> products) : this()
+        public ItemDetailViewModel(int id) : this()
         {
-            Product = product;
-            Photo = product.Images[0].Source;
-            Products = products;
+            productId = id;
         }
         public ItemDetailViewModel()
         {
-            Products = new List<Product>();
+            Products = new ObservableCollection<Product>();
             SelectedPhoto = new Command<Models.Image>(ChangePhoto);
             BackwardCommand = new Command(async () => await Shell.Current.Navigation.PopModalAsync());
         }
@@ -35,35 +30,15 @@ namespace SmartShop.ViewModels
             Photo = photo.Source;
         }
 
-        public Product Product { get; }
-        public List<Product> Products { get; }
+        public async void OnAppearing()
+        {
+            await FetchProductAsync();
+        }
+
+        public Product Product { get => _product; set => SetProperty(ref _product, value); }
+        private Product _product;
+        public ObservableCollection<Product> Products { get; set; }
         public Command<Models.Image> SelectedPhoto { get; }
-        public string Id { get; set; }
-
-        public string Text
-        {
-            get => text;
-            set => SetProperty(ref text, value);
-        }
-
-        public string Description
-        {
-            get => description;
-            set => SetProperty(ref description, value);
-        }
-
-        public string ItemId
-        {
-            get
-            {
-                return itemId;
-            }
-            set
-            {
-                itemId = value;
-                LoadItemId(value);
-            }
-        }
 
         public Uri Photo
         {
@@ -71,18 +46,31 @@ namespace SmartShop.ViewModels
             set => SetProperty(ref photo, value);
         }
 
-        public async void LoadItemId(string itemId)
+        public async Task FetchProductAsync()
         {
+            IsBusy = true;
+
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
+                var item = await DataStore.GetProductAsync(productId);
+                Product = item;
+                Photo = item.Image;
+                var relatedProducts = await DataStore.GetRelatedProductsAsync(item.SubcategoryId);
+                foreach (var product in relatedProducts)
+                {
+                    if (product.Id == item.Id)
+                        continue;
+
+                    Products.Add(product);
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed to Load Item");
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

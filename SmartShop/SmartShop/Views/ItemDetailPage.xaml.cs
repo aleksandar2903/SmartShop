@@ -8,10 +8,17 @@ namespace SmartShop.Views
 {
     public partial class ItemDetailPage : ContentPage
     {
-        public ItemDetailPage(Product product, List<Product> products)
+        ItemDetailViewModel viewModel;
+        public ItemDetailPage(int id)
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel(product, products);
+            BindingContext = viewModel = new ItemDetailViewModel(id);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            viewModel.OnAppearing();
         }
     }
 }

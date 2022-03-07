@@ -11,19 +11,17 @@ namespace SmartShop.Views
     public partial class AboutPage : ContentPage
     {
         public ItemsViewModel viewModel;
-        public int FrameSize { get; }
         public AboutPage()
         {
             InitializeComponent();
-            var deviceInfo = DeviceDisplay.MainDisplayInfo;
-            FrameSize = (int)(deviceInfo.Width / deviceInfo.Density);
             BindingContext = viewModel = new ItemsViewModel();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            viewModel.OnAppearing();
+            if(viewModel.Products.Count == 0)
+                viewModel.OnAppearing();
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)

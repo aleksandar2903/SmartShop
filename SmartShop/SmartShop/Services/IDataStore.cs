@@ -11,8 +11,11 @@ namespace SmartShop.Services
         Task<bool> UpdateItemAsync(T item);
         Task<bool> DeleteItemAsync(string id);
         Task<T> GetItemAsync(string id);
+        Task<Product> GetProductAsync(int id);
         Task<IEnumerable<Category>> GetCategoriesAsync(bool forceRefresh = false);
         Task<IEnumerable<Product>> GetProductsAsync(bool forceRefresh = false);
+        Task<IEnumerable<Product>> GetRelatedProductsAsync(int subcategoryId, bool forceRefresh = false);
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+        Task<IEnumerable<Image>> GetFeatureImagesAsync(bool forceRefresh = false);
     }
 }

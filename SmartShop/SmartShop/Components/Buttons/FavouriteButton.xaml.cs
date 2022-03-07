@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.CommunityToolkit.Extensions;
 using MonkeyCache.FileStore;
+using Xamarin.Essentials;
 
 namespace SmartShop.Components.Buttons
 {
@@ -29,18 +30,23 @@ namespace SmartShop.Components.Buttons
 
             if (Int32.TryParse(content, out int id) && id >= 0)
             {
-
                 if (Barrel.Current.Exists($"f-{id}"))
                 {
                     imageButton.Source = "heart.png";
                     Barrel.Current.Empty($"f-{id}");
-                    await Shell.Current.DisplayToastAsync("Removed from favourites", 3000);
+                    if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
+                    {
+                        await Shell.Current.DisplayToastAsync("Removed from favourites", 3000);
+                    }
                 }
                 else
                 {
                     imageButton.Source = "red_heart.png";
                     Barrel.Current.Add($"f-{id}", id, TimeSpan.FromDays(90));
-                    await Shell.Current.DisplayToastAsync("Added to favourites", 3000);
+                    if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
+                    {
+                        await Shell.Current.DisplayToastAsync("Added to favourites", 3000);
+                    }
                 }
 
             }
@@ -49,13 +55,12 @@ namespace SmartShop.Components.Buttons
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
-            if(this.BindingContext == null) return;
+            if (this.BindingContext == null) return;
 
             string content = this.BindingContext.ToString();
 
             if (Int32.TryParse(content, out int id) && id >= 0)
             {
-
                 if (Barrel.Current.Exists($"f-{id}"))
                 {
                     this.Source = "red_heart.png";

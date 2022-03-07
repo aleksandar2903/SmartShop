@@ -4,6 +4,7 @@
              x:Class="SmartShop.Views.AboutPage"
              x:Name="About"
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              Shell.NavBarIsVisible="False"
              xmlns:local="clr-namespace:SmartShop" 
              xmlns:fontawesome="clr-namespace:SmartShop.Helpers" 
@@ -13,11 +14,15 @@
              xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
              Visual="Material">
 
-    <StackLayout BackgroundColor="White">
 
-        <StackLayout>
+    <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand">
 
-            <ScrollView VerticalScrollBarVisibility="{OnIdiom Desktop=Always, Phone=Never}">
+        <StackLayout VerticalOptions="FillAndExpand">
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Color="Black" HeightRequest="40" WidthRequest="40"></ActivityIndicator>
+
+
+            <ScrollView VerticalScrollBarVisibility="{OnIdiom Desktop=Always, Phone=Never}" IsVisible="{Binding IsBusy, Converter={xct:InvertedBoolConverter}}">
 
                 <StackLayout Padding="15, 0, 0, 25" Spacing="0">
                     <Grid Margin="-15,0, 0, 0">
@@ -40,16 +45,37 @@
                             </StackLayout>
                         </StackLayout>
                     </Grid>
-                    <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="{OnIdiom Desktop=Always, Phone=Never}">
-                        <StackLayout x:Name="FeaturesFrame" Orientation="Horizontal">
-                            <Frame HasShadow="True" CornerRadius="20" WidthRequest="{OnIdiom Desktop=600, Phone=390}" Padding="0" Margin="0,10,15,20">
-                                <Image Source="rtx3080.png" Aspect="AspectFill" HeightRequest="200"></Image>
-                            </Frame>
-                            <Frame HasShadow="True" CornerRadius="20" WidthRequest="{OnIdiom Desktop=600, Phone=390}" Padding="0" Margin="0,10,15,20">
-                                <Image Source="rtx2060.jpg" Aspect="AspectFill" HeightRequest="200"></Image>
-                            </Frame>
-                        </StackLayout>
-                    </ScrollView>
+                    <StackLayout
+                                    Margin="0,20,0,20"
+                                    HeightRequest="{OnIdiom Desktop=300, Phone=220}"
+                                    Orientation="Horizontal">
+                        <CollectionView ItemsSource="{Binding Features}" HorizontalOptions="FillAndExpand">
+
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal"/>
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="model:Image">
+                                    <StackLayout>
+                                        <Frame
+                                                        BackgroundColor="#ededed"
+                                                        Margin="0, 0, 15, 0"
+                                                        Padding="0"
+                                                        CornerRadius="20"
+                                                        HasShadow="True"
+                                                        IsClippedToBounds="False">
+                                            <local:CustomFeatureImageFrame
+                                                            HeightRequest="{OnIdiom Desktop=300, Phone=220}"
+                                                            Aspect="AspectFill"
+                                                            Source="{Binding Source}"/>
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </StackLayout>
                     <!--  Categories  -->
                     <StackLayout Margin="0, 0, 0, 20">
                         <StackLayout Margin="0,0,0,5">
