@@ -11,7 +11,6 @@ namespace SmartShop.Services
         readonly List<Item> items;
         readonly List<Category> categories;
         readonly List<Product> products;
-        readonly List<Image> images;
 
         public MockDataStore()
         {
@@ -49,7 +48,7 @@ namespace SmartShop.Services
                     new Image { Id = 5, Source = new Uri("https://static.gigabyte.com/StaticFile/Image/Global/3f80820826d15bf6096343c6aab229a1/Product/20004/png/500") },
                     new Image { Id = 5, Source = new Uri("https://static.gigabyte.com/StaticFile/Image/Global/4d827b69bf5d903d96865ea3a4446d73/Product/20006/png/500") },
                     }},
-                new Product { Id = 3, Name = "GeForce RTX™ 3080 Ti GAMING OC 12G", SubcategoryId = 1, Description="This is an item description.", Image = new Uri("https://www.gigabyte.com/FileUpload/Global/WebPage/824/img/1.png"), Price=1400, Quantity=10, Images = new List<Image>()
+                new Product { Id = 3, Name = "GeForce RTX™ 3080 Ti GAMING OC 12G", SubcategoryId = 7, Description="This is an item description.", Image = new Uri("https://www.gigabyte.com/FileUpload/Global/WebPage/824/img/1.png"), Price=1400, Quantity=10, Images = new List<Image>()
                     {
                     new Image { Id = 1, Source = new Uri("https://www.gigabyte.com/FileUpload/Global/WebPage/824/img/1.png") },
                     new Image { Id = 2, Source = new Uri("https://www.gigabyte.com/FileUpload/Global/WebPage/824/img/2.png") },
@@ -84,6 +83,24 @@ namespace SmartShop.Services
                     new Image { Id = 1, Source = new Uri("https://cdn.shopify.com/s/files/1/0586/6920/3620/products/iphone-13-pro-max-graphite-select_d6be573e-8cc9-4b7d-9c7a-2be0e30bbb0d_530x@2x.png?v=1631691002") },
                     new Image { Id = 2, Source = new Uri("https://steadfastmall.com/wp-content/uploads/2021/09/apple_iphone_13_pro_max_silver_steadfast.png") },
                     new Image { Id = 3, Source = new Uri("https://steadfastmall.com/wp-content/uploads/2021/09/apple_iphone_13_pro_max_steadfast.png") },
+                    }
+                },
+                new Product { Id = 7, Name = "Z690 AORUS XTREME (rev. 1.0)", Description="GIGABYTE Z690 Motherboards feature the latest DDR5 architecture and XMP 3.0 capability. The new DDR5 memory technology brings 50% more bandwidth to the platform and increases the system performance drastically by implementing Unlocked Native DDR5 Voltage, Xtreme Memory Routing and reliable SMD slot. ", Image = new Uri("https://static.gigabyte.com/StaticFile/Image/Global/c979e67da63720de783e4abe0e89ddec/Product/30105/webp/1000"), 
+                    Price=650, Quantity=10, SubcategoryId = 11, Images = new List<Image>()
+                    {
+                    new Image { Id = 1, Source = new Uri("https://static.gigabyte.com/StaticFile/Image/Global/c979e67da63720de783e4abe0e89ddec/Product/30105/webp/1000") },
+                    new Image { Id = 2, Source = new Uri("https://www.gigabyte.com/Image/6f88252e4c26bcc73279a646d74a3b96/Product/30106/webp/1000") },
+                    new Image { Id = 3, Source = new Uri("https://www.gigabyte.com/Image/f487c09d3f2399c93ee7fd9964c97375/Product/30107/webp/1000") },
+                    }
+                },
+                new Product { Id = 8, Name = "Z490 AORUS ULTRA G2 (rev. 1.x)", Description="ntel® Z490 AORUS Motherboard with Direct 12+1 Phases Digital VRM Design, Comprehensive Thermal Solution with Fins-Array II, ESSential USB DAC, Intel® WiFi 6 802.11ax, Intel® 2.5GbE LAN, RGB FUSION 2.0", 
+                    Image = new Uri("https://www.gigabyte.com/FileUpload/Global/WebPage/736/img/1.png"),
+                    Price=450, Quantity=10, SubcategoryId = 11, Images = new List<Image>()
+                    {
+                    new Image { Id = 1, Source = new Uri("https://www.gigabyte.com/FileUpload/Global/WebPage/736/img/1.png") },
+                    new Image { Id = 2, Source = new Uri("https://www.gigabyte.com/FileUpload/Global/WebPage/736/img/2.png") },
+                    new Image { Id = 3, Source = new Uri("https://www.gigabyte.com/FileUpload/Global/WebPage/736/img/4.png") },
+                    new Image { Id = 4, Source = new Uri("https://www.gigabyte.com/FileUpload/Global/WebPage/736/img/5.png") },
                     }
                 },
             };
@@ -123,53 +140,6 @@ namespace SmartShop.Services
                     {
                         Id = 4,
                         Name  = "Desktops",
-                        Products = new List<Product>
-                        {
-                            new Product { Id = 1, Name = "AORUS MODEL X 12th", SubcategoryId = 4, Description="The cherry-pick Intel Core i9-12900K with factory-overclocked setting and the latest DDR5 32GB high speed RAM," +
-                            " which brings the stable and ultimate overclocking performance. Powered with the GeForce RTX 3080 graphics card, high efficiency chassis cooling design and liquid cooling system, " +
-                            "the AORUS MODEL X brings a quiet, low-temperature and high performance while delivering smooth frame rates and lifelike gaming experience.", Image = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000"), Price=2500, Quantity=10, Images = new List<Image>()
-                            {
-                             new Image { Id = 1, Source = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000") },
-                             new Image { Id = 2, Source = new Uri("https://www.gigabyte.com/Image/872e9f9f714839c6e46387c2c43e2919/Product/30312/webp/1000") },
-                             new Image { Id = 3, Source = new Uri("https://www.gigabyte.com/Image/0575c2cdca7f582ff362ac2f992b2a0a/Product/30313/webp/1000") },
-                             new Image { Id = 4, Source = new Uri("https://www.gigabyte.com/Image/4c7b1af5acd20d12e975e010427ce0db/Product/30314/webp/1000") },
-                             new Image { Id = 5, Source = new Uri("https://www.gigabyte.com/Image/179c9a6d6754bfdb65a4e0d7f5cdb905/Product/30315/webp/1000") },
-                             }
-                            },
-                            new Product { Id = 1, Name = "AORUS MODEL X 12th", SubcategoryId = 4, Description="The cherry-pick Intel Core i9-12900K with factory-overclocked setting and the latest DDR5 32GB high speed RAM," +
-                            " which brings the stable and ultimate overclocking performance. Powered with the GeForce RTX 3080 graphics card, high efficiency chassis cooling design and liquid cooling system, " +
-                            "the AORUS MODEL X brings a quiet, low-temperature and high performance while delivering smooth frame rates and lifelike gaming experience.", Image = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000"), Price=2500, Quantity=10, Images = new List<Image>()
-                            {
-                             new Image { Id = 1, Source = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000") },
-                             new Image { Id = 2, Source = new Uri("https://www.gigabyte.com/Image/872e9f9f714839c6e46387c2c43e2919/Product/30312/webp/1000") },
-                             new Image { Id = 3, Source = new Uri("https://www.gigabyte.com/Image/0575c2cdca7f582ff362ac2f992b2a0a/Product/30313/webp/1000") },
-                             new Image { Id = 4, Source = new Uri("https://www.gigabyte.com/Image/4c7b1af5acd20d12e975e010427ce0db/Product/30314/webp/1000") },
-                             new Image { Id = 5, Source = new Uri("https://www.gigabyte.com/Image/179c9a6d6754bfdb65a4e0d7f5cdb905/Product/30315/webp/1000") },
-                             }
-                            },
-                            new Product { Id = 1, Name = "AORUS MODEL X 12th", SubcategoryId = 4, Description="The cherry-pick Intel Core i9-12900K with factory-overclocked setting and the latest DDR5 32GB high speed RAM," +
-                            " which brings the stable and ultimate overclocking performance. Powered with the GeForce RTX 3080 graphics card, high efficiency chassis cooling design and liquid cooling system, " +
-                            "the AORUS MODEL X brings a quiet, low-temperature and high performance while delivering smooth frame rates and lifelike gaming experience.", Image = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000"), Price=2500, Quantity=10, Images = new List<Image>()
-                            {
-                             new Image { Id = 1, Source = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000") },
-                             new Image { Id = 2, Source = new Uri("https://www.gigabyte.com/Image/872e9f9f714839c6e46387c2c43e2919/Product/30312/webp/1000") },
-                             new Image { Id = 3, Source = new Uri("https://www.gigabyte.com/Image/0575c2cdca7f582ff362ac2f992b2a0a/Product/30313/webp/1000") },
-                             new Image { Id = 4, Source = new Uri("https://www.gigabyte.com/Image/4c7b1af5acd20d12e975e010427ce0db/Product/30314/webp/1000") },
-                             new Image { Id = 5, Source = new Uri("https://www.gigabyte.com/Image/179c9a6d6754bfdb65a4e0d7f5cdb905/Product/30315/webp/1000") },
-                             }
-                            },
-                            new Product { Id = 1, Name = "AORUS MODEL X 12th", SubcategoryId = 4, Description="The cherry-pick Intel Core i9-12900K with factory-overclocked setting and the latest DDR5 32GB high speed RAM," +
-                            " which brings the stable and ultimate overclocking performance. Powered with the GeForce RTX 3080 graphics card, high efficiency chassis cooling design and liquid cooling system, " +
-                            "the AORUS MODEL X brings a quiet, low-temperature and high performance while delivering smooth frame rates and lifelike gaming experience.", Image = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000"), Price=2500, Quantity=10, Images = new List<Image>()
-                            {
-                             new Image { Id = 1, Source = new Uri("https://www.gigabyte.com/Image/53ac1488324dceb2b9d5cd643b30e31b/Product/30311/webp/1000") },
-                             new Image { Id = 2, Source = new Uri("https://www.gigabyte.com/Image/872e9f9f714839c6e46387c2c43e2919/Product/30312/webp/1000") },
-                             new Image { Id = 3, Source = new Uri("https://www.gigabyte.com/Image/0575c2cdca7f582ff362ac2f992b2a0a/Product/30313/webp/1000") },
-                             new Image { Id = 4, Source = new Uri("https://www.gigabyte.com/Image/4c7b1af5acd20d12e975e010427ce0db/Product/30314/webp/1000") },
-                             new Image { Id = 5, Source = new Uri("https://www.gigabyte.com/Image/179c9a6d6754bfdb65a4e0d7f5cdb905/Product/30315/webp/1000") },
-                             }
-                            },
-                        }
                     },
                     new Subcategory
                     {
@@ -248,17 +218,17 @@ namespace SmartShop.Services
                 {
                     new Subcategory
                     {
-                        Id = 12,
+                        Id = 15,
                         Name  = "PlayStation Consoles",
                     },
                     new Subcategory
                     {
-                        Id = 13,
+                        Id = 16,
                         Name  = "Xbox Consoles",
                     },
                     new Subcategory
                     {
-                        Id = 14,
+                        Id = 17,
                         Name  = "Nintendo Consoles",
                     }
                 }
@@ -271,12 +241,12 @@ namespace SmartShop.Services
                 Subcategories = new List<Subcategory>{
                     new Subcategory
                     {
-                        Id = 15,
+                        Id = 18,
                         Name  = "Terminals",
                     },
                     new Subcategory
                     {
-                        Id = 16,
+                        Id = 19,
                         Name  = "Computer Servers",
                     }
                 },
@@ -325,8 +295,14 @@ namespace SmartShop.Services
 
         public async Task<IEnumerable<Product>> GetProductsAsync(bool forceRefresh = false)
         {
-            await Task.Delay(3000);
-            return products;
+            await Task.Delay(1000);
+            return products.Take(4).OrderBy(s => s.Id);
+        }
+
+        public async Task<IEnumerable<Product>> GetFeatureProductsAsync(bool forceRefresh = false)
+        {
+            await Task.Delay(1000);
+            return products.Skip(4).Take(4).OrderBy(s => s.Id);
         }
 
         public async Task<IEnumerable<Image>> GetFeatureImagesAsync(bool forceRefresh = false)
@@ -342,13 +318,14 @@ namespace SmartShop.Services
 
         public async Task<Product> GetProductAsync(int id)
         {
-            await Task.Delay(3000);
+            await Task.Delay(1000);
             return products.FirstOrDefault(s => s.Id == id);
         }
 
         public async Task<IEnumerable<Product>> GetRelatedProductsAsync(int subcategoryId, bool forceRefresh = false)
         {
-            return await Task.FromResult<IEnumerable<Product>>(products.Where(s => s.SubcategoryId == subcategoryId).ToList());
+            await Task.Delay(1000);
+            return products.Where(s => s.SubcategoryId == subcategoryId);
         }
     }
 }

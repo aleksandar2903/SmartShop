@@ -17,12 +17,12 @@
 
             <ScrollView Padding="0, 0, 0, 60" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <StackLayout HorizontalOptions="FillAndExpand">
-                    <Grid RowDefinitions="500">
+                    <Grid RowDefinitions="450">
                         <Frame HeightRequest="450" Margin="0, -40, 0, 0" Padding="0, 40, 0, 0" BackgroundColor="#ededed" CornerRadius="40" IsClippedToBounds="True">
                             <Image Source="{Binding Photo}" Aspect="AspectFit"></Image>
                         </Frame>
                         <ImageButton WidthRequest="40" HeightRequest="40" CornerRadius="40" Margin="10" HorizontalOptions="Start" BackgroundColor="White" Padding="5" VerticalOptions="Start" Source="angle_small_down.png"  Command="{Binding BackwardCommand}"></ImageButton>
-                        <buttons:FavouriteButton VerticalOptions="Start" HorizontalOptions="End" BindingContext="{Binding Product.Id}" Margin="10"></buttons:FavouriteButton>
+                        <buttons:FavouriteButton VerticalOptions="Start" HorizontalOptions="End" BindingContext="{Binding Product}" Margin="10"></buttons:FavouriteButton>
                     </Grid>
                     <StackLayout HeightRequest="90"
                  Margin="10, 10, 0, 0" Orientation="Horizontal">
@@ -171,7 +171,7 @@
             AbsoluteLayout.LayoutBounds="0,1,1,0.1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="White">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                     <Label VerticalOptions="Center" FontAttributes="Bold" TextColor="Black" Margin="0, 0, 15, 0" Text="{Binding Product.Price, StringFormat='{0}$'}" FontSize="24"></Label>
-                    <Button VerticalOptions="Center" CornerRadius="10" BackgroundColor="Black" FontAttributes="Bold" Text="Add To Cart" HorizontalOptions="FillAndExpand"></Button>
+                    <buttons:AddToCartButton BindingContext="{Binding Product}"></buttons:AddToCartButton>
                     <!--<Button WidthRequest="60" VerticalOptions="Center" Margin="10, 0, 0, 0" CornerRadius="60" BackgroundColor="#ededed" HeightRequest="60" Padding="0"  FontSize="24" TextColor="DarkGray" Text="{x:Static fontawesome:IconFont.CartPlus}" FontFamily="FAS"  Command="{Binding BackwardCommand}"></Button>-->
                 </StackLayout>
             </Frame>

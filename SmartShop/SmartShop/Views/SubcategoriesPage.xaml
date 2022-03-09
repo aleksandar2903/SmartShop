@@ -4,8 +4,7 @@
              x:Class="SmartShop.Views.SubcategoriesPage"
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
              xmlns:m="clr-namespace:SmartShop.Models"
-             x:DataType="vm:SubcategoriesViewModel"
-             Title="{Binding Title}">
+             x:DataType="vm:SubcategoriesViewModel">
     <ContentPage.Content>
         <StackLayout Padding="10">
             <CollectionView ItemsSource="{Binding Subcategories}">

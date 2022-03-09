@@ -1,50 +1,49 @@
-﻿using System;
+﻿using MonkeyCache.FileStore;
+using SmartShop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Xamarin.CommunityToolkit.Extensions;
-using MonkeyCache.FileStore;
-using Xamarin.Essentials;
-using SmartShop.Models;
 
 namespace SmartShop.Components.Buttons
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FavouriteButton : ImageButton
+    public partial class AddToCartButton : Button
     {
-        public Product Product { get; set; }
-        public FavouriteButton()
+        public AddToCartButton()
         {
             InitializeComponent();
         }
-        private async void ImageButton_Clicked(object sender, EventArgs e)
+
+        private async void Button_Clicked(object sender, EventArgs e)
         {
-            var imageButton = sender as ImageButton;
+            var button = sender as Button;
 
             if (this.BindingContext == null) return;
 
             if (this.BindingContext is Product product && product.Id >= 0)
             {
-                if (Barrel.Current.Exists($"f-{product.Id}"))
+                if (Barrel.Current.Exists($"c-{product.Id}"))
                 {
-                    imageButton.Source = "heart.png";
-                    Barrel.Current.Empty($"f-{product.Id}");
+                    button.Text = "Add To Cart";
+                    Barrel.Current.Empty($"c-{product.Id}");
                     if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
                     {
-                        await Shell.Current.DisplayToastAsync("Removed from favourites", 3000);
+                        await Shell.Current.DisplayToastAsync("Removed from cart", 3000);
                     }
                 }
                 else
                 {
-                    imageButton.Source = "red_heart.png";
-                    Barrel.Current.Add($"f-{product.Id}", product.Id, TimeSpan.FromDays(90));
+                    button.Text = "Added To Cart";
+                    Barrel.Current.Add($"c-{product.Id}", product.Id, TimeSpan.FromDays(90));
                     if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
                     {
-                        await Shell.Current.DisplayToastAsync("Added to favourites", 3000);
+                        await Shell.Current.DisplayToastAsync("Added to cart", 3000);
                     }
                 }
 
@@ -58,13 +57,13 @@ namespace SmartShop.Components.Buttons
 
             if (this.BindingContext is Product product && product.Id >= 0)
             {
-                if (Barrel.Current.Exists($"f-{product.Id}"))
+                if (Barrel.Current.Exists($"c-{product.Id}"))
                 {
-                    this.Source = "red_heart.png";
+                    this.Text = "Added To Cart";
                 }
                 else
                 {
-                    this.Source = "heart.png";
+                    this.Text = "Add To Cart";
                 }
 
             }

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartShop.ViewModels"
+             xmlns:m="clr-namespace:SmartShop.Models" xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
+             x:Class="SmartShop.Views.FavouritesPage"
+             Title="Favourites">
+    <ContentPage.BindingContext>
+        <vm:FavouritesViewModel></vm:FavouritesViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout Margin="15, 20" VerticalOptions="FillAndExpand">
+
+                <CollectionView ItemsSource="{Binding Products}" HorizontalOptions="FillAndExpand">
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Span="2" VerticalItemSpacing="15" HorizontalItemSpacing="15" Orientation="Vertical"  />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="m:Product">
+                            <StackLayout>
+                                <Frame
+                                                        BackgroundColor="#ededed"
+                                                        Margin="1,5,10,5"
+                                                        Padding="0"
+                                                        CornerRadius="20"
+                                                        HasShadow="True"
+                                                        IsClippedToBounds="False"
+                                                        HeightRequest="200">
+                                    <Image
+                                                            Aspect="AspectFit"
+                                                            Source="{Binding Image}" />
+                                </Frame>
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout HorizontalOptions="FillAndExpand">
+                                        <Label
+                                                        FontSize="16"
+                                                        Text="{Binding Name}"
+                                                        LineBreakMode="TailTruncation"
+                                                        MaxLines="1"
+                                                        TextColor="Black"
+                                                        FontAttributes="Bold">
+                                        </Label>
+                                        <Label
+                                                        FontSize="14"
+                                                        Text="{Binding Price}"
+                                                        TextColor="DarkGray">
+                                        </Label>
+                                    </StackLayout>
+                                    <buttons:FavouriteButton BindingContext="{Binding .}" Command="{Binding Path=RemoveFavouriteProduct, Source={RelativeSource AncestorType={x:Type vm:FavouritesViewModel}}}" CommandParameter="{Binding .}">
+                                    </buttons:FavouriteButton>
+                                </StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavouritesViewModel}}, Path=OnProductTapped}" CommandParameter="{Binding .}" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBusy}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color="Black" VerticalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40"></ActivityIndicator>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -18,6 +18,7 @@ namespace SmartShop.ViewModels
         public ObservableCollection<Item> Items { get; }
         public ObservableCollection<Category> Categories { get; }
         public ObservableCollection<Product> Products { get; }
+        public ObservableCollection<Product> FeatureProducts { get; }
         public ObservableCollection<Models.Image> Features { get; }
         public Command LoadItemsCommand { get; }
 
@@ -32,12 +33,12 @@ namespace SmartShop.ViewModels
             Items = new ObservableCollection<Item>();
             Categories = new ObservableCollection<Category>();
             Products = new ObservableCollection<Product>();
+            FeatureProducts = new ObservableCollection<Product>();
             Features = new ObservableCollection<Models.Image>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadCategoriesCommand());
-            OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
+            OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(0), true));
 
             ProductTapped = new Command<Product>(OnProductSelected);
-            FavouriteProduct = new Command<Product>(OnProductFavourited);
 
             AddItemCommand = new Command(OnAddItem);
 
@@ -94,6 +95,12 @@ namespace SmartShop.ViewModels
                 {
                     Products.Add(product);
                 }
+                FeatureProducts.Clear();
+                var featureProdcts = await DataStore.GetFeatureProductsAsync(true);
+                foreach (var product in featureProdcts)
+                {
+                    FeatureProducts.Add(product);
+                }
 
             }
 
@@ -135,23 +142,6 @@ namespace SmartShop.ViewModels
 
             // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id));
-        }
-
-        void OnProductFavourited(Product product)
-        {
-            if(product is null || product.Id == 0)
-            {
-                return;
-            }
-
-            if (Barrel.Current.Exists($"f-{product.Id}"))
-            {
-                Barrel.Current.Empty($"f-{product.Id}");
-            }
-            else
-            {
-                Barrel.Current.Add($"f-{product.Id}", product.Id, TimeSpan.FromDays(90));
-            }
         }
     }
 }

@@ -1,34 +1,35 @@
-﻿using SmartShop.Models;
+﻿using MonkeyCache.FileStore;
+using SmartShop.Models;
 using SmartShop.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Extensions;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
 {
-    public class BrowseViewModel : BaseViewModel
+    public class CartViewModel : BaseViewModel
     {
-        private int subcategoryId;
         public ObservableCollection<Product> Products { get; set; }
-        public Command OpenFilterPopupCommand { get; }
-        public Command BackwardCommand { get; }
         public Command OnProductTapped { get; }
-        public BrowseViewModel(int subcategoryId)
+        public CartViewModel()
         {
-            this.subcategoryId = subcategoryId;
             Products = new ObservableCollection<Product>();
-            OpenFilterPopupCommand = new Command(async () => await App.Current.MainPage.Navigation.ShowPopupAsync(new FilterPage()));
-            BackwardCommand = new Command(async () => await Shell.Current.Navigation.PopAsync());
             OnProductTapped = new Command<Product>(OnProductSelected);
+        }
+
+        private void RemoveProduct(Product product)
+        {
+            Products.Remove(product);
         }
 
         public async void OnAppearing()
         {
-            await LoadProducts();
+            await LoadFavouriteProductsAsync();
         }
 
         async void OnProductSelected(Product product)
@@ -36,7 +37,7 @@ namespace SmartShop.ViewModels
             await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id));
         }
 
-        async Task LoadProducts()
+        private async Task LoadFavouriteProductsAsync()
         {
             IsBusy = true;
 
@@ -44,16 +45,21 @@ namespace SmartShop.ViewModels
             {
                 Products.Clear();
 
-                var products = await DataStore.GetRelatedProductsAsync(subcategoryId);
+                var favProductIds = Barrel.Current.GetKeys();
 
-                foreach (var product in products)
+                foreach (var productId in favProductIds)
                 {
-                    Products.Add(product);
+                    if (productId.StartsWith("c-"))
+                    {
+                        int id = Int32.Parse(productId.Substring(2));
+                        var product = await DataStore.GetProductAsync(id);
+                        Products.Add(product);
+                    }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Debug.WriteLine(ex.Message);
             }
             finally
             {

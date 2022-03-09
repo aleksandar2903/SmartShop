@@ -1,5 +1,4 @@
-﻿using SmartShop.Models;
-using SmartShop.ViewModels;
+﻿using SmartShop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +11,13 @@ using Xamarin.Forms.Xaml;
 namespace SmartShop.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ExplorePage : ContentPage
+    public partial class CartPage : ContentPage
     {
-        BrowseViewModel viewModel;
-        public ExplorePage(int subcategoryId)
+        CartViewModel viewModel;
+        public CartPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new BrowseViewModel(subcategoryId);
+            BindingContext = viewModel = new CartViewModel();
         }
 
         protected override void OnAppearing()

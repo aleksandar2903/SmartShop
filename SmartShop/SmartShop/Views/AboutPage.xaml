@@ -187,7 +187,7 @@
                                                         TextColor="DarkGray">
                                                         </Label>
                                                     </StackLayout>
-                                                    <buttons:FavouriteButton BindingContext="{Binding Id}">
+                                                    <buttons:FavouriteButton BindingContext="{Binding .}">
                                                     </buttons:FavouriteButton>
                                                 </StackLayout>
                                                 <StackLayout.GestureRecognizers>
@@ -216,7 +216,7 @@
                                     Margin="0,20,0,0"
                                     HeightRequest="{OnIdiom Desktop=300, Phone=250}"
                                     Orientation="Horizontal">
-                                <CollectionView ItemsSource="{Binding Products}" HorizontalOptions="FillAndExpand">
+                                <CollectionView ItemsSource="{Binding FeatureProducts}" HorizontalOptions="FillAndExpand">
 
                                     <CollectionView.ItemsLayout>
                                         <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
@@ -254,7 +254,7 @@
                                                         TextColor="DarkGray">
                                                         </Label>
                                                     </StackLayout>
-                                                    <buttons:FavouriteButton BindingContext="{Binding Id}">
+                                                    <buttons:FavouriteButton BindingContext="{Binding .}">
                                                     </buttons:FavouriteButton>
                                                 </StackLayout>
                                                 <StackLayout.GestureRecognizers>

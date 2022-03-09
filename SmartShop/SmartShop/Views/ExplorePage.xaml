@@ -4,12 +4,12 @@
              x:Class="SmartShop.Views.ExplorePage"
              xmlns:local="clr-namespace:SmartShop"
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
-             xmlns:m="clr-namespace:SmartShop.Models"
+             xmlns:m="clr-namespace:SmartShop.Models" xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
              x:DataType="vm:BrowseViewModel"
              Shell.NavBarIsVisible="False"
              Visual="Material">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="White">
+        <Grid BackgroundColor="White" RowDefinitions="60,*">
             <Grid Margin="10, 10" RowDefinitions="40" ColumnDefinitions="12*, 76*, 12*">
                 <ImageButton Grid.Column="0" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="40" Padding="5" CornerRadius="40" BackgroundColor="White" Source="angle_small_left.png" Command="{Binding BackwardCommand}"/>
                 <Frame Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#ededed" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="0">
@@ -17,7 +17,10 @@
                 </Frame>
                 <ImageButton IsVisible="{OnIdiom Desktop=False, Phone=True}" Grid.Column="2" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="40" Padding="10" CornerRadius="40" BackgroundColor="#ededed" Source="settings_sliders.png" Command="{Binding OpenFilterPopupCommand}"/>
             </Grid>
-            <CollectionView Margin="15" ItemsSource="{Binding Products}">
+            <StackLayout Grid.RowSpan="2" IsVisible="{Binding IsBusy}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color="Black" VerticalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40"></ActivityIndicator>
+            </StackLayout>
+            <CollectionView Grid.Row="1" Margin="15" ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"></LinearItemsLayout>
                 </CollectionView.ItemsLayout>
@@ -31,11 +34,14 @@
                                 <Label TextColor="Black" FontSize="16" Text="{Binding Name}"></Label>
                                 <Label FontSize="16" FontAttributes="Bold" TextColor="Black" Text="{Binding Price, StringFormat='{0}$'}"></Label>
                             </StackLayout>
-                            <ImageButton HeightRequest="40" VerticalOptions="Center" WidthRequest="40" CornerRadius="40" Padding="10" BackgroundColor="White" Source="heart.png"/>
+                            <buttons:FavouriteButton VerticalOptions="Center" BindingContext="{Binding .}"></buttons:FavouriteButton>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BrowseViewModel}}, Path=OnProductTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
