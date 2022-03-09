@@ -408,10 +408,11 @@
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
     </Content>
-    <AndroidResource Include="Resources\red_heart.png">
+    <AndroidResource Include="Resources\redheart.png">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
     </AndroidResource>
+    <Content Include="Resources\red_heart.png" />
     <Content Include="Resources\rtx2060.jpg">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
