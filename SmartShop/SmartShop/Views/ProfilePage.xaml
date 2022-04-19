@@ -35,55 +35,51 @@
             </Grid.RowDefinitions>
 
             <!-- 1. Profile picture-->
-            <Image Grid.Row="0" Source="https://avatarfiles.alphacoders.com/865/86518.png" HeightRequest="330" Aspect="AspectFill" VerticalOptions="Start" />
+            <Image Grid.Row="0" Source="https://avatarfiles.alphacoders.com/865/86518.png" HeightRequest="350" Aspect="AspectFill" VerticalOptions="Start" />
 
             <!-- 2. Contact informaqtion frame-->
-            <StackLayout Grid.Row="0" BackgroundColor="White" VerticalOptions="EndAndExpand">
-                <Frame CornerRadius="40" Style="{StaticResource stlMainFrame}">
-                    <!-- Blocks: 3 and 4 -->
-                    <ScrollView>
-                        
-                    <Grid Padding="25,0,25,0" RowSpacing="0" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+            <Frame Grid.Row="0" CornerRadius="40" BackgroundColor="White" Style="{StaticResource stlMainFrame}" Margin="0,0,0,-20" Padding="15, 20" VerticalOptions="EndAndExpand">
+                <!-- Blocks: 3 and 4 -->
 
-                            <!-- 4. Contact information-->
-                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Aleksandar Stojanovic" TextColor="Black" FontAttributes="Bold" FontSize="30"/>
-                        <Label Grid.Row="1" Grid.Column="0" Text="Straza" TextColor="#a5a2a2" FontSize="16"/>
-                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Padding="0,10,0,0" FontSize="16">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Email: " FontAttributes="Bold" />
-                                    <Span Text=" astojanovic174@gmail.com"  />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <!--4. Contact information: Board inforation-->
-                        <Label Grid.Row="3" Grid.Column="0" Text="Purchases" Style="{StaticResource stlBoardTitle}" />
-                        <Label Grid.Row="4" Grid.Column="0" Text="678" Style="{StaticResource stlBoardDesc}"/>
+                <Grid Padding="10,0" RowSpacing="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                        <Label Grid.Row="3" Grid.Column="1" Text="Transactions" Style="{StaticResource stlBoardTitle}"/>
-                        <Label Grid.Row="4" Grid.Column="1" Text="340" Style="{StaticResource stlBoardDesc}"/>
+                    <!-- 4. Contact information-->
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Aleksandar Stojanovic" TextColor="Black" FontAttributes="Bold" FontSize="26"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Straza" TextColor="#a5a2a2" FontSize="16"/>
+                    <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Padding="0,10,0,0" FontSize="16">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Email: " FontAttributes="Bold" />
+                                <Span Text=" astojanovic174@gmail.com"  />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <!--4. Contact information: Board inforation-->
+                    <Label Grid.Row="3" Grid.Column="0" Text="Purchases" Style="{StaticResource stlBoardTitle}" />
+                    <Label Grid.Row="4" Grid.Column="0" Text="678" Style="{StaticResource stlBoardDesc}"/>
 
-                        <Label Grid.Row="3" Grid.Column="2" Text="Total Amount" Style="{StaticResource stlBoardTitle}"/>
-                        <Label Grid.Row="4" Grid.Column="2" Text="67k" Style="{StaticResource stlBoardDesc}"/>
-                        <!--4. Contact information: Follow button-->
-                        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White" BackgroundColor="Black" Text="Edit Profile" Margin="0,20,0,2" FontAttributes="Bold" FontSize="17" HeightRequest="45"/>
-                    </Grid>
-                    </ScrollView>
-                </Frame>
-            </StackLayout>
+                    <Label Grid.Row="3" Grid.Column="1" Text="Transactions" Style="{StaticResource stlBoardTitle}"/>
+                    <Label Grid.Row="4" Grid.Column="1" Text="340" Style="{StaticResource stlBoardDesc}"/>
+
+                    <Label Grid.Row="3" Grid.Column="2" Text="Total Amount" Style="{StaticResource stlBoardTitle}"/>
+                    <Label Grid.Row="4" Grid.Column="2" Text="67k" Style="{StaticResource stlBoardDesc}"/>
+                    <!--4. Contact information: Follow button-->
+                    <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White" BackgroundColor="Black" Text="Edit Profile" Margin="0,20,0,2" FontAttributes="Bold" FontSize="17" HeightRequest="45"/>
+                </Grid>
+            </Frame>
 
         </Grid>
     </ContentPage.Content>
