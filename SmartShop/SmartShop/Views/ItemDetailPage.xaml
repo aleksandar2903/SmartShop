@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
              xmlns:m="clr-namespace:SmartShop.Models"
              xmlns:fontawesome="clr-namespace:SmartShop.Helpers" 
-             xmlns:buttons="clr-namespace:SmartShop.Components.Buttons" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:buttons="clr-namespace:SmartShop.Components.Buttons" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:local="clr-namespace:SmartShop.Components.Frames" xmlns:cc="clr-namespace:SmartShop.Converters"
              x:DataType="vm:ItemDetailViewModel">
 
     <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand">
@@ -17,14 +17,24 @@
 
             <ScrollView Padding="0, 0, 0, 60" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <StackLayout HorizontalOptions="FillAndExpand">
-                    <Grid RowDefinitions="450">
-                        <Frame HeightRequest="450" Margin="0, -40, 0, 0" Padding="0, 40, 0, 0" BackgroundColor="#ededed" CornerRadius="40" IsClippedToBounds="True">
-                            <Image Source="{Binding Photo}" Aspect="AspectFit"></Image>
-                        </Frame>
-                        <ImageButton WidthRequest="40" HeightRequest="40" CornerRadius="40" Margin="10" HorizontalOptions="Start" BackgroundColor="White" Padding="5" VerticalOptions="Start" Source="angle_small_down.png"  Command="{Binding BackwardCommand}"></ImageButton>
-                        <buttons:FavouriteButton VerticalOptions="Start" HorizontalOptions="End" BindingContext="{Binding Product}" Margin="10"></buttons:FavouriteButton>
+                    <Grid RowDefinitions="350" IsClippedToBounds="True" BackgroundColor="#ededed">
+                        <CarouselView ItemsSource="{Binding Product.Images}" IndicatorView="IndicatorView" HeightRequest="300" VerticalOptions="Center" HorizontalOptions="Center">
+                            <CarouselView.ItemTemplate>
+                                <DataTemplate x:DataType="m:Image">
+                                    <Image Source="{Binding Uri}" Aspect="AspectFit">
+                                    </Image>
+                                </DataTemplate>
+                            </CarouselView.ItemTemplate>
+                        </CarouselView>
+                        <IndicatorView Margin="0, 15" x:Name="IndicatorView" VerticalOptions="End" HorizontalOptions="Center" IndicatorColor="Gray" SelectedIndicatorColor="Black"></IndicatorView>
+                        <ImageButton xct:ShadowEffect.Color="Black" xct:ShadowEffect.Opacity="0.3" WidthRequest="30" HeightRequest="30" CornerRadius="30" Margin="10" HorizontalOptions="Start" BackgroundColor="White" Padding="3" VerticalOptions="Start" Source="angle_small_down.png"  Command="{Binding BackwardCommand}"></ImageButton>
+                        <buttons:FavouriteButton xct:ShadowEffect.Color="Black" xct:ShadowEffect.Opacity="0.3" VerticalOptions="Start" HorizontalOptions="End" BindingContext="{Binding Product}" Margin="10"></buttons:FavouriteButton>
+                        <!--<Grid.GestureRecognizers>
+                            <SwipeGestureRecognizer Direction="Right" Command="{Binding SwipeRightCommand}" CommandParameter="{Binding Product.Image1}"></SwipeGestureRecognizer>
+                            <SwipeGestureRecognizer Direction="Left" Command="{Binding SwipeLeftCommand}" CommandParameter="{Binding Product.Image1}"></SwipeGestureRecognizer>
+                        </Grid.GestureRecognizers>-->
                     </Grid>
-                    <StackLayout HeightRequest="90"
+                    <!--<StackLayout HeightRequest="90"
                  Margin="10, 10, 0, 0" Orientation="Horizontal">
 
                         <CollectionView ItemsSource="{Binding Product.Images}"  HorizontalOptions="FillAndExpand">
@@ -36,20 +46,17 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="m:Image">
                                     <StackLayout>
-
-                                        <Frame
-                                                        BackgroundColor="#ededed"
-                                                        Margin="1,5,10,5"
-                                                        Padding="0"
-                                                        CornerRadius="10"
-                                                        HasShadow="True"
-                                                        HeightRequest="60"
-                                                        IsClippedToBounds="True"
-                                                        WidthRequest="60">
-                                            <Image
-                                                            Aspect="AspectFit"
-                                                            Source="{Binding Source}" />
-                                        </Frame>
+                                        <local:SmallImageFrame BindingContext="{Binding .}">
+                                            <local:SmallImageFrame.BorderColor>
+                                                <MultiBinding>
+                                                    <Binding Path="Product.Image1.Id" Source="{RelativeSource AncestorType={x:Type vm:ItemDetailViewModel}}"></Binding>
+                                                    <Binding Path="Id"></Binding>
+                                                    <MultiBinding.Converter>
+                                                        <cc:MultiBindingValueCompareConverterColor></cc:MultiBindingValueCompareConverterColor>
+                                                    </MultiBinding.Converter>
+                                                </MultiBinding>
+                                            </local:SmallImageFrame.BorderColor>
+                                        </local:SmallImageFrame>
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemDetailViewModel}}, Path=SelectedPhoto}" CommandParameter="{Binding .}"/>
                                         </StackLayout.GestureRecognizers>
@@ -57,46 +64,36 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                    </StackLayout>
+                    </StackLayout>-->
 
 
-                    <StackLayout Padding="15, 0">
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                            <Label Text="{Binding Product.Name}" TextColor="Black" FontAttributes="Bold" FontSize="24" HorizontalOptions="FillAndExpand"></Label>
-                            <Label Text="In Stock" TextColor="Green" FontAttributes="Bold" FontSize="16" Margin="10, 0, 0, 0"></Label>
+                    <StackLayout Padding="15, 15, 15, 0">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Product.Brand.Name}" TextDecorations="Underline" Margin="0, 0, 0, 5" TextColor="Black" FontSize="12"></Label>
                         </StackLayout>
-                        <Label Text="PC's Desktops" TextColor="DarkGray" FontAttributes="Bold" FontSize="18"></Label>
-                        <Label Text="{Binding Product.Description}" TextColor="DarkGray" FontAttributes="Bold" FontSize="14"></Label>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding Product.Name}" TextColor="Black" FontAttributes="Bold" FontSize="18" HorizontalOptions="FillAndExpand"></Label>
+                            <Label Text="In Stock" TextColor="Green" FontAttributes="Bold" FontSize="12" Margin="10, 0, 0, 0"></Label>
+                        </StackLayout>
+                        <Label Text="{Binding Product.Description}" TextColor="DarkGray" FontSize="12"></Label>
                     </StackLayout>
 
-                    <StackLayout Padding="15, 10">
-                        <Label Text="Specifications" TextColor="Black" FontAttributes="Bold" FontSize="20"></Label>
+                    <StackLayout Padding="15, 5">
+                        <Label Text="Specifications" TextColor="Black" FontAttributes="Bold" FontSize="16"></Label>
                         <StackLayout Margin="0, 10">
-                            <Grid ColumnDefinitions="50*, 50*">
-                                <Label Grid.Column="0" Text="CPU" TextTransform="Uppercase" TextColor="Black" FontAttributes="Bold"></Label>
-                                <Label Grid.Column="1" Text="Ryzen 7 5900X" TextColor="Black" Opacity="0.7"></Label>
-                            </Grid>
-                            <BoxView HeightRequest="0.1" BackgroundColor="Black" Grid.ColumnSpan="2"></BoxView>
-                            <Grid ColumnDefinitions="50*, 50*">
-                                <Label Grid.Column="0" Text="Motherboard" TextTransform="Uppercase" TextColor="Black" FontAttributes="Bold"></Label>
-                                <Label Grid.Column="1" Text="MSI Tomahawk 450 Max" TextColor="Black" Opacity="0.7"></Label>
-                            </Grid>
-                            <BoxView HeightRequest="0.1" BackgroundColor="Black" Grid.ColumnSpan="2"></BoxView>
-                            <Grid ColumnDefinitions="50*, 50*">
-                                <Label Grid.Column="0" Text="Graphics Card" TextTransform="Uppercase" TextColor="Black" FontAttributes="Bold"></Label>
-                                <Label Grid.Column="1" Text="RTX 3080 TI" TextColor="Black" Opacity="0.7"></Label>
-                            </Grid>
-                            <BoxView HeightRequest="0.1" BackgroundColor="Black" Grid.ColumnSpan="2"></BoxView>
-                            <Grid ColumnDefinitions="50*, 50*">
-                                <Label Grid.Column="0" Text="RAM" TextTransform="Uppercase" TextColor="Black" FontAttributes="Bold"></Label>
-                                <Label Grid.Column="1" Text="Kingston 2x8GB 3600Mhz" TextColor="Black" Opacity="0.7"></Label>
-                            </Grid>
-                            <BoxView HeightRequest="0.1" BackgroundColor="Black" Grid.ColumnSpan="2"></BoxView>
-                            <Grid ColumnDefinitions="50*, 50*">
-                                <Label Grid.Column="0" Text="Power Supply" TextTransform="Uppercase" TextColor="Black" FontAttributes="Bold"></Label>
-                                <Label Grid.Column="1" Text="Cooler Master 800W 80 Plus Silver" TextColor="Black" Opacity="0.7"></Label>
-                            </Grid>
-                            <BoxView HeightRequest="0.1" BackgroundColor="Black" Grid.ColumnSpan="2"></BoxView>
+                            <StackLayout BindableLayout.ItemsSource="{Binding Product.SpecificationAttributes}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="m:AttributeValue">
+                                        <StackLayout>
+                                            <!--<Grid ColumnDefinitions="50*, 50*">-->
+                                            <Label Grid.Column="0" Text="{Binding SpecificationAttribute.Name}" FontSize="Small" TextColor="Black" FontAttributes="Bold"></Label>
+                                            <Label Grid.Column="1" Text="{Binding Value}" FontSize="Small" TextColor="Black" Opacity="0.7"></Label>
+                                            <!--</Grid>-->
+                                            <!--<BoxView HeightRequest="0.1" BackgroundColor="Black" Grid.ColumnSpan="2"></BoxView>-->
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
                         </StackLayout>
                     </StackLayout>
                     <!--  Top Products  -->
@@ -104,7 +101,7 @@
                         <StackLayout Margin="0,0,0,5">
                             <Label
                                     FontAttributes="Bold"
-                                    FontSize="20"
+                                    FontSize="16"
                                     Text="Related"
                                     TextColor="Black">
                             </Label>
@@ -170,7 +167,7 @@
             <Frame Padding="15, 10"
             AbsoluteLayout.LayoutBounds="0,1,1,0.1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="White">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <Label VerticalOptions="Center" FontAttributes="Bold" TextColor="Black" Margin="0, 0, 15, 0" Text="{Binding Product.Price, StringFormat='{0}$'}" FontSize="24"></Label>
+                    <Label VerticalOptions="Center" FontAttributes="Bold" TextColor="Black" Margin="0, 0, 15, 0" Text="{Binding Product.Price, StringFormat='{0}'}" FontSize="24"></Label>
                     <buttons:AddToCartButton BindingContext="{Binding Product}"></buttons:AddToCartButton>
                     <!--<Button WidthRequest="60" VerticalOptions="Center" Margin="10, 0, 0, 0" CornerRadius="60" BackgroundColor="#ededed" HeightRequest="60" Padding="0"  FontSize="24" TextColor="DarkGray" Text="{x:Static fontawesome:IconFont.CartPlus}" FontFamily="FAS"  Command="{Binding BackwardCommand}"></Button>-->
                 </StackLayout>

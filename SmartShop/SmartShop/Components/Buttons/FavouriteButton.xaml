@@ -2,5 +2,5 @@
 <ImageButton xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:SmartShop.Helpers.Converters"
              x:Class="SmartShop.Components.Buttons.FavouriteButton"
-             Source="heart.png" Clicked="ImageButton_Clicked" VerticalOptions="Center" WidthRequest="40" HeightRequest="40" CornerRadius="40" HorizontalOptions="Start" Aspect="AspectFit" BackgroundColor="White" Padding="10">
+             Source="heart.png" Clicked="ImageButton_Clicked" VerticalOptions="Center" WidthRequest="30" HeightRequest="30" CornerRadius="30" HorizontalOptions="Start" Aspect="AspectFit" BackgroundColor="White" Padding="7">
 </ImageButton>

@@ -5,16 +5,11 @@ using System.Text;
 
 namespace SmartShop.Models
 {
-    public class Category
+    public class SpecificationAttribute
     {
         [JsonProperty("id")]
         public int Id { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonProperty("image")]
-        public string Img { get; set; }
-
-        [JsonProperty("subcategories")]
-        public List<Subcategory> Subcategories { get; set; }
     }
 }

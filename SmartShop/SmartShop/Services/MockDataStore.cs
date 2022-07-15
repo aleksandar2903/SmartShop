@@ -1,7 +1,9 @@
-﻿using SmartShop.Models;
+﻿using Newtonsoft.Json;
+using SmartShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SmartShop.Services
@@ -11,9 +13,14 @@ namespace SmartShop.Services
         readonly List<Item> items;
         readonly List<Category> categories;
         readonly List<Product> products;
+        readonly HttpClient client;
 
         public MockDataStore()
         {
+            client = new HttpClient
+            {
+                BaseAddress = new Uri(Config.BaseAddress)
+            };
             items = new List<Item>()
             {
                 new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
@@ -285,6 +292,9 @@ namespace SmartShop.Services
 
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
+
+            
+
             return await Task.FromResult(items);
         }
 
@@ -295,14 +305,22 @@ namespace SmartShop.Services
 
         public async Task<IEnumerable<Product>> GetProductsAsync(bool forceRefresh = false)
         {
-            await Task.Delay(1000);
-            return products.Take(4).OrderBy(s => s.Id);
+            var response = await client.GetAsync("products/popular");
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            var responseData = JsonConvert.DeserializeObject<Root<Product>>(content);
+            return responseData.Results;
         }
 
         public async Task<IEnumerable<Product>> GetFeatureProductsAsync(bool forceRefresh = false)
         {
-            await Task.Delay(1000);
-            return products.Skip(4).Take(4).OrderBy(s => s.Id);
+            var response = await client.GetAsync("products/newest");
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            var responseData = JsonConvert.DeserializeObject<Root<Product>>(content);
+            return responseData.Results;
         }
 
         public async Task<IEnumerable<Image>> GetFeatureImagesAsync(bool forceRefresh = false)
@@ -318,8 +336,12 @@ namespace SmartShop.Services
 
         public async Task<Product> GetProductAsync(int id)
         {
-            await Task.Delay(1000);
-            return products.FirstOrDefault(s => s.Id == id);
+            var response = await client.GetAsync($"products/{id}");
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            var responseData = JsonConvert.DeserializeObject<Product>(content);
+            return responseData;
         }
 
         public async Task<IEnumerable<Product>> GetRelatedProductsAsync(int subcategoryId, bool forceRefresh = false)
