@@ -13,7 +13,6 @@ namespace SmartShop.Models
         public string W500Size { get; set; }
         [JsonProperty("original")]
         public string OriginalSize { get; set; }
-        public Uri Source { get; set; }
         public Uri Uri { get => new Uri($"{Config.BaseStorageImagesAddress}{W500Size}"); }
     }
 }

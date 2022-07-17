@@ -9,5 +9,9 @@ namespace SmartShop.Models
     {
         [JsonProperty("products")]
         public Root<Product> Products { get; set; }
+        [JsonProperty("categories")]
+        public List<Subcategory> Categories { get; set; }
+        [JsonProperty("brands")]
+        public List<Brand> Brands { get; set; }
     }
 }

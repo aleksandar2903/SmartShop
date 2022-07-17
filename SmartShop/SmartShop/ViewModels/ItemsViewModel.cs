@@ -36,7 +36,7 @@ namespace SmartShop.ViewModels
             FeatureProducts = new ObservableCollection<Product>();
             Features = new ObservableCollection<Models.Image>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadCategoriesCommand());
-            OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(0), true));
+            OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
 
             ProductTapped = new Command<Product>(OnProductSelected);
 

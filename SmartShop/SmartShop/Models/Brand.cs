@@ -11,6 +11,8 @@ namespace SmartShop.Models
         public int Id { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
+        [JsonProperty("products_count")]
+        public string ProductsCount { get; set; }
 
         [JsonProperty("products")]
         public List<Product> Products { get; set; }

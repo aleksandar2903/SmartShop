@@ -25,13 +25,18 @@ namespace SmartShop.Models
         [JsonProperty("description")]
         public string Description { get; set; }
         [JsonProperty("image")]
-        public Image Image1 { get => _image; set { _image = value; OnPropertyChanged(); _image = value; } }
+        public Image Image { get => _image; set { _image = value; OnPropertyChanged(); _image = value; } }
         Image _image;
-        public Uri Image { get; set; }
         [JsonProperty("price")]
         public decimal Price { get; set; }
         [JsonProperty("brand")]
         public Brand Brand { get; set; }
+        [JsonProperty("similar_product")]
+        public Product SimilarProduct { get; set; }
+        [JsonProperty("similar_products")]
+        public List<Product> SimilarProducts { get; set; }
+        [JsonProperty("popular_brands")]
+        public List<Product> PopularProducts { get; set; }
         [JsonProperty("stock")]
         public int Quantity { get; set; }
         public int _orderQuantity = 1;

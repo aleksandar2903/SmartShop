@@ -48,7 +48,7 @@ namespace SmartShop.ViewModels
 
         private void ChangePhoto(Models.Image photo)
         {
-            Product.Image1 = photo;
+            Product.Image = photo;
         }
 
         public async void OnAppearing()

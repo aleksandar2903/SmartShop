@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              x:Class="SmartShop.Components.Frames.ProductFrame"
+              xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
+              Padding="10, 0">
+    <Grid HorizontalOptions="Center" VerticalOptions="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Frame
+                                                        BackgroundColor="#ededed"
+                                                        Padding="10"
+                                                        CornerRadius="10"
+                                                        HasShadow="False"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        VerticalOptions="FillAndExpand"
+                                                        IsClippedToBounds="True">
+            <Grid>
+                <Image
+                                                            Aspect="AspectFit"
+                                                            Source="{Binding Image.Uri}" />
+                <buttons:FavouriteButton BindingContext="{Binding .}" Margin="0" WidthRequest="25" HeightRequest="25" VerticalOptions="Start" HorizontalOptions="End">
+                </buttons:FavouriteButton>
+            </Grid>
+        </Frame>
+        <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand">
+            <Label
+                                                        FontSize="12"
+                                                        Text="{Binding Name}"
+                                                        LineBreakMode="TailTruncation"
+                                                        MaxLines="2"
+                                                        TextColor="Black">
+            </Label>
+            <Label
+                                                        FontSize="14"
+                                                        Text="{Binding Price}"
+                                                        TextColor="Black"
+                                                        FontAttributes="Bold">
+            </Label>
+        </StackLayout>
+    </Grid>
+</Grid>
