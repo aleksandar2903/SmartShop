@@ -25,7 +25,7 @@ namespace SmartShop.ViewModels
         public Command SearchProductsCommand { get; }
         public BrowseViewModel()
         {
-            filterPage = new FilterPage();
+            filterPage = new FilterPage(new FilterViewModel());
             filterPage.Dismissed += async (s, e) => { if (e.Result is bool appliedFiltes && appliedFiltes) await FilterProducts();  };
             Products = new ObservableCollection<Product>();
             OpenFilterPopupCommand = new Command(OpenFilters);
@@ -41,23 +41,23 @@ namespace SmartShop.ViewModels
 
         async Task FilterProducts()
         {
-            string brands = String.Join(",", filterPage.SelectedBrands);
-            string categories = String.Join(",", filterPage.SelectedCategories);
-            await LoadProducts(query, categories, brands, filterPage.MinPrice, filterPage.MaxPrice);
+            //string brands = String.Join(",", filterPage.SelectedBrands);
+            //string categories = String.Join(",", filterPage.SelectedCategories);
+            //await LoadProducts(query, categories, brands, filterPage.MinPrice, filterPage.MaxPrice);
         }
 
         public async void OnAppearing()
         {
             await LoadProducts();
-            foreach (var category in response.Categories)
-            {
-                filterPage.Categories.Add(category);
-            }
+            //foreach (var category in response.Categories)
+            //{
+            //    filterPage.Categories.Add(category);
+            //}
 
-            foreach (var brand in response.Brands)
-            {
-                filterPage.Brands.Add(brand);
-            }
+            //foreach (var brand in response.Brands)
+            //{
+            //    filterPage.Brands.Add(brand);
+            //}
         }
 
         async void OnProductSelected(Product product)

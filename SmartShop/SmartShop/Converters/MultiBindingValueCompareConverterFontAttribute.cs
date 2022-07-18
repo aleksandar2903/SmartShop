@@ -1,20 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Xamarin.Forms;
 
 namespace SmartShop.Converters
 {
-    internal class MultiBindingValueCompareConverterColor : IMultiValueConverter
+    internal class MultiBindingValueCompareConverterFontAttribute : IMultiValueConverter
     {
             public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
             {
-                if (values[0] is int id1 && values[1] is int id2 && id1 == id2)
+                if (values[0] is int selectedValue && values[1] is Dictionary<int, int> selectedValues && selectedValues.ContainsKey(selectedValue))
                 {
-                    return "Black";
+                    return FontAttributes.Bold;
                 }
 
-                return "#ededed";
-            }
+            return FontAttributes.None;
+        }
 
             public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
             {
