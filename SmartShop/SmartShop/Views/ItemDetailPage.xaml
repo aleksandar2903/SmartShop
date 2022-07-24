@@ -97,53 +97,8 @@
                         </StackLayout>
                     </StackLayout>
 
-                    <StackLayout Margin="15, 10" IsVisible="{Binding Product.SimilarProduct, Converter={xct:IsNotNullOrEmptyConverter}}">
-                        <Frame CornerRadius="5" Padding="15" BorderColor="LightGray" HasShadow="False" BackgroundColor="White">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"></RowDefinition>
-                                    <RowDefinition Height="Auto"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Label Text="Pogledajte sličan proizvod" TextColor="Black" FontSize="14" FontAttributes="Bold" Grid.ColumnSpan="2" Margin="0,0,0,10"></Label>
-                                <Frame
-                                                        Grid.Row="1"
-                                                        BackgroundColor="White"
-                                                        Padding="10"
-                                                        CornerRadius="10"
-                                                        HasShadow="False"
-                                                        HeightRequest="60"
-                                                        IsClippedToBounds="False">
-                                    <Grid>
-                                        <Image
-                                                            Aspect="AspectFit"
-                                                            Source="{Binding Product.SimilarProduct.Image.Uri}" />
-                                        
-                                    </Grid>
-                                </Frame>
-                                <StackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand">
-                                    <Label
-                                                        FontSize="12"
-                                                        Text="{Binding Product.SimilarProduct.Name}"
-                                                        LineBreakMode="TailTruncation"
-                                                        MaxLines="1"
-                                                        TextColor="Black">
-                                    </Label>
-                                    <Label
-                                                        FontSize="14"
-                                                        Text="{Binding Product.SimilarProduct.Price}"
-                                                        TextColor="Black"
-                                                        FontAttributes="Bold">
-                                    </Label>
-                                    <buttons:FavouriteButton BindingContext="{Binding Product.SimilarProduct}" Margin="0" WidthRequest="25" HeightRequest="25" HorizontalOptions="Start">
-                                    </buttons:FavouriteButton>
-                                </StackLayout>
-                            </Grid>
-                        </Frame>
-                    </StackLayout>
+                    <local:SimilarProductFrame Margin="15, 10" IsVisible="{Binding Product.SimilarProduct, Converter={xct:IsNotNullOrEmptyConverter}}" 
+                                               BindingContext="{Binding Product.SimilarProduct}"></local:SimilarProductFrame>
                     <!--  Top Products  -->
                     <StackLayout Margin="15, 0, 0, 0">
                         <StackLayout Margin="0,0,0,5">
@@ -215,7 +170,7 @@
             <Frame Padding="15, 10"
             AbsoluteLayout.LayoutBounds="0,1,1,0.1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="White">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <Label VerticalOptions="Center" FontAttributes="Bold" TextColor="Black" Margin="0, 0, 15, 0" Text="{Binding Product.Price, StringFormat='{0}'}" FontSize="24"></Label>
+                    <Label VerticalOptions="Center" FontAttributes="Bold" TextColor="Black" Margin="0, 0, 15, 0" Text="{Binding Product.Price, StringFormat='{0:#,#0}'}" FontSize="24"></Label>
                     <buttons:AddToCartButton BindingContext="{Binding Product}"></buttons:AddToCartButton>
                     <!--<Button WidthRequest="60" VerticalOptions="Center" Margin="10, 0, 0, 0" CornerRadius="60" BackgroundColor="#ededed" HeightRequest="60" Padding="0"  FontSize="24" TextColor="DarkGray" Text="{x:Static fontawesome:IconFont.CartPlus}" FontFamily="FAS"  Command="{Binding BackwardCommand}"></Button>-->
                 </StackLayout>

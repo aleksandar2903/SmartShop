@@ -22,26 +22,26 @@ namespace SmartShop.Components.Frames
         {
             base.OnBindingContextChanged();
 
-            if(this.BindingContext != null)
+            if (this.BindingContext != null)
             {
                 bool isSelected = false;
 
-                    if(this.BindingContext is Brand brand)
-                    {
-                        if(brand.IsActive)
-                            isSelected = true;
-                    }
-                    else if(this.BindingContext is Subcategory sub)
-                    {
-                            if (sub.IsActive)
-                                isSelected = true;
-                    }
+                if (this.BindingContext is Brand brand)
+                {
+                    if (brand.IsActive)
+                        isSelected = true;
+                }
+                else if (this.BindingContext is Subcategory sub)
+                {
+                    if (sub.IsActive)
+                        isSelected = true;
+                }
 
-                    if (isSelected)
-                    {
-                        checkBox.IsChecked = true;
-                        name.FontAttributes = FontAttributes.Bold;
-                    }
+                if (isSelected)
+                {
+                    checkBox.Source = ImageSource.FromFile("checkbox.svg");
+                    name.FontAttributes = FontAttributes.Bold;
+                }
             }
         }
     }

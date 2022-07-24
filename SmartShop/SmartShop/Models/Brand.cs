@@ -12,11 +12,7 @@ namespace SmartShop.Models
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("products_count")]
-        public string ProductsCount { get; set; }
-        [JsonProperty("max_product_price")]
-        public decimal MaxProductPrice { get; set; }
-        [JsonProperty("min_product_price")]
-        public decimal MinProductPrice { get; set; }
+        public int ProductsCount { get; set; }
         public bool IsActive { get; set; }
 
         [JsonProperty("products")]

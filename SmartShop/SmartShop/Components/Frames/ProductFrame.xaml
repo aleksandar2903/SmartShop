@@ -38,7 +38,7 @@
             </Label>
             <Label
                                                         FontSize="14"
-                                                        Text="{Binding Price}"
+                                                        Text="{Binding Price, StringFormat='{0:#,#0}'}"
                                                         TextColor="Black"
                                                         FontAttributes="Bold">
             </Label>

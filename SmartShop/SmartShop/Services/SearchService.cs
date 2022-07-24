@@ -22,11 +22,15 @@ namespace SmartShop.Services
 
         public async Task<SearchResponse> SearchProducts(string query, string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0, string sortBy = "", int page = 1)
         {
+            var responseData = new SearchResponse();
             var response = await client.GetAsync($"search?page={page}&query={query}&categories={categories}&brands={brands}&priceMin={priceMin}&priceMax={priceMax}&sortBy={sortBy}");
 
-            var content = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode && response.Content != null)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                responseData = JsonConvert.DeserializeObject<SearchResponse>(content, new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
+            }
 
-            var responseData = JsonConvert.DeserializeObject<SearchResponse>(content);
             return responseData;
         }
     }

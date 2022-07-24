@@ -17,25 +17,26 @@ namespace SmartShop.ViewModels
         private decimal minPriceValidation;
         private decimal maxPriceValidation;
         private int totalRecords;
-        private string query;
+        private string query = "initialize";
         private ISearchService SearchService { get; }
-
+        public event EventHandler<FilterRequest> FilterChanged;
         public ICommand OnCategorySelectCommand { get; }
         public ICommand OnPriceChangedCommand { get; }
         public ICommand OnBrandSelectCommand { get; }
         public ICommand OnResetTappedCommand { get; }
+        public ICommand ApplyFiltersCommand { get; }
         public ObservableCollection<Brand> Brands { get; set; }
         public ObservableCollection<Subcategory> Categories { get; set; }
         public int TotalRecords { get => totalRecords; set { SetProperty(ref totalRecords, value); } }
         public decimal MinPrice
         {
             get => minPrice;
-            set => SetProperty(ref minPrice, value >= minPriceValidation ? value : minPriceValidation);
+            set => SetProperty(ref minPrice, value >= 0 ? value : 0);
         }
         public decimal MaxPrice
         {
             get => maxPrice;
-            set => SetProperty(ref maxPrice, value <= maxPriceValidation ? value : maxPriceValidation);
+            set => SetProperty(ref maxPrice, value <= 9999999 ? value : 9999999);
         }
         public Dictionary<int, int> SelectedCategories { get; set; }
         public Dictionary<int, int> SelectedBrands { get; set; }
@@ -49,33 +50,41 @@ namespace SmartShop.ViewModels
             SearchService = new SearchService();
             OnBrandSelectCommand = new Command<int>(OnBrandSelect);
             OnCategorySelectCommand = new Command<int>(OnCategorySelect);
-            OnResetTappedCommand = new Command(ResetFilters);
+            OnResetTappedCommand = new Command(async () =>
+            {
+                ResetFilters();
+                await FilterProducts();
+            });
             OnPriceChangedCommand = new Command(async () =>
             {
-                if (MinPrice > minPriceValidation && MaxPrice < maxPriceValidation && MinPrice <= MaxPrice)
+                if (MinPrice <= MaxPrice)
                     await FilterProducts();
             });
+            ApplyFiltersCommand = new Command(OnAppliedFilters);
         }
 
-        async void ResetFilters()
+        void ResetFilters()
         {
             SelectedBrands.Clear();
             SelectedCategories.Clear();
             SetPrice();
-
-            await FilterProducts();
         }
 
-        void SetPrice(decimal minPrice = 0, decimal maxPrice = 0)
+        void SetPrice(decimal? minPrice = 0, decimal? maxPrice = 0)
         {
-            MaxPrice = maxPriceValidation = maxPrice;
-            MinPrice = minPriceValidation = minPrice;
+            MaxPrice = maxPriceValidation = maxPrice != null ? (decimal)maxPrice : 0;
+            MinPrice = minPriceValidation = minPrice != null ? (decimal)minPrice : 0;
         }
 
         public async void OnInitialize(string query = "")
         {
-            this.query = query;
-            await FilterProducts();
+            if (this.query != query)
+            {
+                this.query = query;
+                ResetFilters();
+                await Task.Delay(500);
+                await FilterProducts();
+            }
         }
 
         async void OnCategorySelect(int categoryId)
@@ -88,6 +97,20 @@ namespace SmartShop.ViewModels
             SetPrice();
 
             await FilterProducts();
+        }
+
+        async void OnAppliedFilters()
+        {
+            var request = new FilterRequest
+            {
+                Brands = String.Join(",", SelectedBrands.Keys),
+                Categories = String.Join(",", SelectedCategories.Keys),
+                MinPrice = MinPrice,
+                MaxPrice = MaxPrice,
+            };
+            FilterChanged.Invoke(this, request);
+
+            await Shell.Current.Navigation.PopModalAsync();
         }
 
         async void OnBrandSelect(int brandId)
@@ -111,24 +134,47 @@ namespace SmartShop.ViewModels
                 string categories = String.Join(",", SelectedCategories.Keys);
                 string brands = String.Join(",", SelectedBrands.Keys);
                 var response = await SearchService.SearchProducts(query, categories, brands, MinPrice, MaxPrice);
-                Categories.Clear();
-                Brands.Clear();
-                SetPrice(response.MinProductPrice, response.MaxProductPrice);
-                foreach (var category in response.Categories)
+                if (response != null && response.Categories != null && response.Categories.Count > 0)
                 {
-                    category.IsActive = SelectedCategories.ContainsKey(category.Id);
-                    Categories.Add(category);
-                }
+                    Categories.Clear();
+                    Brands.Clear();
+                    TotalRecords = response.TotalRecords;
+                    SetPrice(response.MinProductPrice, response.MaxProductPrice);
+                    foreach (var category in response.Categories)
+                    {
+                        category.IsActive = SelectedCategories.ContainsKey(category.Id);
+                        Categories.Add(category);
+                    }
 
-                foreach (var brand in response.Brands)
+                    foreach (var brand in response.Brands)
+                    {
+                        brand.IsActive = SelectedBrands.ContainsKey(brand.Id);
+                        Brands.Add(brand);
+                    }
+                }
+                else
                 {
-                    brand.IsActive = SelectedBrands.ContainsKey(brand.Id);
-                    Brands.Add(brand);
+                    var result = await Shell.Current.DisplayAlert("Ups", "Nismo uspeli da pronađemo nijedan proizvod. Molimo Vas, pokušajte ponovo", "Pokušaj ponovo", "Otkaži");
+                    if (result)
+                        await FilterProducts();
+                    else
+                    {
+                        ResetFilters();
+                        await FilterProducts();
+                    }
                 }
             }
             catch (Exception ex)
             {
+                var result = await Shell.Current.DisplayAlert("Greška", "Nešto nije u redu. Molimo Vas, pokušajte ponovo", "Pokušaj ponovo", "Otkaži");
                 Console.WriteLine(ex);
+                if (result)
+                    await FilterProducts();
+                else
+                {
+                    ResetFilters();
+                    await Shell.Current.Navigation.PopModalAsync();
+                }
             }
             finally
             {

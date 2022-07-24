@@ -16,39 +16,52 @@ namespace SmartShop.ViewModels
     {
         private int subcategoryId;
         private string query;
+        private FilterRequest searchRequest = new FilterRequest();
+        private FilterViewModel filterViewModel;
         private FilterPage filterPage;
         private SearchResponse response;
         public ObservableCollection<Product> Products { get; set; }
         public Command OpenFilterPopupCommand { get; }
-        public Command BackwardCommand { get; }
         public Command OnProductTapped { get; }
         public Command SearchProductsCommand { get; }
         public BrowseViewModel()
         {
-            filterPage = new FilterPage(new FilterViewModel());
-            filterPage.Dismissed += async (s, e) => { if (e.Result is bool appliedFiltes && appliedFiltes) await FilterProducts();  };
+            filterViewModel = new FilterViewModel();
+            filterViewModel.FilterChanged += FilterViewModel_FilterChanged;
+            filterPage = new FilterPage(filterViewModel);
             Products = new ObservableCollection<Product>();
             OpenFilterPopupCommand = new Command(OpenFilters);
-            BackwardCommand = new Command(async () => await Shell.Current.Navigation.PopAsync());
             OnProductTapped = new Command<Product>(OnProductSelected);
-            SearchProductsCommand = new Command<string>(async (query) => { this.query = query; await LoadProducts(query); });
+            SearchProductsCommand = new Command<string>(async (query) => { this.query = query; await FilterProducts(); });
+        }
+
+        private async void FilterViewModel_FilterChanged(object sender, FilterRequest e)
+        {
+            if (e != null)
+            {
+                searchRequest.Categories = e.Categories;
+                searchRequest.Brands = e.Brands;
+                searchRequest.MinPrice = e.MinPrice;
+                searchRequest.MaxPrice = e.MaxPrice;
+                searchRequest.SortBy = e.SortBy;
+                await FilterProducts();
+            }
         }
 
         void OpenFilters()
         {
-            Shell.Current.Navigation.ShowPopup(filterPage);
+            filterPage.Query = query;
+            Shell.Current.Navigation.PushModalAsync(filterPage);
         }
 
         async Task FilterProducts()
         {
-            //string brands = String.Join(",", filterPage.SelectedBrands);
-            //string categories = String.Join(",", filterPage.SelectedCategories);
-            //await LoadProducts(query, categories, brands, filterPage.MinPrice, filterPage.MaxPrice);
+            await LoadProducts(query, searchRequest.Categories, searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice);
         }
 
         public async void OnAppearing()
         {
-            await LoadProducts();
+            //await LoadProducts();
             //foreach (var category in response.Categories)
             //{
             //    filterPage.Categories.Add(category);
@@ -67,7 +80,7 @@ namespace SmartShop.ViewModels
 
         async Task LoadProducts(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0)
         {
-            IsBusy = true;
+           IsBusy = true;
 
             try
             {
@@ -90,6 +103,7 @@ namespace SmartShop.ViewModels
             {
                 IsBusy = false;
             }
+
         }
     }
 }

@@ -10,7 +10,7 @@
             <ColumnDefinition Width="70*"></ColumnDefinition>
             <ColumnDefinition Width="20*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <CheckBox x:Name="checkBox"  Color="Black" BindingContext="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FilterViewModel}}, Path=SelectedBrands}" />
+        <Image x:Name="checkBox"  Source="checkbox_uncheck.png" VerticalOptions="Center" WidthRequest="20" HeightRequest="20" />
         <Label x:Name="name" Grid.Column="1" TextColor="Black" Text="{Binding Name}" VerticalOptions="Center">
         </Label>
         <Label Grid.Column="2" TextColor="DarkGray" Text="{Binding ProductsCount}" HorizontalOptions="End" VerticalOptions="Center"></Label>

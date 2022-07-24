@@ -13,6 +13,8 @@ namespace SmartShop.ViewModels
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
 
         bool isBusy = false;
+
+        public Command BackwardCommand { get; } = new Command(async () => await Shell.Current.Navigation.PopAsync());
         public bool IsBusy
         {
             get { return isBusy; }
