@@ -25,9 +25,7 @@
             <ScrollView VerticalScrollBarVisibility="{OnIdiom Desktop=Always, Phone=Never}" IsVisible="{Binding IsBusy, Converter={xct:InvertedBoolConverter}}">
 
                 <StackLayout Padding="15, 0, 0, 25" Spacing="0">
-                    <Grid Margin="-15,0, 0, 0">
-                        <Image Source="wave1.png" xct:IconTintColorEffect.TintColor="#0d6efd" Aspect="Fill" HeightRequest="90">
-                        </Image>
+                    <Grid Margin="-15,0, 0, 0" BackgroundColor="{StaticResource Primary}">
                         <!--Top Search Bar-->
                         <StackLayout Padding="15" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                             <StackLayout HorizontalOptions="FillAndExpand">
@@ -45,44 +43,27 @@
                             </StackLayout>
                         </StackLayout>
                     </Grid>
-                    <StackLayout
-                                    Margin="0,20,0,20"
-                                    HeightRequest="{OnIdiom Desktop=300, Phone=220}"
-                                    Orientation="Horizontal">
-                        <CollectionView ItemsSource="{Binding Features}" HorizontalOptions="FillAndExpand">
 
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Horizontal"/>
-                            </CollectionView.ItemsLayout>
-
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="model:Image">
-                                    <StackLayout>
-                                        <Frame
-                                                        BackgroundColor="#ededed"
-                                                        Margin="0, 0, 15, 0"
-                                                        Padding="0"
-                                                        CornerRadius="20"
-                                                        HasShadow="True"
-                                                        IsClippedToBounds="False">
-                                            <local:CustomFeatureImageFrame
-                                                            HeightRequest="{OnIdiom Desktop=300, Phone=220}"
-                                                            Aspect="AspectFill"
-                                                            Source="{Binding Uri}"/>
-                                        </Frame>
-                                    </StackLayout>
+                    <Grid BackgroundColor="#ededed" RowDefinitions="300" Margin="-15,0,0,20">
+                        <CarouselView ItemsSource="{Binding OnAction}" IndicatorView="IndicatorView"  HeightRequest="180" VerticalOptions="Center" HorizontalOptions="Center">
+                            <CarouselView.ItemTemplate>
+                                <DataTemplate x:DataType="model:Product">
+                                    <Image Source="{Binding Image.Uri}" Aspect="AspectFit" />
                                 </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-
-                    </StackLayout>
+                            </CarouselView.ItemTemplate>
+                        </CarouselView>
+                        <IndicatorView Margin="0, 15" x:Name="IndicatorView" VerticalOptions="End" HorizontalOptions="Center" IndicatorColor="Gray" SelectedIndicatorColor="Black"></IndicatorView>
+                        <Frame Padding="5" HasShadow="False" VerticalOptions="Start" WidthRequest="200" IsClippedToBounds="True" BackgroundColor="Transparent" BorderColor="Black" HorizontalOptions="Center" Margin="0,10,0,0">
+                            <Label FontSize="16" HorizontalTextAlignment="Center" Text="DO 20% POPUSTA NA RAČUNARE I KONZOLE" TextColor="Black"></Label>
+                        </Frame>
+                    </Grid>
                     <!--  Categories  -->
                     <StackLayout Margin="0, 0, 0, 20">
                         <StackLayout Margin="0,0,0,5">
                             <Label
                                     FontAttributes="Bold"
-                                    FontSize="18"
-                                    Text="Top Categories"
+                                    FontSize="16"
+                                    Text="Top kategorije"
                                     TextColor="Black">
                             </Label>
 
@@ -98,10 +79,9 @@
 
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate x:DataType="model:Category">
-                                            <StackLayout>
+                                            <StackLayout WidthRequest="100">
 
                                                 <Frame
-                                                        Margin="1,5,10,5"
                                                         Padding="0"
                                                         CornerRadius="30"
                                                         HasShadow="True"
@@ -114,14 +94,15 @@
                                                             Margin="15"
                                                             Aspect="AspectFit"
                                                             HorizontalOptions="Center"
-                                                            Source="{Binding Img, StringFormat='{0}.png'}"
+                                                            Source="{Binding Img}"
                                                             VerticalOptions="Center" />
                                                 </Frame>
                                                 <Label
                                                         FontSize="12"
                                                         HorizontalOptions="Center"
                                                         Text="{Binding Name}"
-                                                        TextColor="Black">
+                                                        TextColor="Black"
+                                                        LineBreakMode="TailTruncation" MaxLines="1">
                                                 </Label>
                                                 <!--<StackLayout.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=ItemTapped}" />
@@ -160,7 +141,7 @@
                                             <cc:ProductFrame>
                                                 <cc:ProductFrame.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
-                                                    </cc:ProductFrame.GestureRecognizers>
+                                                </cc:ProductFrame.GestureRecognizers>
                                             </cc:ProductFrame>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
@@ -170,7 +151,7 @@
                         </StackLayout>
                     </StackLayout>
 
-                    <!--  Top Products  -->
+                    <!--  Featured Products  -->
                     <StackLayout Margin="0, 0, 0, 20">
                         <StackLayout Margin="0,0,0,5">
                             <Label
@@ -184,7 +165,7 @@
                                     Margin="0,20,0,0"
                                     HeightRequest="{OnIdiom Desktop=300, Phone=200}"
                                     Orientation="Horizontal">
-                                <CollectionView ItemsSource="{Binding FeatureProducts}" HorizontalOptions="FillAndExpand">
+                                <CollectionView ItemsSource="{Binding FeaturedProducts}" HorizontalOptions="FillAndExpand">
 
                                     <CollectionView.ItemsLayout>
                                         <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
@@ -192,44 +173,6 @@
 
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate x:DataType="model:Product">
-                                            <!--<StackLayout WidthRequest="160">
-                                                <Frame
-                                                        BackgroundColor="#ededed"
-                                                        Margin="1,5,10,5"
-                                                        Padding="0"
-                                                        CornerRadius="20"
-                                                        HasShadow="True"
-                                                        IsClippedToBounds="False"
-                                                        HeightRequest="200"
-                                                        WidthRequest="150">
-                                                    <Image
-                                                            Aspect="AspectFit"
-                                                            Source="{Binding Image1.Uri}" />
-                                                </Frame>
-                                                <StackLayout Orientation="Horizontal">
-                                                    <StackLayout HorizontalOptions="FillAndExpand">
-                                                        <Label
-                                                        FontSize="16"
-                                                        Text="{Binding Name}"
-                                                        LineBreakMode="TailTruncation"
-                                                        MaxLines="1"
-                                                        TextColor="Black"
-                                                        FontAttributes="Bold">
-                                                        </Label>
-                                                        <Label
-                                                        FontSize="14"
-                                                        Text="{Binding Price}"
-                                                        TextColor="DarkGray">
-                                                        </Label>
-                                                    </StackLayout>
-                                                    <buttons:FavouriteButton BindingContext="{Binding .}">
-                                                    </buttons:FavouriteButton>
-                                                </StackLayout>
-                                                <StackLayout.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
-                                                </StackLayout.GestureRecognizers>
-                                            </StackLayout>-->
-
                                             <cc:ProductFrame>
                                                 <cc:ProductFrame.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />

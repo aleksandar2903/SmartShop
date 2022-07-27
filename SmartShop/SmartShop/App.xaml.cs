@@ -1,4 +1,7 @@
-﻿using MonkeyCache.FileStore;
+﻿using Flurl.Http;
+using Flurl.Http.Configuration;
+using MonkeyCache.FileStore;
+using Newtonsoft.Json;
 using SmartShop.Services;
 using SmartShop.Views;
 using System;
@@ -14,6 +17,13 @@ namespace SmartShop
         public App()
         {
             InitializeComponent();
+            FlurlHttp.Configure(settings => {
+                var jsonSettings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                };
+                settings.JsonSerializer = new NewtonsoftJsonSerializer(jsonSettings);
+            });
             Barrel.ApplicationId = AppInfo.PackageName;
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();

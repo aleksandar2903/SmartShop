@@ -30,20 +30,20 @@ namespace SmartShop.Components.Buttons
             {
                 if (Barrel.Current.Exists($"c-{product.Id}"))
                 {
-                    button.Text = "Add To Cart";
+                    button.Text = "Dodaj u korpu";
                     Barrel.Current.Empty($"c-{product.Id}");
                     if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
                     {
-                        await Shell.Current.DisplayToastAsync("Removed from cart", 3000);
+                        await Shell.Current.DisplayToastAsync("Uklonjeno iz korpe", 3000);
                     }
                 }
                 else
                 {
-                    button.Text = "Added To Cart";
+                    button.Text = "U korpi";
                     Barrel.Current.Add($"c-{product.Id}", product.Id, TimeSpan.FromDays(90));
                     if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
                     {
-                        await Shell.Current.DisplayToastAsync("Added to cart", 3000);
+                        await Shell.Current.DisplayToastAsync("Dodato u korpu", 3000);
                     }
                 }
 
@@ -59,11 +59,11 @@ namespace SmartShop.Components.Buttons
             {
                 if (Barrel.Current.Exists($"c-{product.Id}"))
                 {
-                    this.Text = "Added To Cart";
+                    this.Text = "U korpi";
                 }
                 else
                 {
-                    this.Text = "Add To Cart";
+                    this.Text = "Dodaj u korpu";
                 }
 
             }

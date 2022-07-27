@@ -14,12 +14,10 @@ namespace SmartShop.ViewModels
 {
     public class BrowseViewModel : BaseViewModel
     {
-        private int subcategoryId;
         private string query;
         private FilterRequest searchRequest = new FilterRequest();
         private FilterViewModel filterViewModel;
         private FilterPage filterPage;
-        private SearchResponse response;
         public ObservableCollection<Product> Products { get; set; }
         public Command OpenFilterPopupCommand { get; }
         public Command OnProductTapped { get; }
@@ -80,7 +78,9 @@ namespace SmartShop.ViewModels
 
         async Task LoadProducts(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0)
         {
-           IsBusy = true;
+            IsBusy = true;
+
+            await Task.Delay(500);
 
             try
             {
@@ -88,9 +88,9 @@ namespace SmartShop.ViewModels
 
                 ISearchService searchService = new SearchService();
 
-                response = await searchService.SearchProducts(query, categories, brands, priceMin, priceMax);
+                var response = await searchService.SearchProducts(query, categories, brands, priceMin, priceMax);
 
-                foreach (var product in response.Products.Results)
+                foreach (var product in response.Results)
                 {
                     Products.Add(product);
                 }

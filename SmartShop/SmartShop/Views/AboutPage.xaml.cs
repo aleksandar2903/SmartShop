@@ -20,8 +20,7 @@ namespace SmartShop.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (viewModel.Products.Count == 0 || viewModel.FeatureProducts.Count == 0 || viewModel.Features.Count == 0)
-                viewModel.OnAppearing();
+            viewModel.OnAppearing();
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using MonkeyCache.FileStore;
 using SmartShop.Models;
+using SmartShop.Services;
 using SmartShop.Views;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,13 @@ namespace SmartShop.ViewModels
     {
         private Item _selectedItem;
 
+        ICategoryBrandService CategoryBrandService { get; } = new CategoryBrandService();
         public ObservableCollection<Item> Items { get; }
         public ObservableCollection<Category> Categories { get; }
         public ObservableCollection<Product> Products { get; }
-        public ObservableCollection<Product> FeatureProducts { get; }
-        public ObservableCollection<Models.Image> Features { get; }
+        public ObservableCollection<Product> FeaturedProducts { get; }
+        public ObservableCollection<Product> OnAction { get; }
         public Command LoadItemsCommand { get; }
-
         public Command OpenCategoriesPageCommand { get; }
         public Command AddItemCommand { get; }
         public Command ProductTapped { get; }
@@ -33,8 +34,8 @@ namespace SmartShop.ViewModels
             Items = new ObservableCollection<Item>();
             Categories = new ObservableCollection<Category>();
             Products = new ObservableCollection<Product>();
-            FeatureProducts = new ObservableCollection<Product>();
-            Features = new ObservableCollection<Models.Image>();
+            FeaturedProducts = new ObservableCollection<Product>();
+            OnAction = new ObservableCollection<Product>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadCategoriesCommand());
             OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
 
@@ -75,31 +76,35 @@ namespace SmartShop.ViewModels
 
             try
             {
-                Features.Clear();
-                var features = await DataStore.GetFeatureImagesAsync(true);
-                foreach (var feature in features)
-                {
-                    Features.Add(feature);
-                }
+                OnAction.Clear();
+                var categoriesTask = CategoryBrandService.GetCategoriesAsync();
+                var productsTask = DataStore.GetProductsAsync(true);
+                var featuredProductsTask = DataStore.GetFeatureProductsAsync(true);
+
+                await Task.WhenAll(featuredProductsTask, categoriesTask, productsTask, featuredProductsTask);
+
+                var featuredProducts = await featuredProductsTask;
+                var products = await productsTask;
+                var categories = await categoriesTask;
+
 
                 Categories.Clear();
-                var categories = await DataStore.GetCategoriesAsync(true);
                 foreach (var category in categories)
                 {
                     Categories.Add(category);
                 }
 
                 Products.Clear();
-                var prodcts = await DataStore.GetProductsAsync(true);
-                foreach (var product in prodcts)
+                foreach (var product in products)
                 {
+                    if (product.SubcategoryId == 1 || product.SubcategoryId == 4)
+                        OnAction.Add(product);
                     Products.Add(product);
                 }
-                FeatureProducts.Clear();
-                var featureProdcts = await DataStore.GetFeatureProductsAsync(true);
-                foreach (var product in featureProdcts)
+                FeaturedProducts.Clear();
+                foreach (var product in featuredProducts)
                 {
-                    FeatureProducts.Add(product);
+                    FeaturedProducts.Add(product);
                 }
 
             }
@@ -116,9 +121,11 @@ namespace SmartShop.ViewModels
 
         public async void OnAppearing()
         {
-            IsBusy = true;
             SelectedItem = null;
-            await ExecuteLoadCategoriesCommand();
+            if (Products.Count == 0)
+            {
+                await ExecuteLoadCategoriesCommand();
+            }
         }
 
         public Item SelectedItem

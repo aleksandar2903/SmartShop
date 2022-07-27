@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
@@ -13,12 +14,19 @@ namespace SmartShop.ViewModels
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
 
         bool isBusy = false;
+        LayoutState state = LayoutState.None;
 
         public Command BackwardCommand { get; } = new Command(async () => await Shell.Current.Navigation.PopAsync());
         public bool IsBusy
         {
             get { return isBusy; }
             set { SetProperty(ref isBusy, value); }
+        }
+
+        public LayoutState State
+        {
+            get { return state; }
+            set { SetProperty(ref state, value); }
         }
 
         string title = string.Empty;

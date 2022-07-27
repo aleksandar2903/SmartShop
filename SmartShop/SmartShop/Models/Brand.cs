@@ -11,9 +11,12 @@ namespace SmartShop.Models
         public int Id { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
+        [JsonProperty("image")]
+        public string Image { get; set; }
+        public Uri Img { get => new Uri($"{Config.StorageAddress}{Image}"); }
+        public bool IsActive { get; set; }
         [JsonProperty("products_count")]
         public int ProductsCount { get; set; }
-        public bool IsActive { get; set; }
 
         [JsonProperty("products")]
         public List<Product> Products { get; set; }

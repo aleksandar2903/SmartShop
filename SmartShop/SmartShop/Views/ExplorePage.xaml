@@ -13,17 +13,14 @@
             <Grid Margin="10, 10" RowDefinitions="40" ColumnDefinitions="12*, 76*, 12*">
                 <ImageButton Grid.Column="0" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="40" Padding="5" CornerRadius="40" BackgroundColor="White" Source="angle_small_left.png" Command="{Binding BackwardCommand}"/>
                 <Frame Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#ededed" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="0">
-                    <local:CustomSearchBar  CancelButtonColor="DarkGray" TextColor="Black" PlaceholderColor="DarkGray" HorizontalOptions="FillAndExpand" Placeholder="Search..." HeightRequest="40">
+                    <local:CustomSearchBar  CancelButtonColor="DarkGray" TextColor="Black" PlaceholderColor="DarkGray" HorizontalOptions="FillAndExpand" Placeholder="Pretraži..." HeightRequest="40">
                         <local:CustomSearchBar.Behaviors>
                             <behaviors:UserStoppedTypingBehavior MinimumLengthThreshold="2" StoppedTypingTimeThreshold="1000" Command="{Binding SearchProductsCommand}"></behaviors:UserStoppedTypingBehavior>
-                            </local:CustomSearchBar.Behaviors>
+                        </local:CustomSearchBar.Behaviors>
                     </local:CustomSearchBar>
                 </Frame>
                 <ImageButton IsVisible="{OnIdiom Desktop=False, Phone=True}" Grid.Column="2" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="40" Padding="10" CornerRadius="40" BackgroundColor="#ededed" Source="settings_sliders.png" Command="{Binding OpenFilterPopupCommand}"/>
             </Grid>
-            <StackLayout Grid.RowSpan="2" IsVisible="{Binding IsBusy}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <ActivityIndicator IsRunning="{Binding IsBusy}" Color="Black" VerticalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40"></ActivityIndicator>
-            </StackLayout>
             <CollectionView Grid.Row="1" ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10" SnapPointsAlignment="Center" SnapPointsType="MandatorySingle"></GridItemsLayout>

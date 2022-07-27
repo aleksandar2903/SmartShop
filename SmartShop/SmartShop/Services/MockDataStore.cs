@@ -19,7 +19,7 @@ namespace SmartShop.Services
         {
             client = new HttpClient
             {
-                BaseAddress = new Uri(Config.BaseAddress)
+                BaseAddress = new Uri(Config.APIUrl)
             };
             items = new List<Item>()
             {
@@ -116,7 +116,7 @@ namespace SmartShop.Services
             {
                 new Category
             {
-                Img = "washing_machine",
+                //Img = "washing_machine",
                 Name = "Home appliance",
                 Subcategories = new List<Subcategory>()
                 {
@@ -134,7 +134,7 @@ namespace SmartShop.Services
             },
             new Category
             {
-                Img = "computer",
+                //Img = "computer",
                 Name = "PC's",
                 Subcategories = new List<Subcategory>()
                 {
@@ -157,7 +157,7 @@ namespace SmartShop.Services
             },
             new Category
             {
-                Img = "computer",
+                //Img = "computer",
                 Name = "PC's Components",
                 Subcategories = new List<Subcategory>()
                 {
@@ -195,7 +195,7 @@ namespace SmartShop.Services
             },
             new Category
             {
-                Img = "joystick",
+                //Img = "joystick",
                 Name = "Gaming Consoles",
                 Subcategories = new List<Subcategory>()
                 {
@@ -219,7 +219,7 @@ namespace SmartShop.Services
 
             new Category
             {
-                Img = "projector",
+                //Img = "projector",
                 Name = "Projectors",
                 Subcategories = new List<Subcategory>()
                 {
@@ -243,7 +243,7 @@ namespace SmartShop.Services
 
             new Category
             {
-                Img = "server",
+                //Img = "server",
                 Name = "Servers",
                 Subcategories = new List<Subcategory>{
                     new Subcategory

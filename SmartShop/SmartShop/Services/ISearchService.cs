@@ -8,6 +8,7 @@ namespace SmartShop.Services
 {
     public interface ISearchService
     {
-        Task<SearchResponse> SearchProducts(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0, string sortBy = "", int page = 1);
+        Task<Root<Product>> SearchProducts(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0, string sortBy = "", int page = 1, int mainCategory = 0);
+        Task<FilterResponse> FilterProducts(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0, int mainCategory = 0);
     }
 }

@@ -3,34 +3,69 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartShop.Views.CategoriesPage"
             xmlns:vm="clr-namespace:SmartShop.ViewModels"
-            xmlns:m="clr-namespace:SmartShop.Models"
-            x:DataType="vm:CategoriesAndBrandsViewModel"
-            Title="Browse">
+            xmlns:m="clr-namespace:SmartShop.Models" xmlns:local="clr-namespace:SmartShop"
+             x:DataType="vm:CategoriesAndBrandsViewModel"
+             Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout Padding="15" Spacing="10">
-            <StackLayout>
-                <Label Text="Shop by category" FontSize="20" FontAttributes="Bold" TextColor="Black"></Label>
-            </StackLayout>
-            <CollectionView ItemsSource="{Binding Categories}">
-
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" VerticalItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:Category">
-                        <Frame CornerRadius="10" HeightRequest="40" HorizontalOptions="FillAndExpand" BackgroundColor="#ededed">
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                <Label VerticalOptions="End" HorizontalOptions="FillAndExpand" Margin="0, 0, 10, 0" Text="{Binding Name}" TextColor="Black"></Label>
-                                <Image Source="{Binding Img, StringFormat='{0}.png'}" Aspect="AspectFit" VerticalOptions="Center"></Image>
+        <ScrollView>
+            
+        <StackLayout>
+                <Frame HeightRequest="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="#ededed" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="15, 0" Margin="15, 15, 15, 0">
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Image Source="search1.png" WidthRequest="15"></Image>
+                        <Label Text="Pretraga" VerticalOptions="Center"></Label>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer></TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <StackLayout Padding="15" Spacing="10" VerticalOptions="FillAndExpand">
+                <StackLayout>
+                    <Label Text="Kategorije" FontSize="16" FontAttributes="Bold" TextColor="Black"></Label>
+                </StackLayout>
+                <FlexLayout Direction="Row" Wrap="Wrap"  AlignItems="Stretch"  JustifyContent="SpaceBetween" BindableLayout.ItemsSource="{Binding Categories}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="m:Category">
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="10" FlexLayout.Basis="50%">
+                                <Frame CornerRadius="10" HorizontalOptions="FillAndExpand" BackgroundColor="#ededed">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                        <Label VerticalOptions="End" FontSize="12" LineBreakMode="WordWrap" Margin="0, 0, 10, 0" Text="{Binding Name}" TextColor="Black"></Label>
+                                        <Image Source="{Binding Img}" Aspect="AspectFit" HeightRequest="50" WidthRequest="50"></Image>
+                                    </StackLayout>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=ForwardCommand, Source={RelativeSource AncestorType={x:Type vm:CategoriesAndBrandsViewModel}}}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
                             </StackLayout>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Path=ForwardCommand, Source={RelativeSource AncestorType={x:Type vm:CategoriesAndBrandsViewModel}}}" CommandParameter="{Binding .}"></TapGestureRecognizer>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </StackLayout>
+            
+            <StackLayout Padding="15, 0" Spacing="10">
+
+                <StackLayout>
+                    <Label Text="Brend" FontSize="16" FontAttributes="Bold" TextColor="Black"></Label>
+                </StackLayout>
+                    <FlexLayout  Direction="Row" Wrap="Wrap"  AlignItems="Stretch"  JustifyContent="SpaceBetween" BindableLayout.ItemsSource="{Binding Brands}">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="m:Brand">
+                            <StackLayout HorizontalOptions="FillAndExpand" FlexLayout.Basis="50%" Margin="10">
+                                <StackLayout HorizontalOptions="Center" Padding="0">
+                                    <StackLayout WidthRequest="100" HeightRequest="100" HorizontalOptions="Center">
+                                        <Frame HeightRequest="100" WidthRequest="100" CornerRadius="100" BackgroundColor="#ededed" Padding="20">
+                                            <Image Source="{Binding Img}" Aspect="AspectFit"></Image>
+                                        </Frame>
+                                    </StackLayout>
+                                    <Label FontSize="12" HorizontalOptions="Center" Margin="0, 0, 0, 10" Text="{Binding Name}" TextColor="Black"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </StackLayout>
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

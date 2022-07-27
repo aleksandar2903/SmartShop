@@ -65,20 +65,13 @@ namespace SmartShop.ViewModels
 
         public async Task FetchProductAsync()
         {
-            IsBusy = true;
-
+            //IsBusy = true;
+            State = Xamarin.CommunityToolkit.UI.Views.LayoutState.Loading;
+            await Task.Delay(5000);
             try
             {
                 var item = await DataStore.GetProductAsync(productId);
                 Product = item;
-                var relatedProducts = await DataStore.GetRelatedProductsAsync(item.SubcategoryId);
-                foreach (var product in relatedProducts)
-                {
-                    if (product.Id == item.Id)
-                        continue;
-
-                    Products.Add(product);
-                }
             }
             catch (Exception ex)
             {
@@ -86,7 +79,8 @@ namespace SmartShop.ViewModels
             }
             finally
             {
-                IsBusy = false;
+                //IsBusy = false;
+                State = Xamarin.CommunityToolkit.UI.Views.LayoutState.None;
             }
         }
     }

@@ -82,7 +82,8 @@ namespace SmartShop.ViewModels
             {
                 this.query = query;
                 ResetFilters();
-                await Task.Delay(500);
+                IsBusy = true;
+                await Task.Delay(600);
                 await FilterProducts();
             }
         }
@@ -133,7 +134,7 @@ namespace SmartShop.ViewModels
             {
                 string categories = String.Join(",", SelectedCategories.Keys);
                 string brands = String.Join(",", SelectedBrands.Keys);
-                var response = await SearchService.SearchProducts(query, categories, brands, MinPrice, MaxPrice);
+                var response = await SearchService.FilterProducts(query, categories, brands, MinPrice, MaxPrice);
                 if (response != null && response.Categories != null && response.Categories.Count > 0)
                 {
                     Categories.Clear();
