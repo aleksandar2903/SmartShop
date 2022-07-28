@@ -8,7 +8,7 @@
              xmlns:buttons="clr-namespace:SmartShop.Components.Buttons" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:local="clr-namespace:SmartShop.Components.Frames" xmlns:cc="clr-namespace:SmartShop.Converters" xmlns:controls="clr-namespace:SmartShop.Controls"
              x:DataType="vm:ItemDetailViewModel">
 
-    <Grid xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="True">
+    <Grid xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="True" BackgroundColor="White">
         <xct:StateLayout.StateViews>
             <xct:StateView StateKey="Loading" RepeatCount="2" Template="{StaticResource product_details_loading}" />
         </xct:StateLayout.StateViews>
@@ -19,7 +19,7 @@
         <ScrollView>
 
             <StackLayout HorizontalOptions="FillAndExpand">
-                <Grid BackgroundColor="#ededed" RowDefinitions="300">
+                <Grid BackgroundColor="White" RowDefinitions="350">
                     <CarouselView ItemsSource="{Binding Product.Images}" IndicatorView="IndicatorView" HeightRequest="300" VerticalOptions="Center" HorizontalOptions="Center">
                         <CarouselView.ItemTemplate>
                             <DataTemplate x:DataType="m:Image">
@@ -35,11 +35,11 @@
 
                 <StackLayout Padding="15, 15, 15, 0">
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="{Binding Product.Brand.Name}" TextDecorations="Underline" Margin="0, 0, 0, 5" TextColor="Black" FontSize="12"></Label>
+                        <Label Text="{Binding Product.Brand.Name}" FontAttributes="Bold" Margin="0, 0, 0, 5" TextColor="{StaticResource Primary}" FontSize="13"></Label>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                         <Label Text="{Binding Product.Name}" TextColor="Black" FontAttributes="Bold" FontSize="18" HorizontalOptions="FillAndExpand"></Label>
-                        <Label Text="In Stock" TextColor="Green" FontAttributes="Bold" FontSize="12" Margin="10, 0, 0, 0"></Label>
+                        <Label Text="Nema na stanju" TextColor="Green" FontAttributes="Bold" FontSize="12" Margin="10, 0, 0, 0"></Label>
                     </StackLayout>
                     <Label Text="{Binding Product.Description}" TextColor="DarkGray" FontSize="12"></Label>
                 </StackLayout>

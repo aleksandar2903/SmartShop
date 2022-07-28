@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Flurl.Http;
+using Newtonsoft.Json;
 using SmartShop.Models;
 using System;
 using System.Collections.Generic;
@@ -10,24 +11,14 @@ namespace SmartShop.Services
 {
     public class CategoryBrandService : ICategoryBrandService
     {
-        readonly HttpClient client;
-
-        public CategoryBrandService()
-        {
-            client = new HttpClient
-            {
-                BaseAddress = new Uri(Config.APIUrl)
-            };
-        }
         public async Task<List<Brand>> GetBrandsAsync()
         {
             var responseData = new List<Brand>();
-            var response = await client.GetAsync($"brands");
+            var response = await $"{Config.APIUrl}brands".AllowHttpStatus().GetAsync();
 
-            if (response.IsSuccessStatusCode && response.Content != null)
+            if (response.StatusCode < 300 && response.ResponseMessage.Content != null)
             {
-                var content = await response.Content.ReadAsStringAsync();
-                responseData = JsonConvert.DeserializeObject<List<Brand>>(content, new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
+                responseData = await response.GetJsonAsync<List<Brand>>();
             }
 
             return responseData;
@@ -36,12 +27,11 @@ namespace SmartShop.Services
         public async Task<List<Category>> GetCategoriesAsync()
         {
             var responseData = new List<Category>();
-            var response = await client.GetAsync($"categories");
+            var response = await $"{Config.APIUrl}categories".AllowHttpStatus().GetAsync();
 
-            if (response.IsSuccessStatusCode && response.Content != null)
+            if (response.StatusCode < 300 && response.ResponseMessage.Content != null)
             {
-                var content = await response.Content.ReadAsStringAsync();
-                responseData = JsonConvert.DeserializeObject<List<Category>>(content, new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
+                responseData = await response.GetJsonAsync<List<Category>>();
             }
 
             return responseData;
@@ -50,12 +40,11 @@ namespace SmartShop.Services
         public async Task<List<Subcategory>> GetSubcategoriesAsync(int categoryId)
         {
             var responseData = new List<Subcategory>();
-            var response = await client.GetAsync($"categories/{categoryId}/subcategories");
+            var response = await $"{Config.APIUrl}categories/{categoryId}/subcategories".AllowHttpStatus().GetAsync();
 
-            if (response.IsSuccessStatusCode && response.Content != null)
+            if (response.StatusCode < 300 && response.ResponseMessage.Content != null)
             {
-                var content = await response.Content.ReadAsStringAsync();
-                responseData = JsonConvert.DeserializeObject<List<Subcategory>>(content, new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
+                responseData = await response.GetJsonAsync<List<Subcategory>>();
             }
 
             return responseData;

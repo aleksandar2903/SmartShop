@@ -21,11 +21,16 @@ namespace SmartShop
                 var jsonSettings = new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
+                    MissingMemberHandling = MissingMemberHandling.Ignore,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    ObjectCreationHandling = ObjectCreationHandling.Replace,
                 };
                 settings.JsonSerializer = new NewtonsoftJsonSerializer(jsonSettings);
             });
             Barrel.ApplicationId = AppInfo.PackageName;
-            DependencyService.Register<MockDataStore>();
+            DependencyService.Register<ProductService>();
+            DependencyService.Register<CategoryBrandService>();
+            DependencyService.Register<SearchService>();
             MainPage = new AppShell();
         }
 

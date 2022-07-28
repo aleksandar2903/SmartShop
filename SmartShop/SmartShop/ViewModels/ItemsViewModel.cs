@@ -15,8 +15,6 @@ namespace SmartShop.ViewModels
     public class ItemsViewModel : BaseViewModel
     {
         private Item _selectedItem;
-
-        ICategoryBrandService CategoryBrandService { get; } = new CategoryBrandService();
         public ObservableCollection<Item> Items { get; }
         public ObservableCollection<Category> Categories { get; }
         public ObservableCollection<Product> Products { get; }
@@ -36,7 +34,7 @@ namespace SmartShop.ViewModels
             Products = new ObservableCollection<Product>();
             FeaturedProducts = new ObservableCollection<Product>();
             OnAction = new ObservableCollection<Product>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadCategoriesCommand());
+            LoadItemsCommand = new Command(async () => await LoadDataAsync());
             OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
 
             ProductTapped = new Command<Product>(OnProductSelected);
@@ -47,30 +45,7 @@ namespace SmartShop.ViewModels
             FrameSize = (int)(deviceInfo.Width / deviceInfo.Density / 1.15);
         }
 
-        async Task ExecuteLoadItemsCommand()
-        {
-            IsBusy = true;
-
-            try
-            {
-                Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
-                {
-                    Items.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        public async Task ExecuteLoadCategoriesCommand()
+        public async Task LoadDataAsync()
         {
             IsBusy = true;
 
@@ -78,8 +53,8 @@ namespace SmartShop.ViewModels
             {
                 OnAction.Clear();
                 var categoriesTask = CategoryBrandService.GetCategoriesAsync();
-                var productsTask = DataStore.GetProductsAsync(true);
-                var featuredProductsTask = DataStore.GetFeatureProductsAsync(true);
+                var productsTask = ProductService.GetPopularProductsAsync();
+                var featuredProductsTask = ProductService.GetNewestProductsAsync();
 
                 await Task.WhenAll(featuredProductsTask, categoriesTask, productsTask, featuredProductsTask);
 
@@ -124,7 +99,7 @@ namespace SmartShop.ViewModels
             SelectedItem = null;
             if (Products.Count == 0)
             {
-                await ExecuteLoadCategoriesCommand();
+                await LoadDataAsync();
             }
         }
 

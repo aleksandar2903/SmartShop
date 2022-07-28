@@ -18,7 +18,6 @@ namespace SmartShop.ViewModels
         private decimal maxPriceValidation;
         private int totalRecords;
         private string query = "initialize";
-        private ISearchService SearchService { get; }
         public event EventHandler<FilterRequest> FilterChanged;
         public ICommand OnCategorySelectCommand { get; }
         public ICommand OnPriceChangedCommand { get; }
@@ -47,7 +46,6 @@ namespace SmartShop.ViewModels
             Categories = new ObservableCollection<Subcategory>();
             SelectedBrands = new Dictionary<int, int>();
             SelectedCategories = new Dictionary<int, int>();
-            SearchService = new SearchService();
             OnBrandSelectCommand = new Command<int>(OnBrandSelect);
             OnCategorySelectCommand = new Command<int>(OnCategorySelect);
             OnResetTappedCommand = new Command(async () =>
@@ -81,7 +79,7 @@ namespace SmartShop.ViewModels
             if (this.query != query)
             {
                 this.query = query;
-                ResetFilters();
+                SetPrice();
                 IsBusy = true;
                 await Task.Delay(600);
                 await FilterProducts();

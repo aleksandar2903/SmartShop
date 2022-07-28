@@ -57,7 +57,7 @@ namespace SmartShop.ViewModels
                 Description = Description
             };
 
-            await DataStore.AddItemAsync(newItem);
+            //await DataStore.AddItemAsync(newItem);
 
             await App.Current.MainPage.DisplaySnackBarAsync("Success", "OK", null, TimeSpan.FromSeconds(10));
 

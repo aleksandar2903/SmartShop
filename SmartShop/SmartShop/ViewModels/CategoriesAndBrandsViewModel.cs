@@ -16,8 +16,6 @@ namespace SmartShop.ViewModels
         public ObservableCollection<Category> Categories { get; }
         public ObservableCollection<Brand> Brands { get; }
         public Command<Category> ForwardCommand { get; }
-
-        ICategoryBrandService CategoryBrandService { get; } = new CategoryBrandService();
         public CategoriesAndBrandsViewModel()
         {
             Categories = new ObservableCollection<Category>();

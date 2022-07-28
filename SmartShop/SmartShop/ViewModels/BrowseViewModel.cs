@@ -4,6 +4,7 @@ using SmartShop.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
@@ -57,19 +58,19 @@ namespace SmartShop.ViewModels
             await LoadProducts(query, searchRequest.Categories, searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice);
         }
 
-        public async void OnAppearing()
-        {
-            //await LoadProducts();
-            //foreach (var category in response.Categories)
-            //{
-            //    filterPage.Categories.Add(category);
-            //}
+        //public async void OnAppearing()
+        //{
+        //    //await LoadProducts();
+        //    //foreach (var category in response.Categories)
+        //    //{
+        //    //    filterPage.Categories.Add(category);
+        //    //}
 
-            //foreach (var brand in response.Brands)
-            //{
-            //    filterPage.Brands.Add(brand);
-            //}
-        }
+        //    //foreach (var brand in response.Brands)
+        //    //{
+        //    //    filterPage.Brands.Add(brand);
+        //    //}
+        //}
 
         async void OnProductSelected(Product product)
         {
@@ -86,9 +87,7 @@ namespace SmartShop.ViewModels
             {
                 Products.Clear();
 
-                ISearchService searchService = new SearchService();
-
-                var response = await searchService.SearchProducts(query, categories, brands, priceMin, priceMax);
+                var response = await SearchService.SearchProducts(query, categories, brands, priceMin, priceMax);
 
                 foreach (var product in response.Results)
                 {
@@ -97,7 +96,7 @@ namespace SmartShop.ViewModels
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine(ex.Message);
             }
             finally
             {

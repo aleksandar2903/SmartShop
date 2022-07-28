@@ -11,7 +11,9 @@ namespace SmartShop.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IProductService ProductService => DependencyService.Get<ProductService>();
+        public ICategoryBrandService CategoryBrandService => DependencyService.Get<CategoryBrandService>();
+        public ISearchService SearchService => DependencyService.Get<SearchService>();
 
         bool isBusy = false;
         LayoutState state = LayoutState.None;

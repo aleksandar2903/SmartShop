@@ -52,7 +52,7 @@ namespace SmartShop.ViewModels
                     if (productId.StartsWith("c-"))
                     {
                         int id = Int32.Parse(productId.Substring(2));
-                        var product = await DataStore.GetProductAsync(id);
+                        var product = await ProductService.GetProductAsync(id);
                         Products.Add(product);
                     }
                 }

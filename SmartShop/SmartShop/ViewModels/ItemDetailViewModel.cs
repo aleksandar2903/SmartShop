@@ -11,7 +11,6 @@ namespace SmartShop.ViewModels
     public class ItemDetailViewModel : BaseViewModel
     {
         private int productId;
-        public Command BackwardCommand { get; }
 
         public ItemDetailViewModel(int id) : this()
         {
@@ -23,7 +22,6 @@ namespace SmartShop.ViewModels
             SelectedPhoto = new Command<Models.Image>(ChangePhoto);
             SwipeRightCommand = new Command<Models.Image>((image) => SwipePhoto(image, true));
             SwipeLeftCommand = new Command<Models.Image>((image) => SwipePhoto(image, false));
-            BackwardCommand = new Command(async () => await Shell.Current.Navigation.PopModalAsync());
         }
 
         void SwipePhoto(Models.Image photo, bool directionRight)
@@ -67,10 +65,9 @@ namespace SmartShop.ViewModels
         {
             //IsBusy = true;
             State = Xamarin.CommunityToolkit.UI.Views.LayoutState.Loading;
-            await Task.Delay(5000);
             try
             {
-                var item = await DataStore.GetProductAsync(productId);
+                var item = await ProductService.GetProductAsync(productId);
                 Product = item;
             }
             catch (Exception ex)
