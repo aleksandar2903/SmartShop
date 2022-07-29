@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class ItemsViewModel : FavouritesViewModel
     {
         private Item _selectedItem;
         public ObservableCollection<Item> Items { get; }
@@ -70,10 +70,13 @@ namespace SmartShop.ViewModels
                 }
 
                 Products.Clear();
+                var data = Barrel.Current.Get<Dictionary<int, Product>>("favs");
                 foreach (var product in products)
                 {
                     if (product.SubcategoryId == 1 || product.SubcategoryId == 4)
                         OnAction.Add(product);
+                    if (data != null && data.ContainsKey(product.Id))
+                        product.Favourite = true;
                     Products.Add(product);
                 }
                 FeaturedProducts.Clear();

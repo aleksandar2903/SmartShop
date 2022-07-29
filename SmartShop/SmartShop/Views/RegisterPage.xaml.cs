@@ -1,5 +1,4 @@
-﻿using SmartShop.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SmartShop.Components.Frames
+namespace SmartShop.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ProductFrame : Grid
+    public partial class RegisterPage : ContentPage
     {
-        public ProductFrame()
+        public RegisterPage()
         {
             InitializeComponent();
         }

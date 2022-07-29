@@ -27845,61 +27845,64 @@ namespace SmartShop.Droid
 			public const int Shape = 2131165422;
 			
 			// aapt resource value: 0x7F0700EF
-			public const int shopping_cart = 2131165423;
+			public const int shopping_bag = 2131165423;
 			
 			// aapt resource value: 0x7F0700F0
-			public const int smartphone = 2131165424;
+			public const int shopping_cart = 2131165424;
 			
 			// aapt resource value: 0x7F0700F1
-			public const int smartwatch = 2131165425;
+			public const int smartphone = 2131165425;
 			
 			// aapt resource value: 0x7F0700F2
-			public const int sort = 2131165426;
+			public const int smartwatch = 2131165426;
 			
 			// aapt resource value: 0x7F0700F3
-			public const int speaker = 2131165427;
+			public const int sort = 2131165427;
 			
 			// aapt resource value: 0x7F0700F4
-			public const int star = 2131165428;
+			public const int speaker = 2131165428;
 			
 			// aapt resource value: 0x7F0700F5
-			public const int test_custom_background = 2131165429;
+			public const int star = 2131165429;
 			
 			// aapt resource value: 0x7F0700F6
-			public const int tooltip_frame_dark = 2131165430;
+			public const int test_custom_background = 2131165430;
 			
 			// aapt resource value: 0x7F0700F7
-			public const int tooltip_frame_light = 2131165431;
+			public const int tooltip_frame_dark = 2131165431;
 			
 			// aapt resource value: 0x7F0700F8
-			public const int user = 2131165432;
+			public const int tooltip_frame_light = 2131165432;
 			
 			// aapt resource value: 0x7F0700F9
-			public const int user1 = 2131165433;
+			public const int user = 2131165433;
 			
 			// aapt resource value: 0x7F0700FA
-			public const int user2 = 2131165434;
+			public const int user1 = 2131165434;
 			
 			// aapt resource value: 0x7F0700FB
-			public const int washing_machine = 2131165435;
+			public const int user2 = 2131165435;
 			
 			// aapt resource value: 0x7F0700FC
-			public const int wave = 2131165436;
+			public const int washing_machine = 2131165436;
 			
 			// aapt resource value: 0x7F0700FD
-			public const int wave1 = 2131165437;
+			public const int wave = 2131165437;
 			
 			// aapt resource value: 0x7F0700FE
-			public const int wave_haikei = 2131165438;
+			public const int wave1 = 2131165438;
 			
 			// aapt resource value: 0x7F0700FF
-			public const int wifi_router = 2131165439;
+			public const int wave_haikei = 2131165439;
 			
 			// aapt resource value: 0x7F070100
-			public const int women_shoe = 2131165440;
+			public const int wifi_router = 2131165440;
 			
 			// aapt resource value: 0x7F070101
-			public const int xamarin_logo = 2131165441;
+			public const int women_shoe = 2131165441;
+			
+			// aapt resource value: 0x7F070102
+			public const int xamarin_logo = 2131165442;
 			
 			static Drawable()
 			{

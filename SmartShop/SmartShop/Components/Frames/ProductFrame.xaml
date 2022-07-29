@@ -2,7 +2,9 @@
 <Grid  xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               x:Class="SmartShop.Components.Frames.ProductFrame"
+                x:Name="productFrame"
               xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
+      xmlns:vm="clr-namespace:SmartShop.ViewModels"
               Padding="10, 0">
     <Grid HorizontalOptions="Center" VerticalOptions="Center">
         <Grid.RowDefinitions>
@@ -24,7 +26,8 @@
                 <Image
                                                             Aspect="AspectFit"
                                                             Source="{Binding Image.Uri}" />
-                <buttons:FavouriteButton BindingContext="{Binding .}" Margin="0" WidthRequest="25" HeightRequest="25" VerticalOptions="Start" HorizontalOptions="End">
+
+                <buttons:FavouriteButton Command="{Binding ToggleFavouriteProductCommand, Source={RelativeSource AncestorType={x:Type vm:FavouritesViewModel}}}" CommandParameter="{Binding .}" Margin="0" WidthRequest="25" HeightRequest="25" VerticalOptions="Start" HorizontalOptions="End">
                 </buttons:FavouriteButton>
             </Grid>
         </Frame>

@@ -25,12 +25,15 @@ namespace SmartShop.Models
         [JsonProperty("description")]
         public string Description { get; set; }
         [JsonProperty("image")]
-        public Image Image { get => _image; set { _image = value; OnPropertyChanged(); _image = value; } }
+        public Image Image { get => _image; set { _image = value; OnPropertyChanged(); } }
         Image _image;
+        bool _favourite;
         [JsonProperty("price")]
         public decimal Price { get; set; }
         [JsonProperty("brand")]
         public Brand Brand { get; set; }
+        [JsonProperty("favourite")]
+        public bool Favourite { get => _favourite; set { _favourite = value; OnPropertyChanged(); } }
         [JsonProperty("similar_product")]
         public Product SimilarProduct { get; set; }
         [JsonProperty("similar_products")]

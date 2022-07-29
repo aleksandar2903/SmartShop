@@ -10,15 +10,17 @@
         <ScrollView>
             
         <StackLayout>
-                <Frame HeightRequest="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="#ededed" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="15, 0" Margin="15, 15, 15, 0">
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Image Source="search1.png" WidthRequest="15"></Image>
-                        <Label Text="Pretraga" VerticalOptions="Center"></Label>
-                    </StackLayout>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer></TapGestureRecognizer>
-                    </Frame.GestureRecognizers>
-                </Frame>
+                <StackLayout Padding="20, 10" BackgroundColor="{StaticResource Primary}">
+                    <Frame HeightRequest="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="White" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="15, 0">
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <Image Source="search1.png" WidthRequest="15"></Image>
+                            <Label Text="Pretraga" TextColor="Gray" VerticalOptions="Center"></Label>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </StackLayout>
                 <StackLayout Padding="15" Spacing="10" VerticalOptions="FillAndExpand">
                 <StackLayout>
                     <Label Text="Kategorije" FontSize="16" FontAttributes="Bold" TextColor="Black"></Label>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:smartshop="clr-namespace:SmartShop"
+             x:Class="SmartShop.Views.RegisterPage"
+             BackgroundColor="Transparent"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Content>
+        <Grid BackgroundColor="Transparent" RowDefinitions="*" ColumnDefinitions="*">
+            <Frame CornerRadius="20" BackgroundColor="White" Margin="0,20,0,-20" Padding="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout VerticalOptions="Center" Spacing="10" Padding="15, 0">
+                    <Image Source="shopping_bag.png" WidthRequest="70" Margin="0,0,0,20"></Image>
+                    <Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#ededed" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="0">
+                        <smartshop:CustomEntry Placeholder="Ime"></smartshop:CustomEntry>
+                    </Frame>
+                    <Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#ededed" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="0">
+                        <smartshop:CustomEntry Placeholder="Prezime"></smartshop:CustomEntry>
+                    </Frame>
+                    <Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#ededed" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="0">
+                        <smartshop:CustomEntry Placeholder="E-mail adresa"></smartshop:CustomEntry>
+                    </Frame>
+                    <Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#ededed" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="0">
+                        <smartshop:CustomEntry Placeholder="Lozinka"></smartshop:CustomEntry>
+                    </Frame>
+                    <Button CornerRadius="10" Margin="0,10,0,0" HeightRequest="45" VerticalOptions="Center" Text="Registrujte se" Command="{Binding LoginCommand}"/>
+                </StackLayout>
+                <Frame.GestureRecognizers>
+                    <SwipeGestureRecognizer Command="{Binding BackwardCommand}" Direction="Down"></SwipeGestureRecognizer>
+                </Frame.GestureRecognizers>
+            </Frame>
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="10,30,10,0">
+                <ImageButton HorizontalOptions="Start" HeightRequest="40" WidthRequest="40" VerticalOptions="Center" CornerRadius="40" BackgroundColor="White" Source="angle_small_left.png" Padding="5" Command="{Binding BackwardCommand}"></ImageButton>
+                <Label Text="Kreirajte nalog" FontSize="18" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

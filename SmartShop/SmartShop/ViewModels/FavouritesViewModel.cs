@@ -14,19 +14,31 @@ namespace SmartShop.ViewModels
 {
     public class FavouritesViewModel : BaseViewModel
     {
-        public ObservableCollection<Product> Products { get; set; }
-        public ICommand RemoveFavouriteProduct { get; }
+        Dictionary<int, Product> _favorites;
+        public ObservableCollection<Product> FavouriteProducts { get; set; }
+        public ICommand ToggleFavouriteProductCommand { get; }
         public ICommand OnProductTapped { get; }
+        public int id;
         public FavouritesViewModel()
         {
-            Products = new ObservableCollection<Product>();
-            RemoveFavouriteProduct = new Command<Product>(RemoveProduct);
+            FavouriteProducts = new ObservableCollection<Product>();
+            ToggleFavouriteProductCommand = new Command<Product>(ToggleProduct);
             OnProductTapped = new Command<Product>(OnProductSelected);
         }
 
-        private void RemoveProduct(Product product)
+        private void ToggleProduct(Product product)
         {
-            Products.Remove(product);
+            if(_favorites == null)
+                _favorites = Barrel.Current.Get<Dictionary<int, Product>>("favs") ?? new Dictionary<int, Product>();
+
+            if (_favorites.ContainsKey(product.Id))
+                _favorites.Remove(product.Id);
+            else
+                _favorites.Add(product.Id, product);
+
+            Barrel.Current.Empty("favs");
+            Barrel.Current.Add("favs", _favorites, TimeSpan.FromDays(90));
+            product.Favourite = !product.Favourite;
         }
 
         public async void OnAppearing()
@@ -37,21 +49,16 @@ namespace SmartShop.ViewModels
         private async Task LoadFavouriteProductsAsync()
         {
             IsBusy = true;
-
+            await Task.Delay(600);
             try
             {
-                Products.Clear();
+                FavouriteProducts.Clear();
 
-                var favProductIds = Barrel.Current.GetKeys();
+                var favProducts = Barrel.Current.Get<Dictionary<int, Product>>("favs");
 
-                foreach (var productId in favProductIds)
+                foreach (var product in favProducts.Values)
                 {
-                    if (productId.StartsWith("f-"))
-                    {
-                        int id = Int32.Parse(productId.Substring(2));
-                        var product = await ProductService.GetProductAsync(id);
-                        Products.Add(product);
-                    }
+                    FavouriteProducts.Add(product);
                 }
             }
             catch (Exception ex)
