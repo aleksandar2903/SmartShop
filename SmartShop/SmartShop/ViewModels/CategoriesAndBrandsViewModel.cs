@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
@@ -31,12 +32,7 @@ namespace SmartShop.ViewModels
 
         async Task LoadDataAsync()
         {
-            if (IsBusy)
-            {
-                return;
-            }
-
-            IsBusy = true;
+            State = LayoutState.Loading;
 
             try
             {
@@ -63,7 +59,7 @@ namespace SmartShop.ViewModels
             }
             finally
             {
-                IsBusy = false;
+                State = LayoutState.None;
             }
         }
     }

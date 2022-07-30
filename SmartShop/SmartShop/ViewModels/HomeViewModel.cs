@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
 {
-    public class ItemsViewModel : FavouritesViewModel
+    public class HomeViewModel : FavouritesViewModel
     {
         private Item _selectedItem;
         public ObservableCollection<Item> Items { get; }
@@ -26,7 +27,7 @@ namespace SmartShop.ViewModels
         public Command ProductTapped { get; }
         public Command FavouriteProduct { get; }
 
-        public ItemsViewModel()
+        public HomeViewModel()
         {
             Title = "Browse";
             Items = new ObservableCollection<Item>();
@@ -39,15 +40,13 @@ namespace SmartShop.ViewModels
 
             ProductTapped = new Command<Product>(OnProductSelected);
 
-            AddItemCommand = new Command(OnAddItem);
-
             var deviceInfo = DeviceDisplay.MainDisplayInfo;
             FrameSize = (int)(deviceInfo.Width / deviceInfo.Density / 1.15);
         }
 
         public async Task LoadDataAsync()
         {
-            IsBusy = true;
+            State = LayoutState.Loading;
 
             try
             {
@@ -93,7 +92,7 @@ namespace SmartShop.ViewModels
             }
             finally
             {
-                IsBusy = false;
+                State = LayoutState.None;
             }
         }
 
@@ -116,11 +115,6 @@ namespace SmartShop.ViewModels
         }
 
         public int FrameSize { get; }
-
-        private async void OnAddItem(object obj)
-        {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
-        }
 
         async void OnProductSelected(Product product)
         {

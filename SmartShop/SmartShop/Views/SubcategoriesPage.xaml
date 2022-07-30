@@ -3,31 +3,59 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartShop.Views.SubcategoriesPage"
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
-             xmlns:m="clr-namespace:SmartShop.Models"
-             x:DataType="vm:SubcategoriesViewModel">
+             xmlns:m="clr-namespace:SmartShop.Models" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:frames="clr-namespace:SmartShop.Components.Frames" 
+             xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
+             x:DataType="vm:SubcategoriesViewModel"
+             Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout Padding="10">
-            <CollectionView ItemsSource="{Binding Subcategories}">
-
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:Subcategory">
-                        <StackLayout>
-                            <StackLayout HeightRequest="40" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                <Label VerticalOptions="Center" FontSize="16"  HorizontalOptions="FillAndExpand" Text="{Binding Name}" TextColor="Black"></Label>
-                                <Image Source="angle_small_right" Opacity="0.4" HeightRequest="30" WidthRequest="30" Aspect="AspectFit" VerticalOptions="Center"></Image>
-                            </StackLayout>
-                            <BoxView HeightRequest="0.5" Opacity="0.5" BackgroundColor="Black"></BoxView>
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubcategoriesViewModel}}, Path=SubcategoryTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
+        <Grid xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="False" BackgroundColor="White" RowDefinitions="*">
+            <xct:StateLayout.StateViews>
+                <xct:StateView StateKey="Loading" RepeatCount="1" Template="{StaticResource loading}" />
+            </xct:StateLayout.StateViews>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackLayout Padding="10" Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}">
+                    <buttons:BackwardButton />
+                    <frames:SearchBarFrame></frames:SearchBarFrame>
+                </StackLayout>
+                <ScrollView Grid.Row="1">
+                    
+                <StackLayout Padding="10" Spacing="30">
+                    <Label Text="{Binding Title}" TextColor="Black" FontSize="16" FontAttributes="Bold"></Label>
+                        <StackLayout BindableLayout.ItemsSource="{Binding Subcategories}">
+                            <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="m:Subcategory">
+                                <StackLayout>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"></RowDefinition>
+                                            <RowDefinition Height="1"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80*"></ColumnDefinition>
+                                            <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                            <Label FontSize="14" FontAttributes="Bold" LineBreakMode="TailTruncation" Text="{Binding Name}" TextColor="Black"></Label>
+                                        </StackLayout>
+                                        <Image Grid.Column="1" Source="angle_small_right" Opacity="0.4" HeightRequest="25" WidthRequest="25" Aspect="AspectFit" HorizontalOptions="End" VerticalOptions="Center"></Image>
+                                    </Grid>
+                                    <BoxView HeightRequest="0.5" Opacity="0.2" BackgroundColor="Gray"></BoxView>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubcategoriesViewModel}}, Path=SubcategoryTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </StackLayout>
+                </ScrollView>
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

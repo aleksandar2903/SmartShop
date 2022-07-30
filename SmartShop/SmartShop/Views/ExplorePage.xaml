@@ -11,7 +11,7 @@
     <ContentPage.Content>
         <Grid BackgroundColor="White" RowDefinitions="60,*">
             <Grid Padding="10, 10" RowDefinitions="40" ColumnDefinitions="12*, 76*, 12*" BackgroundColor="{StaticResource Primary}">
-                <ImageButton Grid.Column="0" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="40" Padding="2" CornerRadius="40" behaviors:IconTintColorEffect.TintColor="White" BackgroundColor="{StaticResource Primary}" Source="angle_small_left.png" Command="{Binding BackwardCommand}"/>
+                <buttons:BackwardButton Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
                 <Frame Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="15, 0, 0, 0">
                         <StackLayout Orientation="Horizontal" Spacing="10">
                             <Image Source="search1.png" WidthRequest="15"></Image>

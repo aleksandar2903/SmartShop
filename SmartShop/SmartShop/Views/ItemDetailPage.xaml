@@ -17,7 +17,6 @@
             <RowDefinition Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
         <ScrollView>
-
             <StackLayout HorizontalOptions="FillAndExpand">
                 <Grid BackgroundColor="White" RowDefinitions="350">
                     <CarouselView ItemsSource="{Binding Product.Images}" IndicatorView="IndicatorView" HeightRequest="300" VerticalOptions="Center" HorizontalOptions="Center">
@@ -134,7 +133,7 @@
                                                 <ImageButton VerticalOptions="Center" WidthRequest="40" HeightRequest="40" BackgroundColor="White" CornerRadius="40" Padding="10" Source="heart"></ImageButton>
                                             </StackLayout>
                                             <StackLayout.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemDetailViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
                                             </StackLayout.GestureRecognizers>
                                         </StackLayout>
                                     </DataTemplate>

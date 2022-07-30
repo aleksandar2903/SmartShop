@@ -15,10 +15,20 @@ namespace SmartShop.Views
     public partial class SubcategoriesPage : ContentPage
     {
         SubcategoriesViewModel viewModel;
+        string name;
+        int categoryId;
         public SubcategoriesPage(Category category)
         {
             InitializeComponent();
-            BindingContext = viewModel = new SubcategoriesViewModel(category);
+            name = category.Name;
+            categoryId = category.Id;
+            BindingContext = viewModel = new SubcategoriesViewModel();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            viewModel.OnInitialize(name, categoryId);
         }
     }
 }
