@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
@@ -18,6 +19,7 @@ namespace SmartShop.ViewModels
         private decimal maxPriceValidation;
         private int totalRecords;
         private string query = "initialize";
+        private SortEnum sortBy = SortEnum.Name;
         public event EventHandler<FilterRequest> FilterChanged;
         public ICommand OnCategorySelectCommand { get; }
         public ICommand OnPriceChangedCommand { get; }
@@ -27,6 +29,33 @@ namespace SmartShop.ViewModels
         public ObservableCollection<Brand> Brands { get; set; }
         public ObservableCollection<Subcategory> Categories { get; set; }
         public int TotalRecords { get => totalRecords; set { SetProperty(ref totalRecords, value); } }
+        public SortEnum SortBy { get => sortBy; set { sortBy = value; } }
+        public List<Sort> SortList
+        {
+            get => new List<Sort>
+            {
+                new Sort
+                {
+                    Value = SortEnum.Name,
+                    Name = "Naziv A - Z"
+                },
+                new Sort
+                {
+                    Value = SortEnum.NameDESC,
+                    Name = "Naziv Z - A"
+                },
+                new Sort
+                {
+                    Value = SortEnum.Price,
+                    Name = "Jeftinije"
+                },
+                new Sort
+                {
+                    Value = SortEnum.PriceDESC,
+                    Name = "Skuplje"
+                }
+            };
+        }
         public decimal MinPrice
         {
             get => minPrice;
@@ -106,6 +135,7 @@ namespace SmartShop.ViewModels
                 Categories = String.Join(",", SelectedCategories.Keys),
                 MinPrice = MinPrice,
                 MaxPrice = MaxPrice,
+                SortBy = SortBy.ToString()
             };
             FilterChanged.Invoke(this, request);
 
@@ -126,7 +156,7 @@ namespace SmartShop.ViewModels
 
         async Task FilterProducts()
         {
-            IsBusy = true;
+            State = LayoutState.Loading;
 
             try
             {
@@ -177,7 +207,7 @@ namespace SmartShop.ViewModels
             }
             finally
             {
-                IsBusy = false;
+                State = LayoutState.None;
             }
         }
     }

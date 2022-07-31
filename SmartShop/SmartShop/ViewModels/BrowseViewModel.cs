@@ -55,7 +55,7 @@ namespace SmartShop.ViewModels
 
         async Task FilterProducts()
         {
-            await LoadProducts(query, searchRequest.Categories, searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice);
+            await LoadProducts(query, searchRequest.Categories, searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice, searchRequest.SortBy);
         }
 
         //public async void OnAppearing()
@@ -77,7 +77,7 @@ namespace SmartShop.ViewModels
             await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id));
         }
 
-        async Task LoadProducts(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0)
+        async Task LoadProducts(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0, string sortBy = "")
         {
             IsBusy = true;
 
@@ -87,7 +87,7 @@ namespace SmartShop.ViewModels
             {
                 Products.Clear();
 
-                var response = await SearchService.SearchProducts(query, categories, brands, priceMin, priceMax);
+                var response = await SearchService.SearchProducts(query, categories, brands, priceMin, priceMax, sortBy);
 
                 foreach (var product in response.Results)
                 {

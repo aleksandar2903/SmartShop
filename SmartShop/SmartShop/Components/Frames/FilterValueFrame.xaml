@@ -4,7 +4,7 @@
              x:Class="SmartShop.Components.Frames.FilterValueFrame"
              x:Name="local"
              xmlns:viewmodels="clr-namespace:SmartShop.ViewModels">
-    <Grid ColumnSpacing="10">
+    <Grid ColumnSpacing="10" RowDefinitions="25">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"></ColumnDefinition>
             <ColumnDefinition Width="70*"></ColumnDefinition>

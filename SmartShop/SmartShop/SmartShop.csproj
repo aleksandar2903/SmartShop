@@ -31,6 +31,9 @@
     <Compile Update="Components\Buttons\AddToCartButton.xaml.cs">
       <DependentUpon>AddToCartButton.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Components\Frames\SortValueFrame.xaml.cs">
+      <DependentUpon>SortValueFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>

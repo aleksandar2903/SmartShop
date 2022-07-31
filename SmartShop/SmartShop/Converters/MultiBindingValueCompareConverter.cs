@@ -7,19 +7,30 @@ namespace SmartShop.Converters
 {
     internal class MultiBindingValueCompareConverter : IMultiValueConverter
     {
-            public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            try
             {
-                if (values[0] is int selectedValue && values[1] is Dictionary<int, int> selectedValues && selectedValues.ContainsKey(selectedValue))
-                {
-                    return 1;
-                }
+                if (values == null || values.Length < 2)
+                    return false;
 
-            return 0;
-        }
+                if (values[0] == null || values[1] == null)
+                    return false;
 
-            public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-            {
-                throw new NotImplementedException();
+                if (values[0] == values[1])
+                    return true;
             }
+            catch (Exception ex)
+            {
+
+            }
+
+            return false;
         }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

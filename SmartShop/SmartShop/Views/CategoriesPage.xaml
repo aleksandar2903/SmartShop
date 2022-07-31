@@ -29,11 +29,11 @@
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate x:DataType="m:Category">
                                     <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="10" FlexLayout.Basis="50%">
-                                        <Frame CornerRadius="10" HorizontalOptions="FillAndExpand" BackgroundColor="#ededed">
-                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                        <Frame CornerRadius="10" HorizontalOptions="FillAndExpand" HasShadow="False" BackgroundColor="{StaticResource Light}">
+                                            <Grid HorizontalOptions="FillAndExpand" ColumnDefinitions="*, 40">
                                                 <Label VerticalOptions="End" FontSize="12" LineBreakMode="WordWrap" Margin="0, 0, 10, 0" Text="{Binding Name}" TextColor="Black"></Label>
-                                                <Image Source="{Binding Img}" Aspect="AspectFit" HeightRequest="50" WidthRequest="50"></Image>
-                                            </StackLayout>
+                                                <Image Grid.Column="1" Source="{Binding Img}" Aspect="AspectFit"></Image>
+                                            </Grid>
                                             <Frame.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Path=ForwardCommand, Source={RelativeSource AncestorType={x:Type vm:CategoriesAndBrandsViewModel}}}" CommandParameter="{Binding .}"></TapGestureRecognizer>
                                             </Frame.GestureRecognizers>
@@ -52,10 +52,8 @@
                                 <DataTemplate x:DataType="m:Brand">
                                     <StackLayout HorizontalOptions="FillAndExpand" FlexLayout.Basis="50%" Margin="10">
                                         <StackLayout HorizontalOptions="Center" Padding="0">
-                                            <StackLayout WidthRequest="100" HeightRequest="100" HorizontalOptions="Center">
-                                                <Frame HeightRequest="100" WidthRequest="100" CornerRadius="100" BackgroundColor="#ededed" Padding="20">
-                                                    <Image Source="{Binding Img}" Aspect="AspectFit"></Image>
-                                                </Frame>
+                                            <StackLayout xct:CornerRadiusEffect.CornerRadius="60" WidthRequest="60" HeightRequest="60" Padding="20" BackgroundColor="{StaticResource Light}" VerticalOptions="Center" HorizontalOptions="Center">
+                                                <Image VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Source="{Binding Img}"></Image>
                                             </StackLayout>
                                             <Label FontSize="12" HorizontalOptions="Center" Margin="0, 0, 0, 10" Text="{Binding Name}" TextColor="Black"></Label>
                                         </StackLayout>

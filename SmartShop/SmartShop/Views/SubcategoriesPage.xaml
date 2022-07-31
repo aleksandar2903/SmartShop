@@ -24,17 +24,16 @@
                     <frames:SearchBarFrame></frames:SearchBarFrame>
                 </StackLayout>
                 <ScrollView Grid.Row="1">
-                    
-                <StackLayout Padding="10" Spacing="30">
-                    <Label Text="{Binding Title}" TextColor="Black" FontSize="16" FontAttributes="Bold"></Label>
+
+                    <StackLayout Padding="10" Spacing="20">
+                        <Label Text="{Binding Title}" TextColor="Black" FontSize="16" FontAttributes="Bold"></Label>
                         <StackLayout BindableLayout.ItemsSource="{Binding Subcategories}">
                             <BindableLayout.ItemTemplate>
-                            <DataTemplate x:DataType="m:Subcategory">
-                                <StackLayout>
-                                    <Grid>
+                                <DataTemplate x:DataType="m:Subcategory">
+                                    <Grid Margin="0,0,0,5" RowSpacing="10">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="30"></RowDefinition>
-                                            <RowDefinition Height="1"></RowDefinition>
+                                            <RowDefinition Height="0.5"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="80*"></ColumnDefinition>
@@ -43,17 +42,16 @@
                                         <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand">
                                             <Label FontSize="14" FontAttributes="Bold" LineBreakMode="TailTruncation" Text="{Binding Name}" TextColor="Black"></Label>
                                         </StackLayout>
-                                        <Image Grid.Column="1" Source="angle_small_right" Opacity="0.4" HeightRequest="25" WidthRequest="25" Aspect="AspectFit" HorizontalOptions="End" VerticalOptions="Center"></Image>
+                                        <Image Grid.Column="1" Source="angle_small_right" HeightRequest="25" WidthRequest="25" Aspect="AspectFit" HorizontalOptions="End" VerticalOptions="Center"></Image>
+                                        <BoxView Grid.ColumnSpan="2" Grid.Row="1" Opacity="0.2" BackgroundColor="Gray"></BoxView>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubcategoriesViewModel}}, Path=SubcategoryTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                        </Grid.GestureRecognizers>
                                     </Grid>
-                                    <BoxView HeightRequest="0.5" Opacity="0.2" BackgroundColor="Gray"></BoxView>
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubcategoriesViewModel}}, Path=SubcategoryTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
-                                    </StackLayout.GestureRecognizers>
-                                </StackLayout>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
                     </StackLayout>
-                </StackLayout>
                 </ScrollView>
             </Grid>
         </Grid>
