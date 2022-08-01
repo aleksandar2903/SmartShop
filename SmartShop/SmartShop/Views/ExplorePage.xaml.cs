@@ -15,17 +15,20 @@ namespace SmartShop.Views
     public partial class ExplorePage : ContentPage
     {
         BrowseViewModel viewModel;
-        //int subcategoryId;
-        public ExplorePage(int subcategoryId = 0)
+        string subcategories;
+        string brand;
+        public ExplorePage(string subcategories = "", string brand = "")
         {
             InitializeComponent();
             BindingContext = viewModel = new BrowseViewModel();
+            this.subcategories = subcategories;
+            this.brand = brand;
         }
 
-        //protected override void OnAppearing()
-        //{
-        //    base.OnAppearing();
-        //    viewModel.OnAppearing();
-        //}
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            viewModel.OnAppearing(subcategories, brand);
+        }
     }
 }

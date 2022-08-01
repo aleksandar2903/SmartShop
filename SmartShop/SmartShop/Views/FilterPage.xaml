@@ -29,35 +29,39 @@
                 <ScrollView Margin="15">
                     <StackLayout Spacing="15">
                         <!--Filter by Categories-->
-                        <StackLayout>
-                            <Label Text="Kategorije" FontSize="16" TextColor="Black" FontAttributes="Bold"></Label>
-                        </StackLayout>
-                        <StackLayout BindableLayout.ItemsSource="{Binding Categories}">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate x:DataType="models:Subcategory">
-                                    <frames:FilterValueFrame>
-                                        <frames:FilterValueFrame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FilterViewModel}}, Path=OnCategorySelectCommand}" CommandParameter="{Binding Id}"></TapGestureRecognizer>
-                                        </frames:FilterValueFrame.GestureRecognizers>
-                                    </frames:FilterValueFrame>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
+                        <StackLayout IsVisible="{Binding Categories, Converter={xct:ListIsNotNullOrEmptyConverter}}">
+                            <StackLayout>
+                                <Label Text="Kategorije" FontSize="16" TextColor="Black" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                            <StackLayout BindableLayout.ItemsSource="{Binding Categories}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Subcategory">
+                                        <frames:FilterValueFrame>
+                                            <frames:FilterValueFrame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FilterViewModel}}, Path=OnCategorySelectCommand}" CommandParameter="{Binding Id}"></TapGestureRecognizer>
+                                            </frames:FilterValueFrame.GestureRecognizers>
+                                        </frames:FilterValueFrame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
                         </StackLayout>
 
                         <!--Filter by Brands-->
-                        <StackLayout>
-                            <Label Text="Proizvođač" FontSize="16" TextColor="Black" FontAttributes="Bold"></Label>
-                        </StackLayout>
-                        <StackLayout BindableLayout.ItemsSource="{Binding Brands}">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate x:DataType="models:Brand">
-                                    <frames:FilterValueFrame>
-                                        <frames:FilterValueFrame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FilterViewModel}}, Path=OnBrandSelectCommand}" CommandParameter="{Binding Id}"></TapGestureRecognizer>
-                                        </frames:FilterValueFrame.GestureRecognizers>
-                                    </frames:FilterValueFrame>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
+                        <StackLayout IsVisible="{Binding Brands, Converter={xct:ListIsNotNullOrEmptyConverter}}">
+                            <StackLayout>
+                                <Label Text="Proizvođač" FontSize="16" TextColor="Black" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                            <StackLayout BindableLayout.ItemsSource="{Binding Brands}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Brand">
+                                        <frames:FilterValueFrame>
+                                            <frames:FilterValueFrame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FilterViewModel}}, Path=OnBrandSelectCommand}" CommandParameter="{Binding Id}"></TapGestureRecognizer>
+                                            </frames:FilterValueFrame.GestureRecognizers>
+                                        </frames:FilterValueFrame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
                         </StackLayout>
 
                         <!--Filter by Price-->

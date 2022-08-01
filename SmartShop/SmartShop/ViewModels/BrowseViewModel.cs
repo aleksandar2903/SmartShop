@@ -58,19 +58,16 @@ namespace SmartShop.ViewModels
             await LoadProducts(query, searchRequest.Categories, searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice, searchRequest.SortBy);
         }
 
-        //public async void OnAppearing()
-        //{
-        //    //await LoadProducts();
-        //    //foreach (var category in response.Categories)
-        //    //{
-        //    //    filterPage.Categories.Add(category);
-        //    //}
+        public async void OnAppearing(string subcategories = "", string brand = "")
+        {
+            if (Products.Count == 0)
+            {
+                filterPage.Categories = subcategories;
+                filterPage.Brand = brand;
 
-        //    //foreach (var brand in response.Brands)
-        //    //{
-        //    //    filterPage.Brands.Add(brand);
-        //    //}
-        //}
+                await LoadProducts(categories: subcategories, brands: brand);
+            }
+        }
 
         async void OnProductSelected(Product product)
         {

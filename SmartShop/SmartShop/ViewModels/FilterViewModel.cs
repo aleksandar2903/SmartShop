@@ -19,6 +19,8 @@ namespace SmartShop.ViewModels
         private decimal maxPriceValidation;
         private int totalRecords;
         private string query = "initialize";
+        private string categories = "";
+        private string brand = "";
         private SortEnum sortBy = SortEnum.Name;
         public event EventHandler<FilterRequest> FilterChanged;
         public ICommand OnCategorySelectCommand { get; }
@@ -103,8 +105,10 @@ namespace SmartShop.ViewModels
             MinPrice = minPriceValidation = minPrice != null ? (decimal)minPrice : 0;
         }
 
-        public async void OnInitialize(string query = "")
+        public async void OnInitialize(string query = "", string categories = "", string brand = "")
         {
+            this.categories = categories;
+            this.brand = brand;
             if (this.query != query)
             {
                 this.query = query;
@@ -162,23 +166,36 @@ namespace SmartShop.ViewModels
             {
                 string categories = String.Join(",", SelectedCategories.Keys);
                 string brands = String.Join(",", SelectedBrands.Keys);
+
+                if (String.IsNullOrWhiteSpace(categories) && !String.IsNullOrWhiteSpace(this.categories))
+                    categories = this.categories;
+
+                if (String.IsNullOrWhiteSpace(brands) && !String.IsNullOrWhiteSpace(brand))
+                    brands = brand;
+
                 var response = await SearchService.FilterProducts(query, categories, brands, MinPrice, MaxPrice);
-                if (response != null && response.Categories != null && response.Categories.Count > 0)
+
+                if (response != null)
                 {
-                    Categories.Clear();
-                    Brands.Clear();
                     TotalRecords = response.TotalRecords;
                     SetPrice(response.MinProductPrice, response.MaxProductPrice);
-                    foreach (var category in response.Categories)
+                    if (response.Categories != null && response.Categories.Count > 0 && String.IsNullOrWhiteSpace(this.categories))
                     {
-                        category.IsActive = SelectedCategories.ContainsKey(category.Id);
-                        Categories.Add(category);
+                        Categories.Clear();
+                        foreach (var category in response.Categories)
+                        {
+                            category.IsActive = SelectedCategories.ContainsKey(category.Id);
+                            Categories.Add(category);
+                        }
                     }
-
-                    foreach (var brand in response.Brands)
+                    if (response.Brands != null && response.Brands.Count > 0 && String.IsNullOrWhiteSpace(brand))
                     {
-                        brand.IsActive = SelectedBrands.ContainsKey(brand.Id);
-                        Brands.Add(brand);
+                        Brands.Clear();
+                        foreach (var brand in response.Brands)
+                        {
+                            brand.IsActive = SelectedBrands.ContainsKey(brand.Id);
+                            Brands.Add(brand);
+                        }
                     }
                 }
                 else

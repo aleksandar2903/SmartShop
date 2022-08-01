@@ -16,12 +16,14 @@ namespace SmartShop.ViewModels
     {
         public ObservableCollection<Category> Categories { get; }
         public ObservableCollection<Brand> Brands { get; }
-        public Command<Category> ForwardCommand { get; }
+        public Command ForwardCommand { get; }
+        public Command OnBrandSelectCommand { get; }
         public CategoriesAndBrandsViewModel()
         {
             Categories = new ObservableCollection<Category>();
             Brands = new ObservableCollection<Brand>();
             ForwardCommand = new Command<Category>(async (category) => await Shell.Current.Navigation.PushAsync(new SubcategoriesPage(category)));
+            OnBrandSelectCommand = new Command<Brand>(async (brand) => await Shell.Current.Navigation.PushAsync(new ExplorePage(brand: brand.Id.ToString())));
         }
 
         public async void OnAppearing()

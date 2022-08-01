@@ -13,6 +13,8 @@ namespace SmartShop.Views
     public partial class FilterPage : ContentPage
     {
         public string Query { get; set; }
+        public string Categories { get; set; }
+        public string Brand { get; set; }
         FilterViewModel ViewModel { get; }
         public FilterPage(FilterViewModel viewModel)
         {
@@ -23,7 +25,7 @@ namespace SmartShop.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ViewModel.OnInitialize(Query);
+            ViewModel.OnInitialize(Query, Categories, Brand);
         }
     }
 }

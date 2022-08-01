@@ -57,6 +57,9 @@
                                             </StackLayout>
                                             <Label FontSize="12" HorizontalOptions="Center" Margin="0, 0, 0, 10" Text="{Binding Name}" TextColor="Black"></Label>
                                         </StackLayout>
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=OnBrandSelectCommand, Source={RelativeSource AncestorType={x:Type vm:CategoriesAndBrandsViewModel}}}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                        </StackLayout.GestureRecognizers>
                                     </StackLayout>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>

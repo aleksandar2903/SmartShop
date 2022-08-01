@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
@@ -23,7 +24,7 @@ namespace SmartShop.ViewModels
 
         public async void OnInitialize(string name, int categoryId)
         {
-            if(categoryId > 0)
+            if(categoryId > 0 && Subcategories.Count == 0)
             {
                 Title = name;
                 await LoadSubcategoriesAsync(categoryId);
@@ -36,6 +37,7 @@ namespace SmartShop.ViewModels
 
             try
             {
+                Subcategories.Add(new Subcategory { Name = "Vidi sve"});
                 var subcategories = await CategoryBrandService.GetSubcategoriesAsync(categoryId);
 
                 foreach (var subcategory in subcategories)
@@ -55,7 +57,17 @@ namespace SmartShop.ViewModels
 
         async void OnSelectedSubcategory(Subcategory subcategory)
         {
-            await Shell.Current.Navigation.PushAsync(new ExplorePage(subcategory == null ? 0 : subcategory.Id));
+            if (subcategory == null)
+                return;
+
+            string subcategories = "";
+
+            if (subcategory.Id == 0)
+                subcategories = String.Join(",", Subcategories.Select(s => s.Id));
+            else
+                subcategories = subcategory.Id.ToString();
+
+            await Shell.Current.Navigation.PushAsync(new ExplorePage(subcategories));
         }
     }
 }
