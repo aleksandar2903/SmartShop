@@ -45,6 +45,14 @@
                                                         TextColor="Black"
                                                         FontAttributes="Bold">
             </Label>
+            <StackLayout Orientation="Horizontal" Spacing="5">
+                <Label
+                                                        FontSize="Small"
+                                                        Text="{Binding RatingStar}" />
+                <Label
+                                                        Style="{StaticResource Body}"
+                                                        Text="{Binding RatingCount, StringFormat='({0})', TargetNullValue=''}" />
+            </StackLayout>
         </StackLayout>
     </Grid>
 </Grid>

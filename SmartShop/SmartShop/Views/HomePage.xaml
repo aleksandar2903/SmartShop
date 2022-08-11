@@ -10,14 +10,13 @@
              xmlns:cc="clr-namespace:SmartShop.Components.Frames"
              Visual="Material">
 
-    <Grid xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="True" BackgroundColor="White" RowDefinitions="*">
-        <xct:StateLayout.StateViews>
-            <xct:StateView StateKey="Loading" RepeatCount="1" Template="{StaticResource loading_featured_products}" />
-        </xct:StateLayout.StateViews>
+    <ScrollView>
+        <StackLayout xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="True" BackgroundColor="White">
+            <xct:StateLayout.StateViews>
+                <xct:StateView StateKey="Loading" RepeatCount="1" Template="{StaticResource loading_featured_products}" />
+            </xct:StateLayout.StateViews>
 
-        <ScrollView VerticalScrollBarVisibility="{OnIdiom Desktop=Always, Phone=Never}" IsVisible="{Binding IsBusy, Converter={xct:InvertedBoolConverter}}">
-
-            <StackLayout Padding="15, 0, 0, 25" Spacing="0">
+            <StackLayout Padding="15, 0, 0, 25" Spacing="20">
                 <Grid Margin="-15,0, 0, 0" BackgroundColor="{StaticResource Primary}">
                     <!--Top Search Bar-->
                     <StackLayout Padding="15" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
@@ -37,44 +36,49 @@
                     </StackLayout>
                 </Grid>
 
-                <Grid BackgroundColor="#ededed" RowDefinitions="300" Margin="-15,0,0,20">
-                    <CarouselView ItemsSource="{Binding OnAction}" IndicatorView="IndicatorView"  HeightRequest="180" VerticalOptions="Center" HorizontalOptions="Center">
+                <Grid BackgroundColor="White" RowDefinitions="350, 20" Margin="0,0,15,0">
+                    <CarouselView ItemsSource="{Binding Promotions}" IndicatorView="IndicatorView" VerticalOptions="Center" HorizontalOptions="Center">
                         <CarouselView.ItemTemplate>
-                            <DataTemplate x:DataType="model:Product">
-                                <Image Source="{Binding Image.Uri}" Aspect="AspectFit" />
+                            <DataTemplate x:DataType="model:Promotion">
+                                <Frame Padding="0" CornerRadius="10">
+                                    <Grid RowDefinitions="175, 175" BackgroundColor="#f5f5ff" RowSpacing="20">
+                                        <Image Source="{Binding Image}" Aspect="AspectFill"/>
+                                        <StackLayout Grid.Row="1" Spacing="15" Padding="15, 0">
+                                            <Label Text="{Binding Title}" TextColor="Black" FontAttributes="Bold" FontSize="16"></Label>
+                                            <Label Text="{Binding Description}" MaxLines="2" LineBreakMode="TailTruncation" TextColor="Black" FontSize="12"></Label>
+                                            <Frame Padding="15, 10" CornerRadius="20" BorderColor="Black" BackgroundColor="#f5f5ff" HorizontalOptions="Start">
+                                                <Label Text="Pogledaj ponudu" FontAttributes="Bold" TextColor="Black" FontSize="12"></Label>
+                                            </Frame>
+                                        </StackLayout>
+                                    </Grid>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=PromotionTapped, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
                     </CarouselView>
-                    <IndicatorView Margin="0, 15" x:Name="IndicatorView" VerticalOptions="End" HorizontalOptions="Center" IndicatorColor="Gray" SelectedIndicatorColor="Black"></IndicatorView>
-                    <Frame Padding="5" HasShadow="False" VerticalOptions="Start" WidthRequest="200" IsClippedToBounds="True" BackgroundColor="Transparent" BorderColor="Black" HorizontalOptions="Center" Margin="0,10,0,0">
-                        <Label FontSize="16" HorizontalTextAlignment="Center" Text="DO 20% POPUSTA NA RAČUNARE I KONZOLE" TextColor="Black"></Label>
-                    </Frame>
+                    <IndicatorView Grid.Row="1" Margin="0, 10, 0, 0" x:Name="IndicatorView" VerticalOptions="End" HorizontalOptions="Center" IndicatorColor="Gray" SelectedIndicatorColor="Black"></IndicatorView>
                 </Grid>
                 <!--  Categories  -->
-                <StackLayout Margin="0, 0, 0, 20">
-                    <StackLayout Margin="0,0,0,5">
-                        <Label
+                <Label
                                     FontAttributes="Bold"
                                     FontSize="16"
                                     Text="Top kategorije"
                                     TextColor="Black">
-                        </Label>
+                </Label>
+                <StackLayout HeightRequest="100">
+                    <CollectionView ItemsSource="{Binding Categories}" HorizontalOptions="FillAndExpand">
 
-                        <StackLayout
-                                    Margin="0,10,0,0"
-                                    HeightRequest="{OnIdiom Desktop=150, Phone=90}"
-                                    Orientation="Horizontal">
-                            <CollectionView ItemsSource="{Binding Categories}" HorizontalOptions="FillAndExpand">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"></LinearItemsLayout>
+                        </CollectionView.ItemsLayout>
 
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
-                                </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Category">
+                                <StackLayout WidthRequest="100">
 
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate x:DataType="model:Category">
-                                        <StackLayout WidthRequest="100">
-
-                                            <Frame
+                                    <Frame
                                                         Padding="0"
                                                         CornerRadius="30"
                                                         HasShadow="True"
@@ -83,104 +87,86 @@
                                                         HeightRequest="{OnIdiom Desktop=100, Phone=60}"
                                                         IsClippedToBounds="False"
                                                         WidthRequest="{OnIdiom Desktop=100, Phone=60}">
-                                                <Image
+                                        <Image
                                                             Margin="15"
                                                             Aspect="AspectFit"
                                                             HorizontalOptions="Center"
                                                             Source="{Binding Img}"
                                                             VerticalOptions="Center" />
-                                            </Frame>
-                                            <Label
+                                    </Frame>
+                                    <Label
                                                         FontSize="12"
                                                         HorizontalOptions="Center"
                                                         Text="{Binding Name}"
                                                         TextColor="Black"
                                                         LineBreakMode="TailTruncation" MaxLines="1">
-                                            </Label>
-                                            <!--<StackLayout.GestureRecognizers>
+                                    </Label>
+                                    <!--<StackLayout.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=ItemTapped}" />
                                                 </StackLayout.GestureRecognizers>-->
-                                        </StackLayout>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                        </StackLayout>
-                    </StackLayout>
                 </StackLayout>
 
                 <!--  Top Products  -->
-                <StackLayout Margin="0, 0, 0, 20">
-                    <StackLayout Margin="0,0,0,5">
-                        <Label
+                <Label
                                     FontAttributes="Bold"
                                     FontSize="16"
                                     Text="U trendu"
                                     TextColor="Black">
-                        </Label>
+                </Label>
 
-                        <StackLayout
-                                    Margin="0,20,0,0"
-                                    HeightRequest="{OnIdiom Desktop=300, Phone=200}"
-                                    Orientation="Horizontal">
-                            <CollectionView ItemsSource="{Binding Products}" HorizontalOptions="FillAndExpand">
+                <StackLayout HeightRequest="{OnIdiom Desktop=300, Phone=200}">
 
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal"/>
-                                </CollectionView.ItemsLayout>
+                    <CollectionView ItemsSource="{Binding Products}" HorizontalOptions="FillAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"></LinearItemsLayout>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Product">
+                            <cc:ProductFrame>
+                                <cc:ProductFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
+                                </cc:ProductFrame.GestureRecognizers>
+                            </cc:ProductFrame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate x:DataType="model:Product">
-                                        <cc:ProductFrame>
-                                            <cc:ProductFrame.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
-                                            </cc:ProductFrame.GestureRecognizers>
-                                        </cc:ProductFrame>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-
-                        </StackLayout>
-                    </StackLayout>
                 </StackLayout>
 
                 <!--  Featured Products  -->
-                <StackLayout Margin="0, 0, 0, 20">
-                    <StackLayout Margin="0,0,0,5">
-                        <Label
+                <Label
                                     FontAttributes="Bold"
                                     FontSize="16"
                                     Text="Preporučujemo za Vas"
                                     TextColor="Black">
-                        </Label>
+                </Label>
 
-                        <StackLayout
-                                    Margin="0,20,0,0"
-                                    HeightRequest="{OnIdiom Desktop=300, Phone=200}"
-                                    Orientation="Horizontal">
-                            <CollectionView ItemsSource="{Binding FeaturedProducts}" HorizontalOptions="FillAndExpand">
+                <StackLayout HeightRequest="{OnIdiom Desktop=300, Phone=200}">
 
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
-                                </CollectionView.ItemsLayout>
+                    <CollectionView ItemsSource="{Binding FeaturedProducts}" HorizontalOptions="FillAndExpand">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"></LinearItemsLayout>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Product">
+                                <cc:ProductFrame>
+                                    <cc:ProductFrame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
+                                    </cc:ProductFrame.GestureRecognizers>
+                                </cc:ProductFrame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate x:DataType="model:Product">
-                                        <cc:ProductFrame>
-                                            <cc:ProductFrame.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
-                                            </cc:ProductFrame.GestureRecognizers>
-                                        </cc:ProductFrame>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-
-                        </StackLayout>
-                    </StackLayout>
                 </StackLayout>
 
             </StackLayout>
-        </ScrollView>
-    </Grid>
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>

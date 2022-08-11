@@ -31,6 +31,8 @@ namespace SmartShop
             DependencyService.Register<ProductService>();
             DependencyService.Register<CategoryBrandService>();
             DependencyService.Register<SearchService>();
+            DependencyService.Register<CartService>();
+            DependencyService.Register<PromotionService>();
             MainPage = new AppShell();
         }
 

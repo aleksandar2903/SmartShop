@@ -20,11 +20,12 @@ namespace SmartShop.ViewModels
         public ObservableCollection<Category> Categories { get; }
         public ObservableCollection<Product> Products { get; }
         public ObservableCollection<Product> FeaturedProducts { get; }
-        public ObservableCollection<Product> OnAction { get; }
+        public ObservableCollection<Promotion> Promotions { get; }
         public Command LoadItemsCommand { get; }
         public Command OpenCategoriesPageCommand { get; }
         public Command AddItemCommand { get; }
         public Command ProductTapped { get; }
+        public Command PromotionTapped { get; }
         public Command FavouriteProduct { get; }
 
         public HomeViewModel()
@@ -34,9 +35,10 @@ namespace SmartShop.ViewModels
             Categories = new ObservableCollection<Category>();
             Products = new ObservableCollection<Product>();
             FeaturedProducts = new ObservableCollection<Product>();
-            OnAction = new ObservableCollection<Product>();
+            Promotions = new ObservableCollection<Promotion>();
             LoadItemsCommand = new Command(async () => await LoadDataAsync());
             OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
+            PromotionTapped = new Command<Promotion>(async (promotion) => await Shell.Current.Navigation.PushAsync(new PromotionPage(promotion.Id), true));
 
             ProductTapped = new Command<Product>(OnProductSelected);
 
@@ -50,16 +52,17 @@ namespace SmartShop.ViewModels
 
             try
             {
-                OnAction.Clear();
                 var categoriesTask = CategoryBrandService.GetCategoriesAsync();
                 var productsTask = ProductService.GetPopularProductsAsync();
                 var featuredProductsTask = ProductService.GetNewestProductsAsync();
+                var promotionsTask = PromotionService.GetPromotions();
 
-                await Task.WhenAll(featuredProductsTask, categoriesTask, productsTask, featuredProductsTask);
+                await Task.WhenAll(featuredProductsTask, categoriesTask, productsTask, featuredProductsTask, promotionsTask);
 
                 var featuredProducts = await featuredProductsTask;
                 var products = await productsTask;
                 var categories = await categoriesTask;
+                var promotions = await promotionsTask;
 
 
                 Categories.Clear();
@@ -72,8 +75,6 @@ namespace SmartShop.ViewModels
                 var data = Barrel.Current.Get<Dictionary<int, Product>>("favs");
                 foreach (var product in products)
                 {
-                    if (product.SubcategoryId == 1 || product.SubcategoryId == 4)
-                        OnAction.Add(product);
                     if (data != null && data.ContainsKey(product.Id))
                         product.Favourite = true;
                     Products.Add(product);
@@ -82,6 +83,12 @@ namespace SmartShop.ViewModels
                 foreach (var product in featuredProducts)
                 {
                     FeaturedProducts.Add(product);
+                }
+
+                Promotions.Clear();
+                foreach (var promotion in promotions)
+                {
+                    Promotions.Add(promotion);
                 }
 
             }

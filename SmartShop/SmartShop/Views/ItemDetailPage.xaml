@@ -47,7 +47,7 @@
                     <xct:Expander>
                         <xct:Expander.Header>
                             <Grid>
-                                <Label Text="Specifikacije proizvoda" TextColor="Black" FontAttributes="Bold" FontSize="16"></Label>
+                                <Label Text="Specifikacije proizvoda" Style="{StaticResource Header}"></Label>
                                 <Image Source="expand.png"
                                             HorizontalOptions="End"
                                             VerticalOptions="Center" WidthRequest="25">

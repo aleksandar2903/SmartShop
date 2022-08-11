@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:SmartShop.ViewModels" xmlns:frames="clr-namespace:SmartShop.Components.Frames" xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
+             x:Class="SmartShop.Views.PromotionPage"
+             Shell.NavBarIsVisible="False"
+             x:DataType="vm:PromotionViewModel">
+    <ContentPage.Content>
+        <StackLayout Spacing="15">
+            <StackLayout Padding="10" BackgroundColor="{StaticResource Primary}" Orientation="Horizontal" Spacing="10">
+                <buttons:BackwardButton></buttons:BackwardButton>
+                <frames:SearchBarFrame></frames:SearchBarFrame>
+            </StackLayout>
+            <StackLayout Padding="15, 0" Spacing="15">
+                <Frame Padding="0" CornerRadius="5">
+                    <Image Source="{Binding Promotion.Image}" Aspect="AspectFit"></Image>
+                </Frame>
+                <StackLayout>
+                    <Label Text="{Binding Promotion.Title}" Style="{StaticResource Header}"></Label>
+                    <Label Text="{Binding Promotion.Description}" HorizontalTextAlignment="Start" Style="{StaticResource Body}"></Label>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

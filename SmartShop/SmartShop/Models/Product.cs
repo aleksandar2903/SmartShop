@@ -22,6 +22,33 @@ namespace SmartShop.Models
         public int Id { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
+        [JsonProperty("rating_count")]
+        int? ratingCount;
+        public int? RatingCount { get => ratingCount > 0 ? ratingCount : null; }
+        [JsonProperty("rating")]
+        double rating;
+        public string RatingStar
+        {
+            get
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+
+                if (rating > 0)
+                {
+                    int ratingCell = (int)rating;
+                    int remainder = 5 - ratingCell;
+                    
+                    if(ratingCell > 0)
+                        stringBuilder.Insert(0,"★", ratingCell);
+
+                    if (remainder > 0)
+                        stringBuilder.Insert(ratingCell, "☆", remainder);
+
+                }
+
+                return stringBuilder.ToString();
+            }
+        }
         [JsonProperty("description")]
         public string Description { get; set; }
         [JsonProperty("image")]

@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
     <Frame xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SmartShop.Components.Frames.SearchBarFrame" HeightRequest="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="White" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="15, 0">
+             x:Class="SmartShop.Components.Frames.SearchBarFrame" HeightRequest="40" 
+           HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="White" 
+           CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="15, 0">
         <StackLayout Orientation="Horizontal" Spacing="10">
             <Image Source="search1.png" WidthRequest="15"></Image>
             <Label Text="Pretraga" TextColor="Gray" VerticalOptions="Center"></Label>
