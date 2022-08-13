@@ -26,7 +26,7 @@ namespace SmartShop.Models
         public int RatingCount { get; set; }
         [JsonProperty("rating")]
         public double Rating { get; set; }
-        public string RatingStar
+        public string RatingStars
         {
             get
             {

@@ -1,38 +1,31 @@
-﻿using Flurl.Http;
-using SmartShop.Models;
-using System;
+﻿using SmartShop.Models;
+using SmartShop.Services.RequestProvider;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace SmartShop.Services
 {
     public class PromotionService : IPromotionService
     {
+        private readonly IRequestProvider _requestProvider;
+        public PromotionService()
+        {
+            _requestProvider = DependencyService.Get<IRequestProvider>();
+        }
         public async Task<Promotion> GetPromotion(int promotionId)
         {
-            var responseData = new Promotion();
-            var response = await $"{Config.APIUrl}promotions/{promotionId}".AllowHttpStatus().GetAsync();
+            var promotion = await _requestProvider.GetAsync<Promotion>($"{Config.APIUrl}promotions/{promotionId}").ConfigureAwait(false);
 
-            if (response.StatusCode < 300 && response.ResponseMessage.Content != null)
-            {
-                responseData = await response.GetJsonAsync<Promotion>();
-            }
-
-            return responseData;
+            return promotion ?? new Promotion();
         }
 
-        public async Task<List<Promotion>> GetPromotions()
+        public async Task<IEnumerable<Promotion>> GetPromotions()
         {
-            var responseData = new List<Promotion>();
-            var response = await $"{Config.APIUrl}promotions".AllowHttpStatus().GetAsync();
+            var promotions = await _requestProvider.GetAsync<IEnumerable<Promotion>>($"{Config.APIUrl}promotions").ConfigureAwait(false);
 
-            if (response.StatusCode < 300 && response.ResponseMessage.Content != null)
-            {
-                responseData = await response.GetJsonAsync<List<Promotion>>();
-            }
-
-            return responseData;
+            return promotions ?? Enumerable.Empty<Promotion>();
         }
     }
 }

@@ -1,53 +1,43 @@
 ﻿using Flurl.Http;
 using Newtonsoft.Json;
 using SmartShop.Models;
+using SmartShop.Services.RequestProvider;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace SmartShop.Services
 {
     public class CategoryBrandService : ICategoryBrandService
     {
-        public async Task<List<Brand>> GetBrandsAsync()
+        private readonly IRequestProvider _requestProvider;
+        public CategoryBrandService()
         {
-            var responseData = new List<Brand>();
-            var response = await $"{Config.APIUrl}brands".AllowHttpStatus().GetAsync();
+            _requestProvider = DependencyService.Get<IRequestProvider>();
+        }
+        public async Task<IEnumerable<Brand>> GetBrandsAsync()
+        {
+            var brands = await _requestProvider.GetAsync<IEnumerable<Brand>>($"{Config.APIUrl}brands").ConfigureAwait(false);
 
-            if (response.StatusCode < 300 && response.ResponseMessage.Content != null)
-            {
-                responseData = await response.GetJsonAsync<List<Brand>>();
-            }
-
-            return responseData;
+            return brands ?? Enumerable.Empty<Brand>();
         }
 
-        public async Task<List<Category>> GetCategoriesAsync()
+        public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {
-            var responseData = new List<Category>();
-            var response = await $"{Config.APIUrl}categories".AllowHttpStatus().GetAsync();
+            var categories = await _requestProvider.GetAsync<IEnumerable<Category>>($"{Config.APIUrl}categories").ConfigureAwait(false);
 
-            if (response.StatusCode < 300 && response.ResponseMessage.Content != null)
-            {
-                responseData = await response.GetJsonAsync<List<Category>>();
-            }
-
-            return responseData;
+            return categories ?? Enumerable.Empty<Category>();
         }
 
-        public async Task<List<Subcategory>> GetSubcategoriesAsync(int categoryId)
+        public async Task<IEnumerable<Subcategory>> GetSubcategoriesAsync(int categoryId)
         {
-            var responseData = new List<Subcategory>();
-            var response = await $"{Config.APIUrl}categories/{categoryId}/subcategories".AllowHttpStatus().GetAsync();
+            var subcategories = await _requestProvider.GetAsync<IEnumerable<Subcategory>>($"{Config.APIUrl}categories/{categoryId}/subcategories").ConfigureAwait(false);
 
-            if (response.StatusCode < 300 && response.ResponseMessage.Content != null)
-            {
-                responseData = await response.GetJsonAsync<List<Subcategory>>();
-            }
-
-            return responseData;
+            return subcategories ?? Enumerable.Empty<Subcategory>();
         }
     }
 }

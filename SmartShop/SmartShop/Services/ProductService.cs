@@ -1,53 +1,42 @@
 ﻿using Flurl.Http;
 using Newtonsoft.Json;
 using SmartShop.Models;
+using SmartShop.Services.RequestProvider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace SmartShop.Services
 {
     public class ProductService : IProductService
     {
-        public async Task<List<Product>> GetPopularProductsAsync()
+        private readonly IRequestProvider _requestProvider;
+        public ProductService()
         {
-            var responseData = new Root<Product>();
-            var response = await $"{Config.APIUrl}products/popular".AllowHttpStatus().GetAsync();
+            _requestProvider = DependencyService.Get<IRequestProvider>();
+        }
+        public async Task<IEnumerable<Product>> GetPopularProductsAsync()
+        {
+            Root<Product> catalog = await _requestProvider.GetAsync<Root<Product>>($"{Config.APIUrl}products/popular").ConfigureAwait(false);
 
-            if (response.StatusCode < 300 && response.ResponseMessage.Content != null)
-            {
-                responseData = await response.GetJsonAsync<Root<Product>>();
-            }
-
-            return responseData.Results;
+            return catalog?.Results ?? Enumerable.Empty<Product>();
         }
 
-        public async Task<List<Product>> GetNewestProductsAsync()
+        public async Task<IEnumerable<Product>> GetNewestProductsAsync()
         {
-            var responseData = new Root<Product>();
-            var response = await $"{Config.APIUrl}products/newest".AllowHttpStatus().GetAsync();
+            Root<Product> catalog = await _requestProvider.GetAsync<Root<Product>>($"{Config.APIUrl}products/newest").ConfigureAwait(false);
 
-            if (response.StatusCode < 300 && response.ResponseMessage.Content != null)
-            {
-                responseData = await response.GetJsonAsync<Root<Product>>();
-            }
-
-            return responseData.Results;
+            return catalog?.Results ?? Enumerable.Empty<Product>();
         }
 
         public async Task<Product> GetProductAsync(int id)
         {
-            var responseData = new Product();
-            var response = await $"{Config.APIUrl}products/{id}".AllowHttpStatus().GetAsync();
+            Product product = await _requestProvider.GetAsync<Product>($"{Config.APIUrl}products/{id}").ConfigureAwait(false);
 
-            if (response.StatusCode < 300 && response.ResponseMessage.Content != null)
-            {
-                responseData = await response.GetJsonAsync<Product>();
-            }
-
-            return responseData;
+            return product ?? new Product();
         }
     }
 }

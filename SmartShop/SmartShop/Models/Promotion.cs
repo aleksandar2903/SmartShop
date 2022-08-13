@@ -14,8 +14,8 @@ namespace SmartShop.Models
         [JsonProperty("description")]
         public string Description { get; set; }
         [JsonProperty("image")]
-        string image;
-        public Uri Image { get => new Uri($"{Config.StorageAddress}{image}"); }
+        public string ImageName { get; set; }
+        public Uri ImageUrl { get => new Uri($"{Config.StorageAddress}{ImageName}"); }
 
         [JsonProperty("products")]
         public List<Product> Products { get; set; }

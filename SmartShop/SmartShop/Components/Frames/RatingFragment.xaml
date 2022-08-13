@@ -10,7 +10,7 @@
     </StackLayout.Resources>
     <Label
           FontSize="Small"
-          Text="{Binding RatingStar}" />
+          Text="{Binding RatingStars}" />
     <Label
          Style="{StaticResource Body}"
          TextColor="DarkGray"

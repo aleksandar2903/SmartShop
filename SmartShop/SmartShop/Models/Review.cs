@@ -18,16 +18,16 @@ namespace SmartShop.Models
         [JsonProperty("created_at")]
         public DateTime Date { get; set; }
         [JsonProperty("rating")]
-        double rating;
-        public string Rating
+        public double Rating { get; set; }
+        public string RatingStars
         {
             get
             {
                 StringBuilder stringBuilder = new StringBuilder();
 
-                if (rating > 0)
+                if (Rating > 0)
                 {
-                    int ratingCell = (int)rating;
+                    int ratingCell = (int)Rating;
                     int remainder = 5 - ratingCell;
 
                     if (ratingCell > 0)

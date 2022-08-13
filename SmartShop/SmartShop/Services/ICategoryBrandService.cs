@@ -8,8 +8,8 @@ namespace SmartShop.Services
 {
     public interface ICategoryBrandService
     {
-        Task<List<Category>> GetCategoriesAsync();
-        Task<List<Subcategory>> GetSubcategoriesAsync(int categoryId);
-        Task<List<Brand>> GetBrandsAsync();
+        Task<IEnumerable<Category>> GetCategoriesAsync();
+        Task<IEnumerable<Subcategory>> GetSubcategoriesAsync(int categoryId);
+        Task<IEnumerable<Brand>> GetBrandsAsync();
     }
 }

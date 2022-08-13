@@ -3,6 +3,8 @@ using Flurl.Http.Configuration;
 using MonkeyCache.FileStore;
 using Newtonsoft.Json;
 using SmartShop.Services;
+using SmartShop.Services.RequestProvider;
+using SmartShop.Services.Settings;
 using SmartShop.Views;
 using System;
 using Xamarin.Essentials;
@@ -33,6 +35,8 @@ namespace SmartShop
             DependencyService.Register<SearchService>();
             DependencyService.Register<CartService>();
             DependencyService.Register<PromotionService>();
+            DependencyService.Register<SettingsService>();
+            DependencyService.Register<RequestProvider>();
             MainPage = new AppShell();
         }
 
