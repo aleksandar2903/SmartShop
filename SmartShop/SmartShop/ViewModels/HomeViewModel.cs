@@ -39,9 +39,6 @@ namespace SmartShop.ViewModels
             LoadItemsCommand = new Command(async () => await LoadDataAsync());
             OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
             PromotionTapped = new Command<Promotion>(async (promotion) => await Shell.Current.Navigation.PushAsync(new PromotionPage(promotion.Id), true));
-
-            ProductTapped = new Command<Product>(OnProductSelected);
-
             var deviceInfo = DeviceDisplay.MainDisplayInfo;
             FrameSize = (int)(deviceInfo.Width / deviceInfo.Density / 1.15);
         }
@@ -122,12 +119,5 @@ namespace SmartShop.ViewModels
         }
 
         public int FrameSize { get; }
-
-        async void OnProductSelected(Product product)
-        {
-
-            // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id));
-        }
     }
 }

@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ImageButton xmlns="http://xamarin.com/schemas/2014/forms"
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit" 
              xmlns:viewmodels="clr-namespace:SmartShop.ViewModels"
              x:DataType="viewmodels:BaseViewModel"
-             x:Class="SmartShop.Components.Buttons.BackwardButton" HeightRequest="40" WidthRequest="40" Padding="2" CornerRadius="40" 
-             behaviors:IconTintColorEffect.TintColor="White" BackgroundColor="{StaticResource Primary}" 
-             Source="angle_small_left.png" Command="{Binding BackwardCommand}"/>
+             x:Class="SmartShop.Components.Buttons.BackwardButton" VerticalOptions="Center" HorizontalOptions="Center">
+    <ImageButton HeightRequest="40" WidthRequest="40" Padding="5" CornerRadius="40"
+             Source="angle_small_left.png" BackgroundColor="White" Command="{Binding BackwardCommand}"/>
+</StackLayout>

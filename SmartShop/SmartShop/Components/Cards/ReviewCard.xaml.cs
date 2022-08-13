@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SmartShop.Components.Frames
+namespace SmartShop.Components.Cards
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SearchBarFrame : StackLayout
+    public partial class ReviewCard : StackLayout
     {
-        public SearchBarFrame()
+        public ReviewCard()
         {
             InitializeComponent();
         }

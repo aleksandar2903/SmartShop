@@ -4,8 +4,11 @@
               x:Class="SmartShop.Components.Frames.ProductFrame"
                 x:Name="productFrame"
               xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
-      xmlns:vm="clr-namespace:SmartShop.ViewModels"
-              Padding="10, 0">
+      xmlns:vm="clr-namespace:SmartShop.ViewModels" xmlns:frames="clr-namespace:SmartShop.Components.Frames"
+       Padding="10, 0">
+    <Grid.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}, Path=ProductTappedCommand}" CommandParameter="{Binding .}" />
+    </Grid.GestureRecognizers>
     <Grid HorizontalOptions="Center" VerticalOptions="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="130"></RowDefinition>
@@ -15,17 +18,17 @@
             <ColumnDefinition Width="130"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Frame
-                                                        BackgroundColor="White"
-                                                        Padding="10"
-                                                        CornerRadius="10"
-                                                        HasShadow="False"
-                                                        HorizontalOptions="FillAndExpand"
-                                                        VerticalOptions="FillAndExpand"
-                                                        IsClippedToBounds="True">
+              BackgroundColor="White"
+              Padding="10"
+              CornerRadius="10"
+              HasShadow="False"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand"
+              IsClippedToBounds="True">
             <Grid>
                 <Image
-                                                            Aspect="AspectFit"
-                                                            Source="{Binding Image.Uri}" />
+                      Aspect="AspectFit"
+                      Source="{Binding Image.Uri}" />
 
                 <buttons:FavouriteButton Command="{Binding ToggleFavouriteProductCommand, Source={RelativeSource AncestorType={x:Type vm:FavouritesViewModel}}}" CommandParameter="{Binding .}" Margin="0" WidthRequest="25" HeightRequest="25" VerticalOptions="Start" HorizontalOptions="End">
                 </buttons:FavouriteButton>
@@ -33,26 +36,19 @@
         </Frame>
         <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand">
             <Label
-                                                        FontSize="12"
-                                                        Text="{Binding Name}"
-                                                        LineBreakMode="TailTruncation"
-                                                        MaxLines="2"
-                                                        TextColor="Black">
+                  FontSize="12"
+                  Text="{Binding Name}"
+                  LineBreakMode="TailTruncation"
+                  MaxLines="2"
+                  TextColor="Black">
             </Label>
             <Label
-                                                        FontSize="14"
-                                                        Text="{Binding Price, StringFormat='{0:#,#0}'}"
-                                                        TextColor="Black"
-                                                        FontAttributes="Bold">
+                  FontSize="14"
+                  Text="{Binding Price, StringFormat='{0:#,#0}'}"
+                  TextColor="Black"
+                  FontAttributes="Bold">
             </Label>
-            <StackLayout Orientation="Horizontal" Spacing="5">
-                <Label
-                                                        FontSize="Small"
-                                                        Text="{Binding RatingStar}" />
-                <Label
-                                                        Style="{StaticResource Body}"
-                                                        Text="{Binding RatingCount, StringFormat='({0})', TargetNullValue=''}" />
-            </StackLayout>
+            <frames:RatingFragment></frames:RatingFragment>
         </StackLayout>
     </Grid>
 </Grid>

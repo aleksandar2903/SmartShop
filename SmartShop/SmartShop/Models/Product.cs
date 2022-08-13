@@ -23,19 +23,18 @@ namespace SmartShop.Models
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("rating_count")]
-        int? ratingCount;
-        public int? RatingCount { get => ratingCount > 0 ? ratingCount : null; }
+        public int RatingCount { get; set; }
         [JsonProperty("rating")]
-        double rating;
+        public double Rating { get; set; }
         public string RatingStar
         {
             get
             {
                 StringBuilder stringBuilder = new StringBuilder();
 
-                if (rating > 0)
+                if (Rating > 0)
                 {
-                    int ratingCell = (int)rating;
+                    int ratingCell = (int)Rating;
                     int remainder = 5 - ratingCell;
                     
                     if(ratingCell > 0)
@@ -79,6 +78,8 @@ namespace SmartShop.Models
         public int SubcategoryId { get; set; }
         [JsonProperty("images")]
         public List<Image> Images { get; set; }
+        [JsonProperty("published_reviews")]
+        public List<Review> Reviews { get; set; }
         [JsonProperty("specification_attributes")]
         public List<AttributeValue> SpecificationAttributes { get; set; }
     }

@@ -13,10 +13,10 @@
             </xct:StateLayout.StateViews>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <StackLayout Padding="20, 10" BackgroundColor="{StaticResource Primary}">
+                <StackLayout Padding="20, 0" Margin="0, 15" VerticalOptions="Center">
                     <frames:SearchBarFrame></frames:SearchBarFrame>
                 </StackLayout>
                 <ScrollView Grid.Row="1">

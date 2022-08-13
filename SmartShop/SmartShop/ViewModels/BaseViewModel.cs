@@ -1,5 +1,6 @@
 ﻿using SmartShop.Models;
 using SmartShop.Services;
+using SmartShop.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,9 @@ namespace SmartShop.ViewModels
         LayoutState state = LayoutState.None;
 
         public Command BackwardCommand { get; } = new Command(async () => await Shell.Current.Navigation.PopAsync());
+        public Command SearchTappedCommand { get; } = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage()));
+        public Command ProductTappedCommand { get; } = new Command<Product>(async (product) => await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id)));
+
         public bool IsBusy
         {
             get { return isBusy; }

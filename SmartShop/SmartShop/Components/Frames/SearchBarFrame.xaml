@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-    <Frame xmlns="http://xamarin.com/schemas/2014/forms"
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SmartShop.Components.Frames.SearchBarFrame" HeightRequest="40" 
-           HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="White" 
+             x:Class="SmartShop.Components.Frames.SearchBarFrame" 
+             HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+    <StackLayout.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding SearchTappedCommand}"></TapGestureRecognizer>
+    </StackLayout.GestureRecognizers>
+    <Frame HeightRequest="45" BackgroundColor="#f5f5ff" 
            CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="15, 0">
         <StackLayout Orientation="Horizontal" Spacing="10">
             <Image Source="search1.png" WidthRequest="15"></Image>
             <Label Text="Pretraga" TextColor="Gray" VerticalOptions="Center"></Label>
         </StackLayout>
-        <Frame.GestureRecognizers>
-            <TapGestureRecognizer></TapGestureRecognizer>
-        </Frame.GestureRecognizers>
     </Frame>
+</StackLayout>

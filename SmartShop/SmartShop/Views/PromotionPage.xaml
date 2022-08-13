@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:vm="clr-namespace:SmartShop.ViewModels" xmlns:frames="clr-namespace:SmartShop.Components.Frames" xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
+             xmlns:vm="clr-namespace:SmartShop.ViewModels" 
+             xmlns:frames="clr-namespace:SmartShop.Components.Frames" 
+             xmlns:buttons="clr-namespace:SmartShop.Components.Buttons" 
+             xmlns:m="clr-namespace:SmartShop.Models"
              x:Class="SmartShop.Views.PromotionPage"
              Shell.NavBarIsVisible="False"
              x:DataType="vm:PromotionViewModel">
     <ContentPage.Content>
         <StackLayout Spacing="15">
-            <StackLayout Padding="10" BackgroundColor="{StaticResource Primary}" Orientation="Horizontal" Spacing="10">
+            <Grid ColumnDefinitions="45, *" Padding="15,15,15,5" RowDefinitions="Auto">
                 <buttons:BackwardButton></buttons:BackwardButton>
-                <frames:SearchBarFrame></frames:SearchBarFrame>
-            </StackLayout>
+                <frames:SearchBarFrame Grid.Column="1"></frames:SearchBarFrame>
+            </Grid>
             <StackLayout Padding="15, 0" Spacing="15">
                 <Frame Padding="0" CornerRadius="5">
                     <Image Source="{Binding Promotion.Image}" Aspect="AspectFit"></Image>
@@ -20,6 +23,17 @@
                     <Label Text="{Binding Promotion.Description}" HorizontalTextAlignment="Start" Style="{StaticResource Body}"></Label>
                 </StackLayout>
             </StackLayout>
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Promotion.Products}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Product">
+                        <frames:ProductFrame>
+                        </frames:ProductFrame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -10,7 +10,7 @@
              Visual="Material">
     <ContentPage.Content>
         <Grid BackgroundColor="White" RowDefinitions="60,*">
-            <Grid Padding="10, 10" RowDefinitions="40" ColumnDefinitions="12*, 76*, 12*" BackgroundColor="{StaticResource Primary}">
+            <Grid Padding="10, 10" RowDefinitions="40" ColumnDefinitions="12*, 76*, 12*">
                 <buttons:BackwardButton Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
                 <Frame Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="15, 0, 0, 0">
                         <StackLayout Orientation="Horizontal" Spacing="10">
@@ -31,9 +31,6 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:Product">
                         <cc:ProductFrame>
-                            <cc:ProductFrame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BrowseViewModel}}, Path=OnProductTapped}" CommandParameter="{Binding .}" />
-                            </cc:ProductFrame.GestureRecognizers>
                         </cc:ProductFrame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

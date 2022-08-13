@@ -4,7 +4,7 @@ using Xamarin.Forms.Xaml;
 namespace SmartShop.Components.Buttons
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BackwardButton : ImageButton
+    public partial class BackwardButton : StackLayout
     {
         public BackwardButton()
         {

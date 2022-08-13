@@ -10,6 +10,7 @@
              xmlns:cc="clr-namespace:SmartShop.Components.Frames"
              Visual="Material">
 
+
     <ScrollView>
         <StackLayout xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="True" BackgroundColor="White">
             <xct:StateLayout.StateViews>
@@ -17,22 +18,17 @@
             </xct:StateLayout.StateViews>
 
             <StackLayout Padding="15, 0, 0, 25" Spacing="20">
-                <Grid Margin="-15,0, 0, 0" BackgroundColor="{StaticResource Primary}">
+                <Grid Padding="0, 15, 15, 0" ColumnDefinitions="*, 55">
                     <!--Top Search Bar-->
-                    <StackLayout Padding="15" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                         <StackLayout HorizontalOptions="FillAndExpand">
-                            <ImageButton VerticalOptions="Center" WidthRequest="40" HeightRequest="40" CornerRadius="40" HorizontalOptions="Start" Aspect="AspectFit" BackgroundColor="White" Padding="10" Source="search.png" Command="{Binding OpenCategoriesPageCommand}"></ImageButton>
+                            <cc:SearchBarFrame></cc:SearchBarFrame>
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <StackLayout VerticalOptions="Center" Margin="0, 0, 5, 0">
-                                <Label TextColor="White" FontAttributes="Bold" Text="Hi, Aleksandar"></Label>
-                            </StackLayout>
-                            <Image
+                    <StackLayout Grid.Column="1" HorizontalOptions="End">
+                        <Image
                                     Aspect="AspectFit"
-                                    HeightRequest="40"
+                                    HeightRequest="45"
                                     Source="avatar.png"
-                                    WidthRequest="40" />
-                        </StackLayout>
+                                    WidthRequest="45" />
                     </StackLayout>
                 </Grid>
 
@@ -62,41 +58,38 @@
                 </Grid>
                 <!--  Categories  -->
                 <Label
-                                    FontAttributes="Bold"
-                                    FontSize="16"
-                                    Text="Top kategorije"
-                                    TextColor="Black">
+                      FontAttributes="Bold"
+                      FontSize="16"
+                      Text="Top kategorije"
+                      TextColor="Black">
                 </Label>
                 <StackLayout HeightRequest="100">
                     <CollectionView ItemsSource="{Binding Categories}" HorizontalOptions="FillAndExpand">
-
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"></LinearItemsLayout>
                         </CollectionView.ItemsLayout>
-
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:Category">
                                 <StackLayout WidthRequest="100">
-
                                     <Frame
-                                                        Padding="0"
-                                                        CornerRadius="30"
-                                                        HasShadow="True"
-                                                        BackgroundColor="White"  
-                                                        HorizontalOptions="Center"
-                                                        HeightRequest="{OnIdiom Desktop=100, Phone=60}"
-                                                        IsClippedToBounds="False"
-                                                        WidthRequest="{OnIdiom Desktop=100, Phone=60}">
+                                          Padding="0"
+                                          CornerRadius="30"
+                                          HasShadow="True"
+                                          BackgroundColor="White"  
+                                          HorizontalOptions="Center"
+                                          HeightRequest="{OnIdiom Desktop=100, Phone=60}"
+                                          IsClippedToBounds="False"
+                                          WidthRequest="{OnIdiom Desktop=100, Phone=60}">
                                         <Image
-                                                            Margin="15"
-                                                            Aspect="AspectFit"
-                                                            HorizontalOptions="Center"
-                                                            Source="{Binding Img}"
-                                                            VerticalOptions="Center" />
+                                              Margin="15"
+                                              Aspect="AspectFit"
+                                              HorizontalOptions="Center"
+                                              Source="{Binding Img}"
+                                              VerticalOptions="Center" />
                                     </Frame>
                                     <Label
-                                                        FontSize="12"
-                                                        HorizontalOptions="Center"
+                                          FontSize="12"
+                                          HorizontalOptions="Center"
                                                         Text="{Binding Name}"
                                                         TextColor="Black"
                                                         LineBreakMode="TailTruncation" MaxLines="1">
@@ -119,21 +112,18 @@
                                     TextColor="Black">
                 </Label>
 
-                <StackLayout HeightRequest="{OnIdiom Desktop=300, Phone=200}">
+                <StackLayout HeightRequest="{OnIdiom Desktop=300, Phone=220}">
 
                     <CollectionView ItemsSource="{Binding Products}" HorizontalOptions="FillAndExpand">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"></LinearItemsLayout>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Product">
-                            <cc:ProductFrame>
-                                <cc:ProductFrame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
-                                </cc:ProductFrame.GestureRecognizers>
-                            </cc:ProductFrame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"></LinearItemsLayout>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Product">
+                                <cc:ProductFrame>
+                                </cc:ProductFrame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
                     </CollectionView>
 
                 </StackLayout>
@@ -146,7 +136,7 @@
                                     TextColor="Black">
                 </Label>
 
-                <StackLayout HeightRequest="{OnIdiom Desktop=300, Phone=200}">
+                <StackLayout HeightRequest="{OnIdiom Desktop=300, Phone=220}">
 
                     <CollectionView ItemsSource="{Binding FeaturedProducts}" HorizontalOptions="FillAndExpand">
                         <CollectionView.ItemsLayout>
@@ -155,9 +145,6 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:Product">
                                 <cc:ProductFrame>
-                                    <cc:ProductFrame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=ProductTapped}" CommandParameter="{Binding .}" />
-                                    </cc:ProductFrame.GestureRecognizers>
                                 </cc:ProductFrame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>

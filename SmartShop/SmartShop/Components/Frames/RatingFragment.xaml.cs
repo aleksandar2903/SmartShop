@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartShop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ using Xamarin.Forms.Xaml;
 namespace SmartShop.Components.Frames
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SearchBarFrame : StackLayout
+    public partial class RatingFragment : StackLayout
     {
-        public SearchBarFrame()
+        public RatingFragment()
         {
             InitializeComponent();
         }
