@@ -2,5 +2,5 @@
 <Button xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartShop.Components.Buttons.AddToCartButton"
-             VerticalOptions="Center" CornerRadius="10" BackgroundColor="{x:StaticResource Primary}" TextColor="White" Clicked="Button_Clicked" FontAttributes="Bold" Text="Dodaj u korpu" HorizontalOptions="FillAndExpand">
+             VerticalOptions="Center" Clicked="Button_Clicked" Text="Dodaj u korpu" HorizontalOptions="FillAndExpand">
 </Button>

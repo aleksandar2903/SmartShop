@@ -36,9 +36,9 @@ namespace SmartShop.Models
                 {
                     int ratingCell = (int)Rating;
                     int remainder = 5 - ratingCell;
-                    
-                    if(ratingCell > 0)
-                        stringBuilder.Insert(0,"★", ratingCell);
+
+                    if (ratingCell > 0)
+                        stringBuilder.Insert(0, "★", ratingCell);
 
                     if (remainder > 0)
                         stringBuilder.Insert(ratingCell, "☆", remainder);
@@ -82,5 +82,7 @@ namespace SmartShop.Models
         public List<Review> Reviews { get; set; }
         [JsonProperty("specification_attributes")]
         public List<AttributeValue> SpecificationAttributes { get; set; }
+        RatingStars _ratingStars;
+        public RatingStars RatingStar { get => _ratingStars; set => _ratingStars.Value = (int)Rating; }
     }
 }

@@ -16,9 +16,27 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <StackLayout Padding="20, 0" Margin="0, 15" VerticalOptions="Center">
-                    <frames:SearchBarFrame></frames:SearchBarFrame>
-                </StackLayout>
+                <Grid Padding="15" ColumnDefinitions="*, *">
+                    <!--Top Search Bar-->
+                    <Image Source="shop.png" HeightRequest="30" HorizontalOptions="Start"></Image>
+                    <StackLayout Grid.Column="1" Spacing="15" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="End">
+                        <Image
+                              Aspect="AspectFit"
+                              HeightRequest="20"
+                              Source="search1.png"
+                              WidthRequest="20">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SearchTappedCommand}"></TapGestureRecognizer>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Image
+                              Aspect="AspectFit"
+                              HeightRequest="20"
+                              Source="user.png"
+                              WidthRequest="20">
+                        </Image>
+                    </StackLayout>
+                </Grid>
                 <ScrollView Grid.Row="1">
 
                     <StackLayout Padding="15" Spacing="10" VerticalOptions="FillAndExpand">

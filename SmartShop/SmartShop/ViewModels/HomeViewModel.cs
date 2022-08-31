@@ -1,5 +1,6 @@
 ﻿using MonkeyCache.FileStore;
 using SmartShop.Models;
+using SmartShop.Models.Request;
 using SmartShop.Services;
 using SmartShop.Views;
 using System;
@@ -22,6 +23,7 @@ namespace SmartShop.ViewModels
         public ObservableCollection<Product> FeaturedProducts { get; }
         public ObservableCollection<Promotion> Promotions { get; }
         public Command LoadItemsCommand { get; }
+        public Command SignInCommand { get; }
         public Command OpenCategoriesPageCommand { get; }
         public Command AddItemCommand { get; }
         public Command ProductTapped { get; }
@@ -30,7 +32,6 @@ namespace SmartShop.ViewModels
 
         public HomeViewModel()
         {
-            Title = "Browse";
             Items = new ObservableCollection<Item>();
             Categories = new ObservableCollection<Category>();
             Products = new ObservableCollection<Product>();
@@ -38,6 +39,7 @@ namespace SmartShop.ViewModels
             Promotions = new ObservableCollection<Promotion>();
             LoadItemsCommand = new Command(async () => await LoadDataAsync());
             OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
+            SignInCommand = new Command(async () => await Shell.Current.Navigation.PushModalAsync(new LoginPage(), true));
             PromotionTapped = new Command<Promotion>(async (promotion) => await Shell.Current.Navigation.PushAsync(new PromotionPage(promotion.Id), true));
             var deviceInfo = DeviceDisplay.MainDisplayInfo;
             FrameSize = (int)(deviceInfo.Width / deviceInfo.Density / 1.15);

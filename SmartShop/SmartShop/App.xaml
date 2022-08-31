@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core" xmlns:templates="clr-namespace:SmartShop.Templates"
              x:Class="SmartShop.App"
-             windows:Application.ImageDirectory="Resources">
+             windows:Application.ImageDirectory="Resources"
+             xmlns:local="clr-namespace:SmartShop">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
     -->
@@ -12,7 +13,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <templates:DataTemplates />
             </ResourceDictionary.MergedDictionaries>
-            <Color x:Key="Primary">#0d6efd</Color>
+            <!--<Color x:Key="Primary">#0d6efd</Color>-->
+            <Color x:Key="Primary">#5433eb</Color>
             <Color x:Key="Light">#fafafa</Color>
             <Style TargetType="Label" x:Key="Header">
                 <Setter Property="FontAttributes" Value="Bold"></Setter>
@@ -24,8 +26,22 @@
                 <Setter Property="FontSize" Value="12"></Setter>
                 <Setter Property="TextColor" Value="Black"></Setter>
             </Style>
+            <Style TargetType="local:CustomEntry" >
+                <Setter Property="Margin" Value="5,0,0,0"></Setter>
+            </Style>
+            <Style TargetType="Frame" x:Key="customEntry">
+                <Setter Property="BackgroundColor" Value="White"></Setter>
+                <Setter Property="BorderColor" Value="{StaticResource Light}"></Setter>
+                <Setter Property="Padding" Value="0"></Setter>
+                <Setter Property="CornerRadius" Value="10"></Setter>
+                <Setter Property="HeightRequest" Value="45"></Setter>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+            </Style>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="HeightRequest" Value="50"></Setter>
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+                <Setter Property="CornerRadius" Value="10"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">

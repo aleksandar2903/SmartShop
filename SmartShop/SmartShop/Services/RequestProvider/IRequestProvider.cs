@@ -9,7 +9,7 @@ namespace SmartShop.Services.RequestProvider
     {
         Task<TResult> GetAsync<TResult>(string uri, string token = "");
 
-        Task<TResult> PostAsync<TResult>(string uri, TResult data, string token = "", string header = "");
+        Task<PResult> PostAsync<TResult, PResult>(string uri, TResult data, string token = "", string header = "");
 
         Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "");
 

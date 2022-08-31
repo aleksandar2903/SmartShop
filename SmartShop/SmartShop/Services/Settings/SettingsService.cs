@@ -1,8 +1,11 @@
-﻿using Xamarin.Essentials;
+﻿using SmartShop.Services.Settings;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
+[assembly: Dependency(typeof(SettingsService))]
 namespace SmartShop.Services.Settings
 {
-    public class SettingsService
+    public class SettingsService : ISettingsService
     {
         #region Setting Constants
 

@@ -13,19 +13,19 @@
         <Grid BackgroundColor="Transparent" RowDefinitions="*" ColumnDefinitions="*">
             <Frame CornerRadius="20" BackgroundColor="White" Margin="0,20,0,-20" Padding="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <StackLayout VerticalOptions="Center" Spacing="10" Padding="15, 0">
-                    <Image Source="shopping_bag.png" WidthRequest="70" Margin="0,0,0,20"></Image>
-                    <Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#ededed" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="0">
-                        <smartshop:CustomEntry Placeholder="E-mail adresa"></smartshop:CustomEntry>
+                    <Image Source="shop.png" WidthRequest="70" Margin="0,0,0,20"></Image>
+                    <Frame Style="{StaticResource customEntry}">
+                        <smartshop:CustomEntry Placeholder="E-mail adresa" Text="{Binding Email}"></smartshop:CustomEntry>
                     </Frame>
-                    <Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#ededed" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="0">
-                        <smartshop:CustomEntry Placeholder="Lozinka"></smartshop:CustomEntry>
+                    <Frame Style="{StaticResource customEntry}">
+                        <smartshop:CustomEntry Placeholder="Lozinka" Text="{Binding Password}" IsPassword="True"></smartshop:CustomEntry>
                     </Frame>
-                    <Button CornerRadius="10" Margin="0,10,0,0" HeightRequest="45" VerticalOptions="Center" Text="Prijavite se" Command="{Binding LoginCommand}"/>
+                    <Button Margin="0,10,0,0" Text="Prijavite se" Command="{Binding LoginCommand}"/>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                         <Label FontSize="12" Text="Nemate nalog?"></Label>
                         <Label FontSize="12" Text="Registrujte se" FontAttributes="Bold" TextColor="{StaticResource Primary}">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding RegisterCommand}"></TapGestureRecognizer>
+                                <TapGestureRecognizer Command="{Binding LoginCommand}"></TapGestureRecognizer>
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>

@@ -12,17 +12,17 @@
         <Grid BackgroundColor="White" RowDefinitions="60,*">
             <Grid Padding="10, 10" RowDefinitions="40" ColumnDefinitions="12*, 76*, 12*">
                 <buttons:BackwardButton Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
-                <Frame Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="15, 0, 0, 0">
-                        <StackLayout Orientation="Horizontal" Spacing="10">
-                            <Image Source="search1.png" WidthRequest="15"></Image>
+                <Frame Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource Light}" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="15, 0, 0, 0">
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Image behaviors:IconTintColorEffect.TintColor="Gray" Source="search1.png" WidthRequest="15"></Image>
                         <local:CustomEntry x:Name="searchEntry" FontSize="14" ReturnType="Search" ReturnCommandParameter="{Binding Source={Reference searchEntry}, Path=Text}" ReturnCommand="{Binding SearchProductsCommand}"  ClearButtonVisibility="WhileEditing" TextColor="Black" PlaceholderColor="DarkGray" HorizontalOptions="FillAndExpand" Placeholder="Pretraži..." HeightRequest="40">
                             <!--<local:CustomEntry.Behaviors>
                                 <behaviors:UserStoppedTypingBehavior MinimumLengthThreshold="2" StoppedTypingTimeThreshold="1000" Command="{Binding SearchProductsCommand}"></behaviors:UserStoppedTypingBehavior>
                             </local:CustomEntry.Behaviors>-->
-                    </local:CustomEntry>
-                </StackLayout>
+                        </local:CustomEntry>
+                    </StackLayout>
                 </Frame>
-                <ImageButton IsVisible="{OnIdiom Desktop=False, Phone=True}" Grid.Column="2" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="40" Padding="10" CornerRadius="10" BackgroundColor="White" Source="settings_sliders.png" Command="{Binding OpenFilterPopupCommand}"/>
+                <ImageButton IsVisible="{OnIdiom Desktop=False, Phone=True}" Grid.Column="2" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="40" Padding="10" CornerRadius="40" BackgroundColor="White" Source="settings_sliders.png" Command="{Binding OpenFilterPopupCommand}"/>
             </Grid>
             <CollectionView Grid.Row="1" ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>

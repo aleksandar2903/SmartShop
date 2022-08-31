@@ -1,5 +1,6 @@
 ﻿using SmartShop.Models;
 using SmartShop.Services;
+using SmartShop.Services.Settings;
 using SmartShop.Views;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace SmartShop.ViewModels
         public ISearchService SearchService => DependencyService.Get<SearchService>();
         public ICartService CartService => DependencyService.Get<CartService>();
         public IPromotionService PromotionService => DependencyService.Get<PromotionService>();
+        public IAuthService AuthService => DependencyService.Get<IAuthService>();
+        public ISettingsService SettingsService => DependencyService.Get<ISettingsService>();
 
         bool isBusy = false;
         LayoutState state = LayoutState.None;
@@ -29,6 +32,11 @@ namespace SmartShop.ViewModels
         {
             get { return isBusy; }
             set { SetProperty(ref isBusy, value); }
+        }
+
+        public bool IsLoggedIn()
+        {
+            return !string.IsNullOrWhiteSpace(SettingsService.AuthAccessToken);
         }
 
         public LayoutState State

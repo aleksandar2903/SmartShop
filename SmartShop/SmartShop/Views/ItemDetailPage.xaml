@@ -30,7 +30,7 @@
                         </CarouselView.ItemTemplate>
                     </CarouselView>
                     <IndicatorView x:Name="IndicatorView" VerticalOptions="End" HorizontalOptions="Center" IndicatorColor="Gray" SelectedIndicatorColor="Black"></IndicatorView>
-                    <ImageButton WidthRequest="30" HeightRequest="30" CornerRadius="30" HorizontalOptions="Start" BackgroundColor="White" Padding="3" VerticalOptions="Start" Source="angle_small_down.png"  Command="{Binding BackwardCommand}"></ImageButton>
+                    <ImageButton WidthRequest="30" HeightRequest="30" CornerRadius="30" HorizontalOptions="Start" BackgroundColor="White" Aspect="AspectFit" VerticalOptions="Start" Source="angle_small_down.png"  Command="{Binding BackwardCommand}"></ImageButton>
                     <buttons:FavouriteButton VerticalOptions="Start" HorizontalOptions="End" BindingContext="{Binding Product}"></buttons:FavouriteButton>
                 </Grid>
 
@@ -175,7 +175,7 @@
         <Frame Grid.Row="1" Padding="15, 10" BackgroundColor="White">
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="15">
                 <Label VerticalOptions="Center" FontAttributes="Bold" TextColor="Black" Text="{Binding Product.Price, StringFormat='{0:#,#0}'}" FontSize="24"></Label>
-                <buttons:AddToCartButton BindingContext="{Binding Product}"></buttons:AddToCartButton>
+                <Button Text="Dodaj u korpu" VerticalOptions="Center" HorizontalOptions="FillAndExpand"></Button>
             </StackLayout>
         </Frame>
     </Grid>

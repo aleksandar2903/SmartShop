@@ -1,18 +1,17 @@
-﻿using SmartShop.ViewModels;
+﻿using SmartShop.Services.Settings;
+using SmartShop.ViewModels;
 using SmartShop.Views;
-using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace SmartShop
 {
-    public partial class AppShell : Xamarin.Forms.Shell
+    public partial class AppShell : Shell
     {
         public AppShell()
         {
             InitializeComponent();
+
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
         }
-
     }
 }

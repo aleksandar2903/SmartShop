@@ -25,9 +25,15 @@ namespace SmartShop.Views
             this.brand = brand;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
+            if (viewModel.Products.Count == 0)
+            {
+                await Task.Delay(600);
+                Entry entry = this.FindByName<Entry>("searchEntry");
+                entry.Focus();
+            }
             viewModel.OnAppearing(subcategories, brand);
         }
     }

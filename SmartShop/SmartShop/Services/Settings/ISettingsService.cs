@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SmartShop.Services.Settings
 {
-    internal interface ISettingsService
+    public interface ISettingsService
     {
         string AuthAccessToken { get; set; }
     }

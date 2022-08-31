@@ -18,17 +18,28 @@
             </xct:StateLayout.StateViews>
 
             <StackLayout Padding="15, 0, 0, 25" Spacing="20">
-                <Grid Padding="0, 15, 15, 0" ColumnDefinitions="*, 55">
+                <Grid Padding="0, 15, 15, 0" ColumnDefinitions="*, *">
                     <!--Top Search Bar-->
-                        <StackLayout HorizontalOptions="FillAndExpand">
-                            <cc:SearchBarFrame></cc:SearchBarFrame>
-                        </StackLayout>
-                    <StackLayout Grid.Column="1" HorizontalOptions="End">
+                    <Image Source="shop.png" HeightRequest="30" HorizontalOptions="Start"></Image>
+                    <StackLayout Grid.Column="1" Spacing="15" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="End">
                         <Image
-                                    Aspect="AspectFit"
-                                    HeightRequest="45"
-                                    Source="avatar.png"
-                                    WidthRequest="45" />
+                              Aspect="AspectFit"
+                              HeightRequest="20"
+                              Source="search1.png"
+                              WidthRequest="20">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SearchTappedCommand}"></TapGestureRecognizer>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Image
+                              Aspect="AspectFit"
+                              HeightRequest="20"
+                              Source="user.png"
+                              WidthRequest="20">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SignInCommand}"></TapGestureRecognizer>
+                            </Image.GestureRecognizers>
+                        </Image>
                     </StackLayout>
                 </Grid>
 
