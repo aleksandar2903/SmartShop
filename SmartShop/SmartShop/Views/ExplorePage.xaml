@@ -12,7 +12,7 @@
         <Grid BackgroundColor="White" RowDefinitions="60,*">
             <Grid Padding="10, 10" RowDefinitions="40" ColumnDefinitions="12*, 76*, 12*">
                 <buttons:BackwardButton Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
-                <Frame Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource Light}" CornerRadius="{OnIdiom Desktop=0, Phone=10}" Padding="15, 0, 0, 0">
+                <Frame Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource Light}" CornerRadius="{OnIdiom Desktop=0, Phone=40}" Padding="15, 0, 0, 0">
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Image behaviors:IconTintColorEffect.TintColor="Gray" Source="search1.png" WidthRequest="15"></Image>
                         <local:CustomEntry x:Name="searchEntry" FontSize="14" ReturnType="Search" ReturnCommandParameter="{Binding Source={Reference searchEntry}, Path=Text}" ReturnCommand="{Binding SearchProductsCommand}"  ClearButtonVisibility="WhileEditing" TextColor="Black" PlaceholderColor="DarkGray" HorizontalOptions="FillAndExpand" Placeholder="Pretraži..." HeightRequest="40">
