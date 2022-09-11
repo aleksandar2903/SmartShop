@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
                     xmlns:controls="clr-namespace:SmartShop.Controls"
+                    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms" 
                     x:Class="SmartShop.Templates.DataTemplates">
 
     <DataTemplate x:Key="product_details_loading">
@@ -64,6 +65,35 @@
     <DataTemplate x:Key="loading">
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
             <ActivityIndicator Color="{StaticResource Primary}" HeightRequest="40" WidthRequest="40" IsRunning="True" IsVisible="True"></ActivityIndicator>
+        </StackLayout>
+    </DataTemplate>
+    <DataTemplate x:Key="emptySearchEntry">
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
+            <ffsvg:SvgCachedImage Source="search_products.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <Label HorizontalTextAlignment="Center" Text="Brzo i jednostavno pronađite ono što Vam treba!"></Label>
+        </StackLayout>
+    </DataTemplate>
+    <DataTemplate x:Key="error">
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15">
+            <ffsvg:SvgCachedImage Source="error.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <Label HorizontalTextAlignment="Center" Text="Ups! Došlo je do greške." FontSize="Medium"></Label>
+            <Label HorizontalTextAlignment="Center"  Text="Proverite internet podešavanja i pokušajte ponovo."></Label>
+            <Button Text="Pokušaj ponovo" HorizontalOptions="Center" CornerRadius="45"></Button>
+        </StackLayout>
+    </DataTemplate>
+    <DataTemplate x:Key="empty">
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15">
+            <ffsvg:SvgCachedImage Source="empty.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <Label HorizontalTextAlignment="Center" Text="Ups! Nismo uspeli da pronađemo to što tražite." FontSize="Medium"></Label>
+            <Label HorizontalTextAlignment="Center" Text="Pokušajte da unesete neke druge parametre."></Label>
+        </StackLayout>
+    </DataTemplate>
+    <DataTemplate x:Key="offline">
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15" Padding="20, 0">
+            <ffsvg:SvgCachedImage Source="offline.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <Label HorizontalTextAlignment="Center" Text="Ups! Trenutno ste van mreže." FontSize="Medium"></Label>
+            <Label HorizontalTextAlignment="Center"  Text="Proverite internet podešavanja i pokušajte ponovo."></Label>
+            <Button Text="Pokušaj ponovo" HorizontalOptions="Center" CornerRadius="45"></Button>
         </StackLayout>
     </DataTemplate>
 </ResourceDictionary>

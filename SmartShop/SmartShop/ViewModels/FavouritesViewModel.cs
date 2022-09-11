@@ -1,5 +1,6 @@
 ﻿using MonkeyCache.FileStore;
 using SmartShop.Models;
+using SmartShop.Services;
 using SmartShop.Views;
 using System;
 using System.Collections.Generic;
@@ -7,37 +8,40 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
 {
     public class FavouritesViewModel : BaseViewModel
     {
-        Dictionary<int, Product> _favorites;
         public ObservableCollection<Product> FavouriteProducts { get; set; }
         public ICommand ToggleFavouriteProductCommand { get; }
         public ICommand OnProductTapped { get; }
-        public int id;
         public FavouritesViewModel()
         {
             FavouriteProducts = new ObservableCollection<Product>();
-            ToggleFavouriteProductCommand = new Command<Product>(ToggleProduct);
+            ToggleFavouriteProductCommand = new Command<Product>(async (product) => await ToggleProduct(product));
             OnProductTapped = new Command<Product>(OnProductSelected);
         }
 
-        private void ToggleProduct(Product product)
+        private async Task ToggleProduct(Product product)
         {
-            if(_favorites == null)
-                _favorites = Barrel.Current.Get<Dictionary<int, Product>>("favs") ?? new Dictionary<int, Product>();
+            if(product == null)
+            {
+                return;
+            }
 
-            if (_favorites.ContainsKey(product.Id))
-                _favorites.Remove(product.Id);
-            else
-                _favorites.Add(product.Id, product);
-
-            Barrel.Current.Empty("favs");
-            Barrel.Current.Add("favs", _favorites, TimeSpan.FromDays(90));
-            product.Favourite = !product.Favourite;
+            try
+            {
+                await FavouriteService.ToogleFavourite(product.Id, SettingsService.AuthAccessToken);
+                FavouriteProducts.Remove(product);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                product.Favourite = false;
+            }
         }
 
         public async void OnAppearing()
@@ -47,26 +51,38 @@ namespace SmartShop.ViewModels
 
         private async Task LoadFavouriteProductsAsync()
         {
-            IsBusy = true;
-            await Task.Delay(600);
+            if (!VerifyInternetConnection())
+            {
+                State = LayoutState.Custom;
+                CustomStateKey = StateKeys.Offline;
+                return;
+            }
+
+            State = LayoutState.Loading;
+
             try
             {
                 FavouriteProducts.Clear();
 
-                var favProducts = Barrel.Current.Get<Dictionary<int, Product>>("favs");
+                var result = await FavouriteService.GetFavourites(SettingsService.AuthAccessToken);
 
-                foreach (var product in favProducts.Values)
+                foreach (var product in result.Results)
                 {
+                    product.Favourite = true;
                     FavouriteProducts.Add(product);
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                State = LayoutState.Error;
             }
             finally
             {
-                IsBusy = false;
+                if (State != LayoutState.Error)
+                {
+                    State = FavouriteProducts.Count > 0 ? LayoutState.None : LayoutState.Empty;
+                }
             }
         }
 

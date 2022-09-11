@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
@@ -20,13 +22,17 @@ namespace SmartShop.ViewModels
         public IPromotionService PromotionService => DependencyService.Get<PromotionService>();
         public IAuthService AuthService => DependencyService.Get<IAuthService>();
         public ISettingsService SettingsService => DependencyService.Get<ISettingsService>();
+        public IFavouriteService FavouriteService => DependencyService.Get<IFavouriteService>();
 
         bool isBusy = false;
         LayoutState state = LayoutState.None;
+        string customKeys;
 
         public Command BackwardCommand { get; } = new Command(async () => await Shell.Current.Navigation.PopAsync());
         public Command SearchTappedCommand { get; } = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage()));
         public Command ProductTappedCommand { get; } = new Command<Product>(async (product) => await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id)));
+
+        public string CustomStateKey { get => customKeys; set => SetProperty(ref customKeys, value); }
 
         public bool IsBusy
         {
@@ -34,9 +40,29 @@ namespace SmartShop.ViewModels
             set { SetProperty(ref isBusy, value); }
         }
 
-        public bool IsLoggedIn()
+        public virtual Task InitializeAsync()
+        {
+            return Task.CompletedTask;
+        }
+
+        protected bool VerifyInternetConnection()
+        {
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected bool IsLoggedIn()
         {
             return !string.IsNullOrWhiteSpace(SettingsService.AuthAccessToken);
+        }
+
+        protected Task OpenModalAsync(Page page)
+        {
+            return Shell.Current.Navigation.PushModalAsync(page);
         }
 
         public LayoutState State

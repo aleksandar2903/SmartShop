@@ -3,6 +3,7 @@ using SmartShop.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -160,6 +161,13 @@ namespace SmartShop.ViewModels
 
         async Task FilterProducts()
         {
+            if (!VerifyInternetConnection())
+            {
+                State = LayoutState.Custom;
+                CustomStateKey = StateKeys.Offline;
+                return;
+            }
+
             State = LayoutState.Loading;
 
             try
@@ -184,7 +192,6 @@ namespace SmartShop.ViewModels
                         Categories.Clear();
                         foreach (var category in response.Categories)
                         {
-                            category.IsActive = SelectedCategories.ContainsKey(category.Id);
                             Categories.Add(category);
                         }
                     }
@@ -193,38 +200,22 @@ namespace SmartShop.ViewModels
                         Brands.Clear();
                         foreach (var brand in response.Brands)
                         {
-                            brand.IsActive = SelectedBrands.ContainsKey(brand.Id);
                             Brands.Add(brand);
                         }
-                    }
-                }
-                else
-                {
-                    var result = await Shell.Current.DisplayAlert("Ups", "Nismo uspeli da pronađemo nijedan proizvod. Molimo Vas, pokušajte ponovo", "Pokušaj ponovo", "Otkaži");
-                    if (result)
-                        await FilterProducts();
-                    else
-                    {
-                        ResetFilters();
-                        await FilterProducts();
                     }
                 }
             }
             catch (Exception ex)
             {
-                var result = await Shell.Current.DisplayAlert("Greška", "Nešto nije u redu. Molimo Vas, pokušajte ponovo", "Pokušaj ponovo", "Otkaži");
-                Console.WriteLine(ex);
-                if (result)
-                    await FilterProducts();
-                else
-                {
-                    ResetFilters();
-                    await Shell.Current.Navigation.PopModalAsync();
-                }
+                Debug.WriteLine(ex.Message);
+                State = LayoutState.Error;
             }
             finally
             {
-                State = LayoutState.None;
+                if (State != LayoutState.Error)
+                {
+                    State = Categories.Count > 0 && Brands.Count > 0 ? LayoutState.None : LayoutState.Empty;
+                }
             }
         }
     }

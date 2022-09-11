@@ -13,13 +13,14 @@ namespace SmartShop.Services
     public class AuthService : IAuthService
     {
         private readonly IRequestProvider _requestProvider;
+        private readonly string url = $"{ Config.APIUrl }/login";
         public AuthService()
         {
             _requestProvider = DependencyService.Get<IRequestProvider>();
         }
         public async Task<AuthResponse> LogIn(LoginRequest request)
         {
-            var token = await _requestProvider.PostAsync<LoginRequest, AuthResponse>($"{Config.APIUrl}login", request).ConfigureAwait(false);
+            var token = await _requestProvider.PostAsync<LoginRequest, AuthResponse>($"{url}", request).ConfigureAwait(false);
 
             return token;
         }

@@ -2,68 +2,59 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
-             xmlns:m="clr-namespace:SmartShop.Models" xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
+             xmlns:m="clr-namespace:SmartShop.Models" xmlns:buttons="clr-namespace:SmartShop.Components.Buttons" xmlns:frames="clr-namespace:SmartShop.Components.Frames" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="SmartShop.Views.FavouritesPage"
-             Title="Favourites">
-    <ContentPage.BindingContext>
-        <vm:FavouritesViewModel></vm:FavouritesViewModel>
-    </ContentPage.BindingContext>
+             Title="Favourites"
+             Shell.NavBarIsVisible="False"
+             x:DataType="vm:FavouritesViewModel">
     <ContentPage.Content>
-        <Grid RowDefinitions="*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-            <StackLayout Margin="15, 20" VerticalOptions="FillAndExpand">
-
-                <CollectionView ItemsSource="{Binding Products}" HorizontalOptions="FillAndExpand">
-
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Span="2" VerticalItemSpacing="15" HorizontalItemSpacing="15" Orientation="Vertical"  />
-                    </CollectionView.ItemsLayout>
-
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="m:Product">
-                            <StackLayout>
-                                <Frame
-                                                        BackgroundColor="#ededed"
-                                                        Margin="1,5,10,5"
-                                                        Padding="0"
-                                                        CornerRadius="20"
-                                                        HasShadow="True"
-                                                        IsClippedToBounds="False"
-                                                        HeightRequest="200">
-                                    <Image
-                                                            Aspect="AspectFit"
-                                                            Source="{Binding Image}" />
-                                </Frame>
-                                <StackLayout Orientation="Horizontal">
-                                    <StackLayout HorizontalOptions="FillAndExpand">
-                                        <Label
-                                                        FontSize="16"
-                                                        Text="{Binding Name}"
-                                                        LineBreakMode="TailTruncation"
-                                                        MaxLines="1"
-                                                        TextColor="Black"
-                                                        FontAttributes="Bold">
-                                        </Label>
-                                        <Label
-                                                        FontSize="14"
-                                                        Text="{Binding Price}"
-                                                        TextColor="DarkGray">
-                                        </Label>
-                                    </StackLayout>
-                                    <buttons:FavouriteButton BindingContext="{Binding .}" Command="{Binding Path=RemoveFavouriteProduct, Source={RelativeSource AncestorType={x:Type vm:FavouritesViewModel}}}" CommandParameter="{Binding .}">
-                                    </buttons:FavouriteButton>
-                                </StackLayout>
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavouritesViewModel}}, Path=OnProductTapped}" CommandParameter="{Binding .}" />
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-
-            </StackLayout>
-            <StackLayout IsVisible="{Binding IsBusy}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <ActivityIndicator IsRunning="{Binding IsBusy}" Color="Black" VerticalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40"></ActivityIndicator>
-            </StackLayout>
+        <Grid xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="False" BackgroundColor="White" RowDefinitions="*">
+            <xct:StateLayout.StateViews>
+                <xct:StateView StateKey="Loading" RepeatCount="1" Template="{StaticResource loading}" />
+            </xct:StateLayout.StateViews>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Padding="15" ColumnDefinitions="*, *">
+                    <!--Top Search Bar-->
+                    <Image Source="shop.png" HeightRequest="30" HorizontalOptions="Start"></Image>
+                    <StackLayout Grid.Column="1" Spacing="15" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="End">
+                        <Image
+                              Aspect="AspectFit"
+                              HeightRequest="20"
+                              Source="search1.png"
+                              WidthRequest="20">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SearchTappedCommand}"></TapGestureRecognizer>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Image
+                              Aspect="AspectFit"
+                              HeightRequest="20"
+                              Source="user.png"
+                              WidthRequest="20">
+                        </Image>
+                    </StackLayout>
+                </Grid>
+                <StackLayout Grid.Row="1" Padding="15, 0" Spacing="20" VerticalOptions="FillAndExpand">
+                    <StackLayout>
+                        <Label Text="Omiljeno" FontSize="Medium" FontAttributes="Bold" TextColor="Black"></Label>
+                    </StackLayout>
+                    <CollectionView ItemsSource="{Binding FavouriteProducts}">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="m:Product">
+                                <frames:ProductFrame>
+                                </frames:ProductFrame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

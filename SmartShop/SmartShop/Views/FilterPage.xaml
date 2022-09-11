@@ -1,8 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:models="clr-namespace:SmartShop.Models" xmlns:smartshop="clr-namespace:SmartShop" xmlns:viewmodels="clr-namespace:SmartShop.ViewModels" xmlns:converters="clr-namespace:SmartShop.Converters" xmlns:frames="clr-namespace:SmartShop.Components.Frames"
-           x:Class="SmartShop.Views.FilterPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:models="clr-namespace:SmartShop.Models" 
+             xmlns:smartshop="clr-namespace:SmartShop" 
+             xmlns:viewmodels="clr-namespace:SmartShop.ViewModels" 
+             xmlns:frames="clr-namespace:SmartShop.Components.Frames"
+             x:Class="SmartShop.Views.FilterPage"
              x:DataType="viewmodels:FilterViewModel"
            >
     <Grid Padding="0" BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -20,6 +24,9 @@
         <Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="False" VerticalOptions="FillAndExpand">
             <xct:StateLayout.StateViews>
                 <xct:StateView StateKey="Loading" RepeatCount="1" Template="{StaticResource loading}" />
+                <xct:StateView StateKey="Error" RepeatCount="1" Template="{StaticResource error}" />
+                <xct:StateView StateKey="Empty" RepeatCount="1" Template="{StaticResource empty}" />
+                <xct:StateView StateKey="Custom" CustomStateKey="{x:Static smartshop:StateKeys.Offline}" RepeatCount="1" Template="{StaticResource offline}" />
             </xct:StateLayout.StateViews>
             <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <Grid.RowDefinitions>

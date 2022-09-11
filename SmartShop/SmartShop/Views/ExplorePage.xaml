@@ -4,7 +4,11 @@
              x:Class="SmartShop.Views.ExplorePage"
              xmlns:local="clr-namespace:SmartShop"
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
-             xmlns:m="clr-namespace:SmartShop.Models" xmlns:buttons="clr-namespace:SmartShop.Components.Buttons" xmlns:cc="clr-namespace:SmartShop.Components.Frames" xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:m="clr-namespace:SmartShop.Models" 
+             xmlns:buttons="clr-namespace:SmartShop.Components.Buttons" 
+             xmlns:cc="clr-namespace:SmartShop.Components.Frames" 
+             xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:DataType="vm:BrowseViewModel"
              Shell.NavBarIsVisible="False"
              Visual="Material">
@@ -24,17 +28,27 @@
                 </Frame>
                 <ImageButton IsVisible="{OnIdiom Desktop=False, Phone=True}" Grid.Column="2" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="40" Padding="10" CornerRadius="40" BackgroundColor="White" Source="settings_sliders.png" Command="{Binding OpenFilterPopupCommand}"/>
             </Grid>
-            <CollectionView Grid.Row="1" ItemsSource="{Binding Products}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:Product">
-                        <cc:ProductFrame>
-                        </cc:ProductFrame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.CurrentCustomStateKey="{Binding CustomStateKey}" xct:StateLayout.AnimateStateChanges="True" VerticalOptions="FillAndExpand">
+                <xct:StateLayout.StateViews>
+                    <xct:StateView StateKey="Loading" RepeatCount="1" Template="{StaticResource loading}" />
+                    <xct:StateView StateKey="Error" RepeatCount="1" Template="{StaticResource error}" />
+                    <xct:StateView StateKey="Empty" RepeatCount="1" Template="{StaticResource empty}" />
+                    <xct:StateView StateKey="Custom" CustomStateKey="{x:Static local:StateKeys.EmptyQuery}" RepeatCount="1" Template="{StaticResource emptySearchEntry}" />
+                    <xct:StateView StateKey="Custom" CustomStateKey="{x:Static local:StateKeys.Offline}" RepeatCount="1" Template="{StaticResource offline}" />
+                </xct:StateLayout.StateViews>
+
+                <CollectionView ItemsSource="{Binding Products}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="m:Product">
+                            <cc:ProductFrame>
+                            </cc:ProductFrame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

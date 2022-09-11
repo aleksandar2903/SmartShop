@@ -34,6 +34,13 @@ namespace SmartShop.ViewModels
 
         async Task LoadDataAsync()
         {
+            if (!VerifyInternetConnection())
+            {
+                State = LayoutState.Custom;
+                CustomStateKey = StateKeys.Offline;
+                return;
+            }
+
             State = LayoutState.Loading;
 
             try
@@ -58,10 +65,14 @@ namespace SmartShop.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                State = LayoutState.Error;
             }
             finally
             {
-                State = LayoutState.None;
+                if (State != LayoutState.Error)
+                {
+                    State = Categories.Count > 0 && Brands.Count > 0 ? LayoutState.None : LayoutState.Empty;
+                }
             }
         }
     }

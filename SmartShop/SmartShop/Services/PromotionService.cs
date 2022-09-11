@@ -10,20 +10,22 @@ namespace SmartShop.Services
     public class PromotionService : IPromotionService
     {
         private readonly IRequestProvider _requestProvider;
+        private readonly string url = $"{Config.APIUrl}/promotions";
+
         public PromotionService()
         {
             _requestProvider = DependencyService.Get<IRequestProvider>();
         }
-        public async Task<Promotion> GetPromotion(int promotionId)
+        public async Task<Promotion> GetPromotion(int promotionId, string token = "")
         {
-            var promotion = await _requestProvider.GetAsync<Promotion>($"{Config.APIUrl}promotions/{promotionId}").ConfigureAwait(false);
+            var promotion = await _requestProvider.GetAsync<Promotion>($"{url}/{promotionId}", token).ConfigureAwait(false);
 
             return promotion ?? new Promotion();
         }
 
         public async Task<IEnumerable<Promotion>> GetPromotions()
         {
-            var promotions = await _requestProvider.GetAsync<IEnumerable<Promotion>>($"{Config.APIUrl}promotions").ConfigureAwait(false);
+            var promotions = await _requestProvider.GetAsync<IEnumerable<Promotion>>($"{url}").ConfigureAwait(false);
 
             return promotions ?? Enumerable.Empty<Promotion>();
         }

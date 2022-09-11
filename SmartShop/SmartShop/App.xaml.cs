@@ -1,15 +1,8 @@
-﻿using Flurl.Http;
-using Flurl.Http.Configuration;
-using MonkeyCache.FileStore;
-using Newtonsoft.Json;
+﻿using MonkeyCache.FileStore;
 using SmartShop.Services;
-using SmartShop.Services.RequestProvider;
 using SmartShop.Services.Settings;
-using SmartShop.Views;
-using System;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace SmartShop
 {
@@ -19,16 +12,6 @@ namespace SmartShop
         public App()
         {
             InitializeComponent();
-            FlurlHttp.Configure(settings => {
-                var jsonSettings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    MissingMemberHandling = MissingMemberHandling.Ignore,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    ObjectCreationHandling = ObjectCreationHandling.Replace,
-                };
-                settings.JsonSerializer = new NewtonsoftJsonSerializer(jsonSettings);
-            });
             Barrel.ApplicationId = AppInfo.PackageName;
             DependencyService.Register<ProductService>();
             DependencyService.Register<CategoryBrandService>();
@@ -36,6 +19,7 @@ namespace SmartShop
             DependencyService.Register<CartService>();
             DependencyService.Register<PromotionService>();
             DependencyService.Register<SettingsService>();
+            DependencyService.Register<IFavouriteService, FavouriteService>();
             MainPage = new AppShell();
         }
 

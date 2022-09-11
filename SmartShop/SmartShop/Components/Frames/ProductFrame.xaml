@@ -1,54 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Grid  xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              x:Class="SmartShop.Components.Frames.ProductFrame"
-                x:Name="productFrame"
-              xmlns:buttons="clr-namespace:SmartShop.Components.Buttons"
-      xmlns:vm="clr-namespace:SmartShop.ViewModels" xmlns:frames="clr-namespace:SmartShop.Components.Frames"
-       Padding="10, 0">
-    <Grid.GestureRecognizers>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="SmartShop.Components.Frames.ProductFrame"
+      x:Name="self"
+      xmlns:vm="clr-namespace:SmartShop.ViewModels"
+      xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+      Padding="10, 0" WidthRequest="130">
+    <StackLayout.GestureRecognizers>
         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}, Path=ProductTappedCommand}" CommandParameter="{Binding .}" />
-    </Grid.GestureRecognizers>
-    <Grid HorizontalOptions="Center" VerticalOptions="Center">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="130"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="130"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Frame
-              BackgroundColor="White"
-              Padding="10"
-              CornerRadius="10"
-              HasShadow="False"
-              HorizontalOptions="FillAndExpand"
-              VerticalOptions="FillAndExpand"
-              IsClippedToBounds="True">
-            <Grid>
-                <Image
-                      Aspect="AspectFit"
-                      Source="{Binding Image.Uri}" />
-
-                <buttons:FavouriteButton Command="{Binding ToggleFavouriteProductCommand, Source={RelativeSource AncestorType={x:Type vm:FavouritesViewModel}}}" CommandParameter="{Binding .}" Margin="0" WidthRequest="25" HeightRequest="25" VerticalOptions="Start" HorizontalOptions="End">
-                </buttons:FavouriteButton>
-            </Grid>
-        </Frame>
-        <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand">
-            <Label
+    </StackLayout.GestureRecognizers>
+    <Grid Padding="10">
+            <Grid.RowDefinitions>
+            <RowDefinition Height="{Binding Source={x:Reference self}, Path=WidthRequest}"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{Binding Source={x:Reference self}, Path=WidthRequest}"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ff:CachedImage
+                    DownsampleToViewSize="True"
+                    Aspect="AspectFit"
+                    Source="{Binding Image.Uri}" />
+            <ImageButton Source="heart.png" 
+                         Command="{Binding ToggleFavouriteProductCommand, Source={x:Reference self}}"
+                         CommandParameter="{Binding .}" VerticalOptions="Start" WidthRequest="25" 
+                         Padding="5" HeightRequest="25" CornerRadius="25" HorizontalOptions="End" 
+                         Aspect="AspectFit" BackgroundColor="White">
+                <ImageButton.Triggers>
+                    <DataTrigger TargetType="ImageButton" Binding="{Binding Favourite}" Value="True">
+                        <Setter Property="Source" Value="red_heart.png"></Setter>
+                    </DataTrigger>
+                </ImageButton.Triggers>
+            </ImageButton>
+        </Grid>
+    <StackLayout HorizontalOptions="FillAndExpand">
+        <Label
                   FontSize="12"
                   Text="{Binding Name}"
                   LineBreakMode="TailTruncation"
                   MaxLines="2"
                   TextColor="Black">
-            </Label>
-            <Label
+        </Label>
+        <Label
                   FontSize="14"
                   Text="{Binding Price, StringFormat='{0:#,#0}'}"
                   TextColor="Black"
                   FontAttributes="Bold">
-            </Label>
-            <frames:RatingFragment></frames:RatingFragment>
+        </Label>
+        <StackLayout
+                Orientation="Horizontal" Spacing="5" 
+                IsVisible="{Binding RatingCount}">
+            <Label
+                    FontSize="Small"
+                    Text="{Binding RatingStars}" />
+            <Label
+                    Style="{StaticResource Body}"
+                    TextColor="DarkGray"
+                    VerticalTextAlignment="Center"
+                    Text="{Binding RatingCount}" />
         </StackLayout>
-    </Grid>
-</Grid>
+    </StackLayout>
+</StackLayout>

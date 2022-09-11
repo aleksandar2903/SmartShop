@@ -15,7 +15,8 @@ namespace SmartShop.Models
         public int CategoryId { get; set; }
         [JsonProperty("products_count")]
         public int ProductsCount { get; set; }
-        public bool IsActive { get; set; }
+        [JsonProperty("is_selected")]
+        public bool IsSelected { get; set; }
 
         [JsonProperty("products")]
         public List<Product> Products { get; set; }

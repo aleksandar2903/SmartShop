@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -65,7 +66,15 @@ namespace SmartShop.ViewModels
                 filterPage.Categories = subcategories;
                 filterPage.Brand = brand;
 
-                await LoadProducts(categories: subcategories, brands: brand);
+                if (string.IsNullOrEmpty(subcategories) && string.IsNullOrEmpty(brand) && string.IsNullOrEmpty(query))
+                {
+                    State = LayoutState.Custom;
+                    CustomStateKey = StateKeys.EmptyQuery;
+                }
+                else
+                {
+                    await LoadProducts(categories: subcategories, brands: brand);
+                }
             }
         }
 
@@ -76,15 +85,20 @@ namespace SmartShop.ViewModels
 
         async Task LoadProducts(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0, string sortBy = "")
         {
-            IsBusy = true;
+            if (!VerifyInternetConnection())
+            {
+                State = LayoutState.Custom;
+                CustomStateKey = StateKeys.Offline;
+                return;
+            }
 
-            await Task.Delay(500);
+            State = LayoutState.Loading;
 
             try
             {
                 Products.Clear();
 
-                var response = await SearchService.SearchProducts(query, categories, brands, priceMin, priceMax, sortBy);
+                var response = await SearchService.SearchProducts(query, categories, brands, priceMin, priceMax, sortBy, token: SettingsService.AuthAccessToken);
 
                 foreach (var product in response.Results)
                 {
@@ -94,10 +108,14 @@ namespace SmartShop.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                State = LayoutState.Error;
             }
             finally
             {
-                IsBusy = false;
+                if (State != LayoutState.Error)
+                {
+                    State = Products.Count > 0 ? LayoutState.None : LayoutState.Empty;
+                }
             }
 
         }

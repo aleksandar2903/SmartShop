@@ -12,7 +12,7 @@
         </Grid.ColumnDefinitions>
         <Image x:Name="checkBox"  Source="checkbox_uncheck.png" VerticalOptions="Center" WidthRequest="20" HeightRequest="20">
             <Image.Triggers>
-                <DataTrigger TargetType="Image" Binding="{Binding IsActive}" Value="True">
+                <DataTrigger TargetType="Image" Binding="{Binding IsSelected}" Value="True">
                     <Setter Property="Source" Value="checkbox.svg"></Setter>
                 </DataTrigger>
             </Image.Triggers>

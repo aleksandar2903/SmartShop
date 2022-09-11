@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views;
 
 namespace SmartShop.ViewModels
 {
@@ -19,21 +20,28 @@ namespace SmartShop.ViewModels
 
         public async Task LoadPromotion(int id)
         {
-            //IsBusy = true;
-            State = Xamarin.CommunityToolkit.UI.Views.LayoutState.Loading;
+            if (!VerifyInternetConnection())
+            {
+                State = LayoutState.Custom;
+                CustomStateKey = StateKeys.Offline;
+                return;
+            }
+
             try
             {
-                var promotion = await PromotionService.GetPromotion(id);
-                Promotion = promotion;
+                Promotion = await PromotionService.GetPromotion(id);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex);
+                State = LayoutState.Error;
             }
             finally
             {
-                //IsBusy = false;
-                State = Xamarin.CommunityToolkit.UI.Views.LayoutState.None;
+                if (State != LayoutState.Error)
+                {
+                    State = Promotion.Products.Count > 0 ? LayoutState.None : LayoutState.Empty;
+                }
             }
         }
     }

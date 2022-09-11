@@ -14,7 +14,8 @@ namespace SmartShop.Models
         [JsonProperty("image")]
         public string Image { get; set; }
         public Uri Img { get => new Uri($"{Config.StorageAddress}{Image}"); }
-        public bool IsActive { get; set; }
+        [JsonProperty("is_selected")]
+        public bool IsSelected { get; set; }
         [JsonProperty("products_count")]
         public int ProductsCount { get; set; }
 
