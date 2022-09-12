@@ -9,30 +9,24 @@
              x:Class="SmartShop.Views.FilterPage"
              x:DataType="viewmodels:FilterViewModel"
            >
-    <Grid Padding="0" BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <StackLayout HorizontalOptions="FillAndExpand">
-            <Grid HorizontalOptions="FillAndExpand" Padding="15, 10, 15, 5">
-                <ImageButton HorizontalOptions="End" HeightRequest="35" WidthRequest="35" VerticalOptions="Center" CornerRadius="35" BackgroundColor="White" Source="cross" Padding="10" Command="{Binding BackwardCommand}"></ImageButton>
+    <smartshop:AppFrame BackwardButtonIsVisible="False" UserLogoIsVisible="False" SearchLogoIsVisible="False">
+        <smartshop:AppFrame.ContentCenter>
+            <ContentView>
                 <Label HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold" TextColor="Black" Text="Filtriraj &amp; Sortiraj"></Label>
-            </Grid>
-            <BoxView HeightRequest="0.1" Opacity="0.2" Color="Black"></BoxView>
-        </StackLayout>
-        <Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="False" VerticalOptions="FillAndExpand">
-            <xct:StateLayout.StateViews>
-                <xct:StateView StateKey="Loading" RepeatCount="1" Template="{StaticResource loading}" />
-                <xct:StateView StateKey="Error" RepeatCount="1" Template="{StaticResource error}" />
-                <xct:StateView StateKey="Empty" RepeatCount="1" Template="{StaticResource empty}" />
-                <xct:StateView StateKey="Custom" CustomStateKey="{x:Static smartshop:StateKeys.Offline}" RepeatCount="1" Template="{StaticResource offline}" />
-            </xct:StateLayout.StateViews>
+            </ContentView>
+        </smartshop:AppFrame.ContentCenter>
+        <smartshop:AppFrame.ContentEnd>
+            <ContentView>
+                <ImageButton HorizontalOptions="Center" HeightRequest="35" WidthRequest="35" VerticalOptions="Center" CornerRadius="35" BackgroundColor="White" Source="cross" Padding="10" Command="{Binding BackwardCommand}"></ImageButton>
+            </ContentView>
+        </smartshop:AppFrame.ContentEnd>
+        <smartshop:AppFrame.Content>
             <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="60"></RowDefinition>
                 </Grid.RowDefinitions>
+                <BoxView HeightRequest="0.1" Opacity="0.2" Color="Black" VerticalOptions="Start"></BoxView>
                 <ScrollView Margin="15">
                     <StackLayout Spacing="15">
                         <!--Filter by Categories-->
@@ -110,10 +104,9 @@
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </StackLayout>
-
                     </StackLayout>
                 </ScrollView>
-                <Grid Grid.Row="1" BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                     <BoxView HeightRequest="1" VerticalOptions="Start" Opacity="0.3" Color="LightGray"></BoxView>
                     <StackLayout Orientation="Horizontal" VerticalOptions="Center" Spacing="20" Padding="20, 0">
                         <Button Text="Resetuj" Command="{Binding OnResetTappedCommand}" HeightRequest="40" TextColor="Black" HorizontalOptions="Start" CornerRadius="5" BackgroundColor="White" BorderWidth="1" BorderColor="Black"></Button>
@@ -121,6 +114,6 @@
                     </StackLayout>
                 </Grid>
             </Grid>
-        </Grid>
-    </Grid>
+        </smartshop:AppFrame.Content>
+    </smartshop:AppFrame>
 </ContentPage>

@@ -33,6 +33,13 @@ namespace SmartShop.ViewModels
 
         async Task LoadSubcategoriesAsync(int categoryId)
         {
+            if (!VerifyInternetConnection())
+            {
+                State = LayoutState.Custom;
+                CustomStateKey = StateKeys.Offline;
+                return;
+            }
+
             State = LayoutState.Loading;
 
             try
@@ -48,10 +55,14 @@ namespace SmartShop.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                State = LayoutState.Error;
             }
             finally
             {
-                State = LayoutState.None;
+                if (State != LayoutState.Error)
+                {
+                    State = Subcategories.Count > 0 ? LayoutState.None : LayoutState.Empty;
+                }
             }
         }
 

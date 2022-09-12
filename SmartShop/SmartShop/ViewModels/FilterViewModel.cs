@@ -214,7 +214,7 @@ namespace SmartShop.ViewModels
             {
                 if (State != LayoutState.Error)
                 {
-                    State = Categories.Count > 0 && Brands.Count > 0 ? LayoutState.None : LayoutState.Empty;
+                    State = Categories.Count > 0 || Brands.Count > 0 ? LayoutState.None : LayoutState.Empty;
                 }
             }
         }

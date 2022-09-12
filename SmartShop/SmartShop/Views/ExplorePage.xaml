@@ -10,45 +10,40 @@
              xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:DataType="vm:BrowseViewModel"
-             Shell.NavBarIsVisible="False"
-             Visual="Material">
-    <ContentPage.Content>
-        <Grid BackgroundColor="White" RowDefinitions="60,*">
-            <Grid Padding="10, 10" RowDefinitions="40" ColumnDefinitions="12*, 76*, 12*">
-                <buttons:BackwardButton Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
-                <Frame Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource Light}" CornerRadius="{OnIdiom Desktop=0, Phone=40}" Padding="15, 0, 0, 0">
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <Image behaviors:IconTintColorEffect.TintColor="Gray" Source="search1.png" WidthRequest="15"></Image>
-                        <local:CustomEntry x:Name="searchEntry" FontSize="14" ReturnType="Search" ReturnCommandParameter="{Binding Source={Reference searchEntry}, Path=Text}" ReturnCommand="{Binding SearchProductsCommand}"  ClearButtonVisibility="WhileEditing" TextColor="Black" PlaceholderColor="DarkGray" HorizontalOptions="FillAndExpand" Placeholder="Pretraži..." HeightRequest="40">
-                            <!--<local:CustomEntry.Behaviors>
-                                <behaviors:UserStoppedTypingBehavior MinimumLengthThreshold="2" StoppedTypingTimeThreshold="1000" Command="{Binding SearchProductsCommand}"></behaviors:UserStoppedTypingBehavior>
-                            </local:CustomEntry.Behaviors>-->
-                        </local:CustomEntry>
-                    </StackLayout>
-                </Frame>
-                <ImageButton IsVisible="{OnIdiom Desktop=False, Phone=True}" Grid.Column="2" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="40" Padding="10" CornerRadius="40" BackgroundColor="White" Source="settings_sliders.png" Command="{Binding OpenFilterPopupCommand}"/>
-            </Grid>
-            <Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.CurrentCustomStateKey="{Binding CustomStateKey}" xct:StateLayout.AnimateStateChanges="True" VerticalOptions="FillAndExpand">
-                <xct:StateLayout.StateViews>
-                    <xct:StateView StateKey="Loading" RepeatCount="1" Template="{StaticResource loading}" />
-                    <xct:StateView StateKey="Error" RepeatCount="1" Template="{StaticResource error}" />
-                    <xct:StateView StateKey="Empty" RepeatCount="1" Template="{StaticResource empty}" />
-                    <xct:StateView StateKey="Custom" CustomStateKey="{x:Static local:StateKeys.EmptyQuery}" RepeatCount="1" Template="{StaticResource emptySearchEntry}" />
-                    <xct:StateView StateKey="Custom" CustomStateKey="{x:Static local:StateKeys.Offline}" RepeatCount="1" Template="{StaticResource offline}" />
-                </xct:StateLayout.StateViews>
-
-                <CollectionView ItemsSource="{Binding Products}">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="m:Product">
-                            <cc:ProductFrame>
-                            </cc:ProductFrame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
-        </Grid>
-    </ContentPage.Content>
+             Shell.NavBarIsVisible="False">
+    <local:AppFrame UserLogoIsVisible="False" SearchLogoIsVisible="False" BackwardButtonIsVisible="True">
+        <local:AppFrame.ContentCenter>
+            <Frame BackgroundColor="{StaticResource Light}" Padding="15, 0, 0, 0" VerticalOptions="Center" HorizontalOptions="FillAndExpand" CornerRadius="{OnIdiom Desktop=0, Phone=40}">
+                <Grid ColumnDefinitions="Auto, *">
+                    <Image behaviors:IconTintColorEffect.TintColor="Gray" Source="search1.png" HeightRequest="15" 
+                               WidthRequest="15" VerticalOptions="Center" HorizontalOptions="Start"></Image>
+                    <local:CustomEntry Grid.Column="1" x:Name="searchEntry" FontSize="14" ReturnType="Search" 
+                                           ReturnCommandParameter="{Binding Source={Reference searchEntry}, Path=Text}" 
+                                           ReturnCommand="{Binding SearchProductsCommand}"  
+                                           ClearButtonVisibility="WhileEditing" TextColor="Black" 
+                                           PlaceholderColor="DarkGray" HorizontalOptions="FillAndExpand" 
+                                           Placeholder="Ukucajte nekoliko slova i pretražite..." HeightRequest="40">
+                    </local:CustomEntry>
+                </Grid>
+            </Frame>
+        </local:AppFrame.ContentCenter>
+        <local:AppFrame.ContentEnd>
+            <ContentView>
+                <ImageButton IsVisible="{OnIdiom Desktop=False, Phone=True}" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="40" Padding="10" CornerRadius="40" BackgroundColor="White" Source="settings_sliders.png" Command="{Binding OpenFilterPopupCommand}"/>
+            </ContentView>
+        </local:AppFrame.ContentEnd>
+        <local:AppFrame.Content>
+            <CollectionView ItemsSource="{Binding Products}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Product">
+                        <cc:ProductFrame>
+                        </cc:ProductFrame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </local:AppFrame.Content>
+    </local:AppFrame>
 </ContentPage>

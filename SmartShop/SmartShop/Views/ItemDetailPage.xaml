@@ -4,8 +4,9 @@
              x:Class="SmartShop.Views.ItemDetailPage"
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
              xmlns:m="clr-namespace:SmartShop.Models"
-             xmlns:fontawesome="clr-namespace:SmartShop.Helpers" 
-             xmlns:buttons="clr-namespace:SmartShop.Components.Buttons" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:local="clr-namespace:SmartShop.Components.Frames" xmlns:cc="clr-namespace:SmartShop.Converters" xmlns:controls="clr-namespace:SmartShop.Controls" xmlns:cards="clr-namespace:SmartShop.Components.Cards"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:local="clr-namespace:SmartShop.Components.Frames"
+             xmlns:cards="clr-namespace:SmartShop.Components.Cards"
              x:DataType="vm:ItemDetailViewModel">
     <ContentPage.Resources>
         <x:Int32 x:Key="Zero">0</x:Int32>
@@ -30,8 +31,16 @@
                         </CarouselView.ItemTemplate>
                     </CarouselView>
                     <IndicatorView x:Name="IndicatorView" VerticalOptions="End" HorizontalOptions="Center" IndicatorColor="Gray" SelectedIndicatorColor="Black"></IndicatorView>
-                    <ImageButton WidthRequest="30" HeightRequest="30" CornerRadius="30" HorizontalOptions="Start" BackgroundColor="White" Aspect="AspectFit" VerticalOptions="Start" Source="angle_small_down.png"  Command="{Binding BackwardCommand}"></ImageButton>
-                    <buttons:FavouriteButton VerticalOptions="Start" HorizontalOptions="End" BindingContext="{Binding Product}"></buttons:FavouriteButton>
+                    <ImageButton WidthRequest="35" HeightRequest="35" Padding="8" CornerRadius="35" HorizontalOptions="Start" BackgroundColor="White" Aspect="AspectFit" VerticalOptions="Start" Source="angle_icon_down.png"  Command="{Binding BackwardCommand}"></ImageButton>
+                    <ImageButton Source="heart.png" VerticalOptions="Start" WidthRequest="35" 
+                        Padding="8" HeightRequest="35" CornerRadius="35" HorizontalOptions="End" 
+                        Aspect="AspectFit" BackgroundColor="White">
+                        <ImageButton.Triggers>
+                            <DataTrigger TargetType="ImageButton" Binding="{Binding Product.Favourite}" Value="True">
+                                <Setter Property="Source" Value="red_heart.png"></Setter>
+                            </DataTrigger>
+                        </ImageButton.Triggers>
+                    </ImageButton>
                 </Grid>
 
                 <StackLayout>
@@ -42,7 +51,23 @@
                         <Label Text="{Binding Product.Name}" TextColor="Black" FontAttributes="Bold" FontSize="18" HorizontalOptions="FillAndExpand"></Label>
                         <Label Text="Nema na stanju" TextColor="Green" FontAttributes="Bold" FontSize="12" Margin="10, 0, 0, 0"></Label>
                     </StackLayout>
-                    <local:RatingFragment BindingContext="{Binding Product}"></local:RatingFragment>
+                    <StackLayout
+                        Orientation="Horizontal" Spacing="5" 
+                        IsVisible="{Binding Product.RatingCount}">
+                        <Label
+                            FontSize="Small"
+                            Text="{Binding Product.RatingStars}" />
+                        <Label
+                            Style="{StaticResource Body}"
+                            TextColor="DarkGray"
+                            VerticalTextAlignment="Center"
+                            Text="{Binding Product.Rating}" />
+                        <Label
+                            Style="{StaticResource Body}"
+                            TextColor="DarkGray"
+                            VerticalTextAlignment="Center"
+                            Text="{Binding Product.RatingCount, StringFormat='({0})'}" />
+                    </StackLayout>
                     <Label Text="{Binding Product.Description}" TextColor="DarkGray" FontSize="12"></Label>
                 </StackLayout>
 
@@ -97,7 +122,19 @@
                 <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
                     <Label Grid.RowSpan="2" Style="{StaticResource Body}" VerticalOptions="Center" Text="Budi prvi koji će napisati recenziju" IsVisible="{Binding Product.RatingCount, Converter={xct:EqualConverter}, ConverterParameter={StaticResource Zero}}"></Label>
                     <Label IsVisible="{Binding Product.RatingCount}" HorizontalOptions="Center" Grid.Column="0" Grid.Row="0"  Text="{Binding Product.Rating}"  Style="{StaticResource Header}"></Label>
-                    <local:RatingFragment Grid.Row="1" Grid.Column="0" BindingContext="{Binding Product}"></local:RatingFragment>
+                    <StackLayout
+                        Grid.Row="1" Grid.Column="0"
+                        Orientation="Horizontal" Spacing="5" 
+                        IsVisible="{Binding Product.RatingCount}">
+                        <Label
+                            FontSize="Small"
+                            Text="{Binding Product.RatingStars}" />
+                        <Label
+                            Style="{StaticResource Body}"
+                            TextColor="DarkGray"
+                            VerticalTextAlignment="Center"
+                            Text="{Binding Product.RatingCount}" />
+                    </StackLayout>
                     <Button Text="Napiši recenziju" VerticalOptions="Center" FontAttributes="Bold" TextTransform="None" HeightRequest="35" FontSize="12" CornerRadius="15" HorizontalOptions="End" Grid.RowSpan="2" Grid.Column="1"></Button>
                 </Grid>
 

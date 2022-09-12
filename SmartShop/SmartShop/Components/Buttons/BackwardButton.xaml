@@ -5,6 +5,6 @@
              xmlns:viewmodels="clr-namespace:SmartShop.ViewModels"
              x:DataType="viewmodels:BaseViewModel"
              x:Class="SmartShop.Components.Buttons.BackwardButton" VerticalOptions="Start" HorizontalOptions="Start">
-    <ImageButton HeightRequest="40" WidthRequest="40" Padding="5" CornerRadius="40"
-             Source="angle_small_left.png" BackgroundColor="White" Command="{Binding BackwardCommand}"/>
+    <ImageButton HeightRequest="35" WidthRequest="35" Padding="8" CornerRadius="35"
+             Source="angle_icon_left.png" BackgroundColor="White" Command="{Binding BackwardCommand}"/>
 </StackLayout>

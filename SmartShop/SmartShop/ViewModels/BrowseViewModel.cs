@@ -50,6 +50,10 @@ namespace SmartShop.ViewModels
 
         void OpenFilters()
         {
+            if (string.IsNullOrEmpty(filterPage.Categories) && string.IsNullOrEmpty(filterPage.Brand) && string.IsNullOrEmpty(query))
+            {
+                return;
+            }
             filterPage.Query = query;
             Shell.Current.Navigation.PushModalAsync(filterPage);
         }
@@ -66,7 +70,7 @@ namespace SmartShop.ViewModels
                 filterPage.Categories = subcategories;
                 filterPage.Brand = brand;
 
-                if (string.IsNullOrEmpty(subcategories) && string.IsNullOrEmpty(brand) && string.IsNullOrEmpty(query))
+                if (string.IsNullOrEmpty(filterPage.Categories) && string.IsNullOrEmpty(filterPage.Brand) && string.IsNullOrEmpty(query))
                 {
                     State = LayoutState.Custom;
                     CustomStateKey = StateKeys.EmptyQuery;

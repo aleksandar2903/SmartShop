@@ -28,9 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Components\Buttons\AddToCartButton.xaml.cs">
-      <DependentUpon>AddToCartButton.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Components\Frames\SortValueFrame.xaml.cs">
       <DependentUpon>SortValueFrame.xaml</DependentUpon>
     </Compile>
@@ -43,13 +40,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="AppFrame.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Components\Buttons\BackwardButton.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Components\Buttons\FavouriteButton.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Components\Buttons\AddToCartButton.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Components\Cards\ReviewCard.xaml">
@@ -71,6 +68,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Components\Frames\SmallImageFrame.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Components\Navbar\Navbar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Templates\DataTemplates.xaml">

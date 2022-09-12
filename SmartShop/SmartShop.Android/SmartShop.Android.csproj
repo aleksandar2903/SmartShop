@@ -470,5 +470,17 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\error.svg" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\empty_cart.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\empty_favourites.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\angle_icon_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\angle_icon_left.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

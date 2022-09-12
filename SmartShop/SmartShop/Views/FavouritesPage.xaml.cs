@@ -20,10 +20,14 @@ namespace SmartShop.Views
             BindingContext = viewModel = new FavouritesViewModel();
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
-            base.OnAppearing();
-            viewModel.OnAppearing();
+            await viewModel.InitializeAsync();
+        }
+
+        protected override void OnDisappearing()
+        {
+            
         }
     }
 }

@@ -1,9 +1,6 @@
-﻿using MonkeyCache.FileStore;
-using SmartShop.Models;
-using SmartShop.Services;
+﻿using SmartShop.Models;
 using SmartShop.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -18,6 +15,7 @@ namespace SmartShop.ViewModels
         public ObservableCollection<Product> FavouriteProducts { get; set; }
         public ICommand ToggleFavouriteProductCommand { get; }
         public ICommand OnProductTapped { get; }
+        bool isLoggedIn;
         public FavouritesViewModel()
         {
             FavouriteProducts = new ObservableCollection<Product>();
@@ -27,7 +25,7 @@ namespace SmartShop.ViewModels
 
         private async Task ToggleProduct(Product product)
         {
-            if(product == null)
+            if (product == null)
             {
                 return;
             }
@@ -36,6 +34,10 @@ namespace SmartShop.ViewModels
             {
                 await FavouriteService.ToogleFavourite(product.Id, SettingsService.AuthAccessToken);
                 FavouriteProducts.Remove(product);
+                if(FavouriteProducts.Count == 0)
+                {
+                    State = LayoutState.Empty;
+                }
             }
             catch (Exception ex)
             {
@@ -44,9 +46,23 @@ namespace SmartShop.ViewModels
             }
         }
 
-        public async void OnAppearing()
+        public async override Task InitializeAsync()
         {
-            await LoadFavouriteProductsAsync();
+            State = LayoutState.Empty;
+            await Task.Delay(1);
+
+            if (!IsLoggedIn())
+            {
+                if (!isLoggedIn)
+                {
+                    isLoggedIn = true;
+                    await Shell.Current.Navigation.PushModalAsync(new LoginPage());
+                }
+            }
+            else
+            {
+                await LoadFavouriteProductsAsync();
+            }
         }
 
         private async Task LoadFavouriteProductsAsync()

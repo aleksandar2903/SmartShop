@@ -2,59 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
-             xmlns:m="clr-namespace:SmartShop.Models" xmlns:buttons="clr-namespace:SmartShop.Components.Buttons" xmlns:frames="clr-namespace:SmartShop.Components.Frames" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:m="clr-namespace:SmartShop.Models"
+             xmlns:frames="clr-namespace:SmartShop.Components.Frames" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="SmartShop.Views.FavouritesPage"
-             Title="Favourites"
+             xmlns:local="clr-namespace:SmartShop"
              Shell.NavBarIsVisible="False"
              x:DataType="vm:FavouritesViewModel">
-    <ContentPage.Content>
-        <Grid xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="False" BackgroundColor="White" RowDefinitions="*">
-            <xct:StateLayout.StateViews>
-                <xct:StateView StateKey="Loading" RepeatCount="1" Template="{StaticResource loading}" />
-            </xct:StateLayout.StateViews>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Padding="15" ColumnDefinitions="*, *">
-                    <!--Top Search Bar-->
-                    <Image Source="shop.png" HeightRequest="30" HorizontalOptions="Start"></Image>
-                    <StackLayout Grid.Column="1" Spacing="15" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="End">
-                        <Image
-                              Aspect="AspectFit"
-                              HeightRequest="20"
-                              Source="search1.png"
-                              WidthRequest="20">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SearchTappedCommand}"></TapGestureRecognizer>
-                            </Image.GestureRecognizers>
-                        </Image>
-                        <Image
-                              Aspect="AspectFit"
-                              HeightRequest="20"
-                              Source="user.png"
-                              WidthRequest="20">
-                        </Image>
-                    </StackLayout>
-                </Grid>
-                <StackLayout Grid.Row="1" Padding="15, 0" Spacing="20" VerticalOptions="FillAndExpand">
-                    <StackLayout>
-                        <Label Text="Omiljeno" FontSize="Medium" FontAttributes="Bold" TextColor="Black"></Label>
-                    </StackLayout>
-                    <CollectionView ItemsSource="{Binding FavouriteProducts}">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="m:Product">
-                                <frames:ProductFrame>
-                                </frames:ProductFrame>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </StackLayout>
-            </Grid>
-        </Grid>
-    </ContentPage.Content>
+    <local:AppFrame Title="Moji favoriti" EmptyTemplate="{StaticResource empty_favourites}">
+        <local:AppFrame.Content>
+            <CollectionView ItemsSource="{Binding FavouriteProducts}" Margin="15, 0">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Product">
+                        <frames:ProductFrame ToggleFavouriteProductCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:FavouritesViewModel}}, Path=ToggleFavouriteProductCommand}">
+                        </frames:ProductFrame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </local:AppFrame.Content>
+    </local:AppFrame>
 </ContentPage>
