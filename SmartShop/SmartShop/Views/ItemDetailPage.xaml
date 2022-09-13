@@ -5,15 +5,19 @@
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
              xmlns:m="clr-namespace:SmartShop.Models"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
-             xmlns:local="clr-namespace:SmartShop.Components.Frames"
-             xmlns:cards="clr-namespace:SmartShop.Components.Cards"
+             xmlns:local="clr-namespace:SmartShop" 
+             xmlns:frames="clr-namespace:SmartShop.Components.Frames"
+             xmlns:cards="clr-namespace:SmartShop.Components.Cards" xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:DataType="vm:ItemDetailViewModel">
     <ContentPage.Resources>
         <x:Int32 x:Key="Zero">0</x:Int32>
     </ContentPage.Resources>
-    <Grid xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="True" BackgroundColor="White">
+    <Grid xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.AnimateStateChanges="False" BackgroundColor="White">
         <xct:StateLayout.StateViews>
-            <xct:StateView StateKey="Loading" RepeatCount="2" Template="{StaticResource product_details_loading}" />
+            <xct:StateView StateKey="Loading" RepeatCount="1" Template="{StaticResource product_details_loading}" />
+            <xct:StateView StateKey="Error" RepeatCount="1" Template="{StaticResource error}" />
+            <xct:StateView StateKey="Empty" RepeatCount="1" Template="{StaticResource empty}" />
+            <xct:StateView StateKey="Custom" CustomStateKey="{x:Static local:StateKeys.Offline}" RepeatCount="1" Template="{StaticResource offline}" />
         </xct:StateLayout.StateViews>
         <Grid.RowDefinitions>
             <RowDefinition Height="90*"></RowDefinition>
@@ -25,8 +29,8 @@
                     <CarouselView ItemsSource="{Binding Product.Images}" IndicatorView="IndicatorView" HeightRequest="300" VerticalOptions="Center" HorizontalOptions="Center">
                         <CarouselView.ItemTemplate>
                             <DataTemplate x:DataType="m:Image">
-                                <Image Source="{Binding Uri}" Aspect="AspectFit">
-                                </Image>
+                                <ff:CachedImage Source="{Binding Uri}" Aspect="AspectFit">
+                                </ff:CachedImage>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
                     </CarouselView>
@@ -109,8 +113,8 @@
                     </xct:Expander>
                 </StackLayout>
 
-                <local:SimilarProductFrame IsVisible="{Binding Product.SimilarProduct, Converter={xct:IsNotNullOrEmptyConverter}}" 
-                                               BindingContext="{Binding Product.SimilarProduct}"></local:SimilarProductFrame>
+                <frames:SimilarProductFrame IsVisible="{Binding Product.SimilarProduct, Converter={xct:IsNotNullOrEmptyConverter}}" 
+                                               BindingContext="{Binding Product.SimilarProduct}"></frames:SimilarProductFrame>
                 <!--  Reviews  -->
                 <Label
                       FontAttributes="Bold"
@@ -175,8 +179,8 @@
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="m:Product">
-                                <local:ProductFrame>
-                                </local:ProductFrame>
+                                <frames:ProductFrame>
+                                </frames:ProductFrame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
@@ -199,8 +203,8 @@
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="m:Product">
-                                <local:ProductFrame>
-                                </local:ProductFrame>
+                                <frames:ProductFrame>
+                                </frames:ProductFrame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>

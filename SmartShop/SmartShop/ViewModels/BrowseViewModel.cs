@@ -102,7 +102,11 @@ namespace SmartShop.ViewModels
             {
                 Products.Clear();
 
-                var response = await SearchService.SearchProducts(query, categories, brands, priceMin, priceMax, sortBy, token: SettingsService.AuthAccessToken);
+                var responseTask = SearchService.SearchProducts(query, categories, brands, priceMin, priceMax, sortBy, token: SettingsService.AuthAccessToken);
+
+                await Task.WhenAll(responseTask, Task.Delay(1000));
+
+                var response = await responseTask;
 
                 foreach (var product in response.Results)
                 {

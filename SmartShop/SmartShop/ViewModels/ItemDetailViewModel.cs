@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
@@ -63,21 +64,32 @@ namespace SmartShop.ViewModels
 
         public async Task FetchProductAsync()
         {
-            //IsBusy = true;
-            State = Xamarin.CommunityToolkit.UI.Views.LayoutState.Loading;
+            if (!VerifyInternetConnection())
+            {
+                State = LayoutState.Custom;
+                CustomStateKey = StateKeys.Offline;
+                return;
+            }
+
+            State = LayoutState.Loading;
+
             try
             {
-                var item = await ProductService.GetProductAsync(productId);
-                Product = item;
+                var productTask = ProductService.GetProductAsync(productId);
+                await Task.WhenAll(productTask, Task.Delay(3000));
+                Product = await productTask;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                State = LayoutState.Error;
             }
             finally
             {
-                //IsBusy = false;
-                State = Xamarin.CommunityToolkit.UI.Views.LayoutState.None;
+                if (State != LayoutState.Error)
+                {
+                    State = Product.Id > 0 ? LayoutState.None : LayoutState.Empty;
+                }
             }
         }
     }

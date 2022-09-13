@@ -42,6 +42,8 @@ namespace SmartShop.ViewModels
 
             State = LayoutState.Loading;
 
+            await Task.Delay(600);
+
             try
             {
                 Subcategories.Add(new Subcategory { Name = "Vidi sve"});

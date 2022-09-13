@@ -48,14 +48,20 @@ namespace SmartShop.ViewModels
                 Categories.Clear();
                 Brands.Clear();
 
-                var categories = await CategoryBrandService.GetCategoriesAsync();
+                var categoriesTask = CategoryBrandService.GetCategoriesAsync();
+
+                var brandsTask = CategoryBrandService.GetBrandsAsync();
+
+                await Task.WhenAll(categoriesTask, brandsTask, Task.Delay(1000));
+
+                var categories = await categoriesTask;
+                var brands = await brandsTask;
 
                 foreach (var category in categories)
                 {
                     Categories.Add(category);
                 }
 
-                var brands = await CategoryBrandService.GetBrandsAsync();
 
                 foreach (var brand in brands)
                 {

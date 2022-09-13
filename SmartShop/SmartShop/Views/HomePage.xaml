@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:SmartShop.ViewModels"
              Shell.NavBarIsVisible="False"
              x:DataType="vm:HomeViewModel"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:local="clr-namespace:SmartShop"
              xmlns:model="clr-namespace:SmartShop.Models" 
              xmlns:cc="clr-namespace:SmartShop.Components.Frames">
@@ -18,7 +19,7 @@
                                 <DataTemplate x:DataType="model:Promotion">
                                     <Frame Padding="0" CornerRadius="10">
                                         <Grid RowDefinitions="175, 175" BackgroundColor="#f5f5ff" RowSpacing="20">
-                                            <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
+                                            <ff:CachedImage Source="{Binding ImageUrl}" Aspect="AspectFill"/>
                                             <StackLayout Grid.Row="1" Spacing="15" Padding="15, 0">
                                                 <Label Text="{Binding Title}" TextColor="Black" FontAttributes="Bold" FontSize="16"></Label>
                                                 <Label Text="{Binding Description}" MaxLines="2" LineBreakMode="TailTruncation" TextColor="Black" FontSize="12"></Label>
@@ -60,7 +61,7 @@
                                           HeightRequest="{OnIdiom Desktop=100, Phone=60}"
                                           IsClippedToBounds="False"
                                           WidthRequest="{OnIdiom Desktop=100, Phone=60}">
-                                            <Image
+                                            <ff:CachedImage
                                               Margin="15"
                                               Aspect="AspectFit"
                                               HorizontalOptions="Center"

@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
       xmlns:local="clr-namespace:SmartShop"
+      xmlns:vm="clr-namespace:SmartShop.ViewModels"
       x:Class="SmartShop.AppFrame"
       x:Name="self"
       BackgroundColor="White">
@@ -15,7 +16,7 @@
         <!--Top Search Bar-->
         <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start" Spacing="5">
             <ImageButton HeightRequest="35" WidthRequest="35" Padding="8" CornerRadius="35"
-             Source="angle_icon_left.png" IsVisible="{Binding BackwardButtonIsVisible, Source={x:Reference self}}" BackgroundColor="White" Command="{Binding BackwardCommand}"/>
+             Source="angle_icon_left.png" IsVisible="{Binding BackwardButtonIsVisible, Source={x:Reference self}}" BackgroundColor="White" Command="{Binding Path=BackwardCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}"/>
             <Image Source="shop.png" IsVisible="{Binding LogoIsVisible, Source={x:Reference self}}" HeightRequest="30" Margin="8, 0, 0, 0" VerticalOptions="Center" HorizontalOptions="Start"></Image>
         </StackLayout>
         <StackLayout Grid.Column="1" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
@@ -35,10 +36,8 @@
                 WidthRequest="35"
                 BackgroundColor="White" 
                 CornerRadius="30"
-                IsVisible="{Binding SearchLogoIsVisible, Source={x:Reference self}}">
-                <ImageButton.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SearchTappedCommand}"></TapGestureRecognizer>
-                </ImageButton.GestureRecognizers>
+                IsVisible="{Binding SearchLogoIsVisible, Source={x:Reference self}}"
+                Command="{Binding Path=SearchTappedCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}">
             </ImageButton>
             <ImageButton
                 Aspect="AspectFit"
@@ -47,14 +46,12 @@
                 Padding="8"
                 WidthRequest="35"
                 BackgroundColor="White" CornerRadius="30"
-                IsVisible="{Binding UserLogoIsVisible, Source={x:Reference self}}">
-                <ImageButton.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding UserTappedCommand}"></TapGestureRecognizer>
-                </ImageButton.GestureRecognizers>
+                IsVisible="{Binding UserLogoIsVisible, Source={x:Reference self}}"
+                Command="{Binding Path=UserTappedCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}">
             </ImageButton>
         </StackLayout>
     </Grid>
-    <Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.CurrentCustomStateKey="{Binding CustomStateKey}" xct:StateLayout.AnimateStateChanges="True">
+    <Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.CurrentCustomStateKey="{Binding CustomStateKey}" xct:StateLayout.AnimateStateChanges="False">
         <xct:StateLayout.StateViews>
             <xct:StateView StateKey="Loading" RepeatCount="1" Template="{Binding Source={x:Reference self}, Path=LoadingTemplate}" />
             <xct:StateView StateKey="Error" RepeatCount="1" Template="{StaticResource error}" />

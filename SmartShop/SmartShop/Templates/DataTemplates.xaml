@@ -3,61 +3,63 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
                     xmlns:controls="clr-namespace:SmartShop.Controls"
                     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms" 
+                    xmlns:vm="clr-namespace:SmartShop.ViewModels"
                     x:Class="SmartShop.Templates.DataTemplates">
 
     <DataTemplate x:Key="product_details_loading">
         <StackLayout Padding="15" Spacing="10">
-            <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" Grid.ColumnSpan="5" HeightRequest="300" BackgroundColor="#CCCCCC" />
-            <controls:SkeletonView HorizontalOptions="Start" Margin="0,5,0,0" CornerRadius="15" HeightRequest="10" WidthRequest="50" BackgroundColor="#CCCCCC"  />
-            <controls:SkeletonView HorizontalOptions="Start" CornerRadius="15" HeightRequest="20" WidthRequest="200" BackgroundColor="#CCCCCC"  />
-            <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="30" BackgroundColor="#CCCCCC"  />
-            <controls:SkeletonView HorizontalOptions="Start" Margin="0,0,0,5" CornerRadius="15" HeightRequest="15" WidthRequest="150" BackgroundColor="#CCCCCC"  />
-            <controls:SkeletonView Margin="15,0" HorizontalOptions="Start" CornerRadius="15" HeightRequest="10" WidthRequest="200" BackgroundColor="#CCCCCC"  />
-            <controls:SkeletonView Margin="15,0" HorizontalOptions="Start" CornerRadius="15" HeightRequest="10" WidthRequest="250" BackgroundColor="#CCCCCC"  />
-            <controls:SkeletonView Margin="15,0" HorizontalOptions="Start" CornerRadius="15" HeightRequest="10" WidthRequest="120" BackgroundColor="#CCCCCC"  />
-            <controls:SkeletonView Margin="15,0" HorizontalOptions="Start" CornerRadius="15" HeightRequest="10" WidthRequest="300" BackgroundColor="#CCCCCC"  />
-            <controls:SkeletonView Margin="15,0" HorizontalOptions="Start" CornerRadius="15" HeightRequest="10" WidthRequest="150" BackgroundColor="#CCCCCC"  />
-            <controls:SkeletonView HorizontalOptions="Fill" CornerRadius="15" HeightRequest="150" Margin="10" BackgroundColor="#CCCCCC"  />
-            <controls:SkeletonView HorizontalOptions="Start" CornerRadius="15" HeightRequest="15" WidthRequest="200" BackgroundColor="#CCCCCC"  />
+            <ImageButton WidthRequest="35" HeightRequest="35" Padding="8" CornerRadius="35" HorizontalOptions="Start" BackgroundColor="White" Aspect="AspectFit" VerticalOptions="Start" Source="angle_icon_down.png"  Command="{Binding BackwardCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}"></ImageButton>
+            <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" Grid.ColumnSpan="5" HeightRequest="300"  />
+            <controls:SkeletonView HorizontalOptions="Start" Margin="0,5,0,0" CornerRadius="15" HeightRequest="10" WidthRequest="50"   />
+            <controls:SkeletonView HorizontalOptions="Start" CornerRadius="15" HeightRequest="20" WidthRequest="200"   />
+            <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="30"   />
+            <controls:SkeletonView HorizontalOptions="Start" Margin="0,0,0,5" CornerRadius="15" HeightRequest="15" WidthRequest="150"   />
+            <controls:SkeletonView Margin="15,0" HorizontalOptions="Start" CornerRadius="15" HeightRequest="10" WidthRequest="200"   />
+            <controls:SkeletonView Margin="15,0" HorizontalOptions="Start" CornerRadius="15" HeightRequest="10" WidthRequest="250"   />
+            <controls:SkeletonView Margin="15,0" HorizontalOptions="Start" CornerRadius="15" HeightRequest="10" WidthRequest="120"   />
+            <controls:SkeletonView Margin="15,0" HorizontalOptions="Start" CornerRadius="15" HeightRequest="10" WidthRequest="300"   />
+            <controls:SkeletonView Margin="15,0" HorizontalOptions="Start" CornerRadius="15" HeightRequest="10" WidthRequest="150"   />
+            <controls:SkeletonView HorizontalOptions="Fill" CornerRadius="15" HeightRequest="150" Margin="10"   />
+            <controls:SkeletonView HorizontalOptions="Start" CornerRadius="15" HeightRequest="15" WidthRequest="200"   />
         </StackLayout>
     </DataTemplate>
     <DataTemplate x:Key="loading_featured_products">
         <StackLayout Padding="15" Spacing="10">
-            <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" Grid.ColumnSpan="5" HeightRequest="300" BackgroundColor="#CCCCCC" />
-            <controls:SkeletonView HorizontalOptions="Start" Margin="0,20,0,0" CornerRadius="15" HeightRequest="20" WidthRequest="150" BackgroundColor="#CCCCCC"  />
+            <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" Grid.ColumnSpan="5" HeightRequest="300"  />
+            <controls:SkeletonView HorizontalOptions="Start" Margin="0,20,0,0" CornerRadius="15" HeightRequest="20" WidthRequest="150"   />
             <StackLayout Orientation="Horizontal" Margin="0,10" HorizontalOptions="FillAndExpand" Spacing="15">
                 <StackLayout WidthRequest="130" HeightRequest="200" Spacing="10">
-                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40" BackgroundColor="#CCCCCC"  />
+                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40"   />
                 </StackLayout>
                 <StackLayout WidthRequest="130" HeightRequest="200" Spacing="10">
-                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40" BackgroundColor="#CCCCCC"  />
+                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40"   />
                 </StackLayout>
                 <StackLayout WidthRequest="130" HeightRequest="200" Spacing="10">
-                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40" BackgroundColor="#CCCCCC"  />
+                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40"   />
                 </StackLayout>
             </StackLayout>
-            <controls:SkeletonView HorizontalOptions="Start" Margin="0,5,0,0" CornerRadius="15" HeightRequest="20" WidthRequest="150" BackgroundColor="#CCCCCC"  />
+            <controls:SkeletonView HorizontalOptions="Start" Margin="0,5,0,0" CornerRadius="15" HeightRequest="20" WidthRequest="150"   />
             <StackLayout Orientation="Horizontal" Margin="0,10" HorizontalOptions="FillAndExpand" Spacing="15">
                 <StackLayout WidthRequest="130" HeightRequest="200" Spacing="10">
-                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40" BackgroundColor="#CCCCCC"  />
+                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40"   />
                 </StackLayout>
                 <StackLayout WidthRequest="130" HeightRequest="200" Spacing="10">
-                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40" BackgroundColor="#CCCCCC"  />
+                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40"   />
                 </StackLayout>
                 <StackLayout WidthRequest="130" HeightRequest="200" Spacing="10">
-                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80" BackgroundColor="#CCCCCC"  />
-                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40" BackgroundColor="#CCCCCC"  />
+                    <controls:SkeletonView HorizontalOptions="FillAndExpand" CornerRadius="15" HeightRequest="130"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="15" CornerRadius="15" WidthRequest="80"   />
+                    <controls:SkeletonView HorizontalOptions="Start" HeightRequest="20" CornerRadius="15" WidthRequest="40"   />
                 </StackLayout>
             </StackLayout>
         </StackLayout>

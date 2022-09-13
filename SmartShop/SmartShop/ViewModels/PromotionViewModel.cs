@@ -29,7 +29,9 @@ namespace SmartShop.ViewModels
 
             try
             {
-                Promotion = await PromotionService.GetPromotion(id);
+                var promotionTask = PromotionService.GetPromotion(id);
+                await Task.WhenAll(promotionTask, Task.Delay(1000));
+                Promotion = await promotionTask;
             }
             catch (Exception ex)
             {

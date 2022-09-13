@@ -181,7 +181,11 @@ namespace SmartShop.ViewModels
                 if (String.IsNullOrWhiteSpace(brands) && !String.IsNullOrWhiteSpace(brand))
                     brands = brand;
 
-                var response = await SearchService.FilterProducts(query, categories, brands, MinPrice, MaxPrice);
+                var responseTask = SearchService.FilterProducts(query, categories, brands, MinPrice, MaxPrice);
+
+                await Task.WhenAll(responseTask, Task.Delay(1000));
+
+                var response = await responseTask;
 
                 if (response != null)
                 {

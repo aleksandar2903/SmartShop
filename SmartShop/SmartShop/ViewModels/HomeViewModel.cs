@@ -1,13 +1,8 @@
-﻿using MonkeyCache.FileStore;
-using SmartShop.Models;
-using SmartShop.Models.Request;
-using SmartShop.Services;
+﻿using SmartShop.Models;
 using SmartShop.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.UI.Views;
@@ -25,7 +20,6 @@ namespace SmartShop.ViewModels
         public ObservableCollection<Product> FeaturedProducts { get; }
         public ObservableCollection<Promotion> Promotions { get; }
         public ICommand LoadItemsCommand { get; }
-        public ICommand SignInCommand { get; }
         public ICommand OpenCategoriesPageCommand { get; }
         public ICommand AddItemCommand { get; }
         public ICommand ProductTapped { get; }
@@ -42,7 +36,6 @@ namespace SmartShop.ViewModels
             Promotions = new ObservableCollection<Promotion>();
             LoadItemsCommand = new Command(async () => await LoadDataAsync());
             OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
-            SignInCommand = new Command(UserTapped);
             PromotionTapped = new Command<Promotion>(async (promotion) => await Shell.Current.Navigation.PushAsync(new PromotionPage(promotion.Id), true));
             ToggleFavouriteProductCommand = new Command<Product>(async (product) => await ToggleProduct(product));
             var deviceInfo = DeviceDisplay.MainDisplayInfo;
@@ -70,17 +63,6 @@ namespace SmartShop.ViewModels
         }
 
         public int FrameSize { get; }
-        private async void UserTapped()
-        {
-            if (IsLoggedIn())
-            {
-                await Shell.Current.GoToAsync($"//{nameof(ProfilePage)}", true);
-            }
-            else
-            {
-                await Shell.Current.Navigation.PushModalAsync(new LoginPage(), true);
-            }
-        }
         private async Task LoadDataAsync()
         {
             if (!VerifyInternetConnection())
@@ -91,7 +73,6 @@ namespace SmartShop.ViewModels
             }
 
             State = LayoutState.Loading;
-
             try
             {
                 var categoriesTask = CategoryBrandService.GetCategoriesAsync();
@@ -99,7 +80,7 @@ namespace SmartShop.ViewModels
                 var featuredProductsTask = ProductService.GetNewestProductsAsync(SettingsService.AuthAccessToken);
                 var promotionsTask = PromotionService.GetPromotions();
 
-                await Task.WhenAll(featuredProductsTask, categoriesTask, productsTask, featuredProductsTask, promotionsTask);
+                await Task.WhenAll(featuredProductsTask, categoriesTask, productsTask, featuredProductsTask, promotionsTask, Task.Delay(1000));
 
                 var featuredProducts = await featuredProductsTask;
                 var products = await productsTask;

@@ -80,7 +80,11 @@ namespace SmartShop.ViewModels
             {
                 FavouriteProducts.Clear();
 
-                var result = await FavouriteService.GetFavourites(SettingsService.AuthAccessToken);
+                var resultTask = FavouriteService.GetFavourites(SettingsService.AuthAccessToken);
+
+                await Task.WhenAll(resultTask, Task.Delay(1000));
+
+                var result = await resultTask;
 
                 foreach (var product in result.Results)
                 {

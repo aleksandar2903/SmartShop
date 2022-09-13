@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -28,9 +29,10 @@ namespace SmartShop.ViewModels
         LayoutState state = LayoutState.None;
         string customKeys;
 
-        public Command BackwardCommand { get; } = new Command(async () => await Shell.Current.Navigation.PopAsync());
-        public Command SearchTappedCommand { get; } = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage()));
-        public Command ProductTappedCommand { get; } = new Command<Product>(async (product) => await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id)));
+        public ICommand BackwardCommand => new Command(async () => await Shell.Current.Navigation.PopAsync());
+        public ICommand SearchTappedCommand => new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage()));
+        public ICommand UserTappedCommand => new Command(UserTapped);
+        public ICommand ProductTappedCommand => new Command<Product>(async (product) => await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id)));
 
         public string CustomStateKey { get => customKeys; set => SetProperty(ref customKeys, value); }
 
@@ -102,5 +104,17 @@ namespace SmartShop.ViewModels
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+        private async void UserTapped()
+        {
+            if (IsLoggedIn())
+            {
+                await Shell.Current.GoToAsync($"//{nameof(ProfilePage)}", true);
+            }
+            else
+            {
+                await Shell.Current.Navigation.PushModalAsync(new LoginPage(), true);
+            }
+        }
     }
 }
