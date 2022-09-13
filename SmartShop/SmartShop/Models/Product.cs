@@ -54,12 +54,15 @@ namespace SmartShop.Models
         public Image Image { get => _image; set { _image = value; OnPropertyChanged(); } }
         Image _image;
         bool _favourite;
+        bool _inCart;
         [JsonProperty("price")]
         public decimal Price { get; set; }
         [JsonProperty("brand")]
         public Brand Brand { get; set; }
         [JsonProperty("favourite")]
         public bool Favourite { get => _favourite; set { _favourite = value; OnPropertyChanged(); } }
+        [JsonProperty("in_cart")]
+        public bool InCart { get => _inCart; set { _inCart = value; OnPropertyChanged(); } }
         [JsonProperty("similar_product")]
         public Product SimilarProduct { get; set; }
         [JsonProperty("similar_products")]

@@ -134,6 +134,10 @@ namespace SmartShop.ViewModels
                 await OpenModalAsync(new LoginPage());
                 return;
             }
+            if (!VerifyInternetConnection())
+            {
+                return;
+            }
 
             product.Favourite = !product.Favourite;
 
@@ -144,7 +148,7 @@ namespace SmartShop.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                product.Favourite = false;
+                product.Favourite = !product.Favourite;
             }
         }
     }

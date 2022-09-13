@@ -1,10 +1,13 @@
-﻿using SmartShop.Models;
+﻿using MonkeyCache.FileStore;
+using SmartShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
@@ -23,6 +26,7 @@ namespace SmartShop.ViewModels
             SelectedPhoto = new Command<Models.Image>(ChangePhoto);
             SwipeRightCommand = new Command<Models.Image>((image) => SwipePhoto(image, true));
             SwipeLeftCommand = new Command<Models.Image>((image) => SwipePhoto(image, false));
+            ToggleProductInCartCommand = new Command<Product>(async (product) => await ToggleProductInCart(product));
         }
 
         void SwipePhoto(Models.Image photo, bool directionRight)
@@ -59,6 +63,7 @@ namespace SmartShop.ViewModels
         private Product _product;
         public ObservableCollection<Product> Products { get; set; }
         public Command<Models.Image> SelectedPhoto { get; }
+        public ICommand ToggleProductInCartCommand { get; }
         public Command<Models.Image> SwipeRightCommand { get; }
         public Command<Models.Image> SwipeLeftCommand { get; }
 
@@ -90,6 +95,45 @@ namespace SmartShop.ViewModels
                 {
                     State = Product.Id > 0 ? LayoutState.None : LayoutState.Empty;
                 }
+            }
+        }
+
+        private async Task ToggleProductInCart(Product product)
+        {
+            if(product == null)
+            {
+                return;
+            }
+
+            if (!VerifyInternetConnection())
+            {
+                return;
+            }
+
+            product.InCart = !product.InCart;
+
+            try
+            {
+                if (IsLoggedIn())
+                {
+                    await CartService.ToggleProductAsync(product.Id, SettingsService.AuthAccessToken);
+                }
+                else
+                {
+                    if (Barrel.Current.Exists(product.Id.ToString()))
+                    {
+                        Barrel.Current.Empty(product.Id.ToString());
+                    }
+                    else
+                    {
+                        Barrel.Current.Add(product.Id.ToString(), product.Id, TimeSpan.FromDays(90));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                product.InCart = !product.InCart;
+                Debug.WriteLine(ex.Message);
             }
         }
     }

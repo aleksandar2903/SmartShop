@@ -216,7 +216,13 @@
         <Frame Grid.Row="1" Padding="15, 10" BackgroundColor="White">
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="15">
                 <Label VerticalOptions="Center" FontAttributes="Bold" TextColor="Black" Text="{Binding Product.Price, StringFormat='{0:#,#0}'}" FontSize="24"></Label>
-                <Button Text="Dodaj u korpu" VerticalOptions="Center" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Dodaj u korpu" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Command="{Binding ToggleProductInCartCommand}" CommandParameter="{Binding Product}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Product.InCart}" Value="True">
+                            <Setter Property="Text" Value="Dodato u korpu"></Setter>
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
             </StackLayout>
         </Frame>
     </Grid>
