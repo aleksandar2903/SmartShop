@@ -16,6 +16,7 @@ namespace SmartShop.ViewModels
     {
         public ObservableCollection<Subcategory> Subcategories { get; }
         public Command SubcategoryTapped { get; }
+        int categoryId;
         public SubcategoriesViewModel()
         {
             Subcategories = new ObservableCollection<Subcategory>();
@@ -27,11 +28,12 @@ namespace SmartShop.ViewModels
             if(categoryId > 0 && Subcategories.Count == 0)
             {
                 Title = name;
-                await LoadSubcategoriesAsync(categoryId);
+                this.categoryId = categoryId;
+                await LoadDataAsync(categoryId);
             }
         } 
 
-        async Task LoadSubcategoriesAsync(int categoryId)
+        async Task LoadDataAsync(int categoryId)
         {
             if (!VerifyInternetConnection())
             {
@@ -67,7 +69,10 @@ namespace SmartShop.ViewModels
                 }
             }
         }
-
+        protected override async Task RefreshData()
+        {
+            await LoadDataAsync(categoryId);
+        }
         async void OnSelectedSubcategory(Subcategory subcategory)
         {
             if (subcategory == null)

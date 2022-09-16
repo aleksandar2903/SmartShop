@@ -10,6 +10,6 @@ namespace SmartShop.Services
     {
         Task ToggleProductAsync(int productId, string token);
         Task<bool> UpdateQuantity(string token, int id, int quantity);
-        Task<List<Cart>> GetCarts(string token, int page = 0);
+        Task<IEnumerable<Cart>> GetCartProductsAsync(string token);
     }
 }

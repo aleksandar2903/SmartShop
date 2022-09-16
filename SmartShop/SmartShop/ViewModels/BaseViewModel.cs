@@ -30,6 +30,13 @@ namespace SmartShop.ViewModels
         string customKeys;
 
         public ICommand BackwardCommand => new Command(async () => await Shell.Current.Navigation.PopAsync());
+        public ICommand RefreshDataCommand => new Command(async () => await RefreshData());
+
+        protected virtual Task RefreshData()
+        {
+            return Task.CompletedTask;
+        }
+
         public ICommand SearchTappedCommand => new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage()));
         public ICommand UserTappedCommand => new Command(UserTapped);
         public ICommand ProductTappedCommand => new Command<Product>(async (product) => await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id)));

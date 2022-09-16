@@ -38,7 +38,7 @@
                     <ImageButton WidthRequest="35" HeightRequest="35" Padding="8" CornerRadius="35" HorizontalOptions="Start" BackgroundColor="White" Aspect="AspectFit" VerticalOptions="Start" Source="angle_icon_down.png"  Command="{Binding BackwardCommand}"></ImageButton>
                     <ImageButton Source="heart.png" VerticalOptions="Start" WidthRequest="35" 
                         Padding="8" HeightRequest="35" CornerRadius="35" HorizontalOptions="End" 
-                        Aspect="AspectFit" BackgroundColor="White">
+                        Aspect="AspectFit" BackgroundColor="White" Command="{Binding ToggleFavouriteProductCommand}" CommandParameter="{Binding Product}">
                         <ImageButton.Triggers>
                             <DataTrigger TargetType="ImageButton" Binding="{Binding Product.Favourite}" Value="True">
                                 <Setter Property="Source" Value="red_heart.png"></Setter>

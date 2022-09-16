@@ -60,7 +60,7 @@ namespace SmartShop.ViewModels
 
         async Task FilterProducts()
         {
-            await LoadProducts(query, searchRequest.Categories, searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice, searchRequest.SortBy);
+            await LoadDataAsync(query, searchRequest.Categories, searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice, searchRequest.SortBy);
         }
 
         public async void OnAppearing(string subcategories = "", string brand = "")
@@ -77,7 +77,7 @@ namespace SmartShop.ViewModels
                 }
                 else
                 {
-                    await LoadProducts(categories: subcategories, brands: brand);
+                    await LoadDataAsync(categories: subcategories, brands: brand);
                 }
             }
         }
@@ -87,7 +87,12 @@ namespace SmartShop.ViewModels
             await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id));
         }
 
-        async Task LoadProducts(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0, string sortBy = "")
+        protected override async Task RefreshData()
+        {
+            await LoadDataAsync();
+        }
+
+        async Task LoadDataAsync(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0, string sortBy = "")
         {
             if (!VerifyInternetConnection())
             {

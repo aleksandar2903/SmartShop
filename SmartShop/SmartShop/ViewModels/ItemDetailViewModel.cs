@@ -1,5 +1,6 @@
 ﻿using MonkeyCache.FileStore;
 using SmartShop.Models;
+using SmartShop.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +28,7 @@ namespace SmartShop.ViewModels
             SwipeRightCommand = new Command<Models.Image>((image) => SwipePhoto(image, true));
             SwipeLeftCommand = new Command<Models.Image>((image) => SwipePhoto(image, false));
             ToggleProductInCartCommand = new Command<Product>(async (product) => await ToggleProductInCart(product));
+            ToggleFavouriteProductCommand = new Command<Product>(async (product) => await ToggleProduct(product));
         }
 
         void SwipePhoto(Models.Image photo, bool directionRight)
@@ -56,18 +58,20 @@ namespace SmartShop.ViewModels
 
         public async void OnAppearing()
         {
-            await FetchProductAsync();
+            await LoadDataAsync();
         }
 
         public Product Product { get => _product; set => SetProperty(ref _product, value); }
         private Product _product;
         public ObservableCollection<Product> Products { get; set; }
+
         public Command<Models.Image> SelectedPhoto { get; }
         public ICommand ToggleProductInCartCommand { get; }
+        public ICommand ToggleFavouriteProductCommand { get; }
         public Command<Models.Image> SwipeRightCommand { get; }
         public Command<Models.Image> SwipeLeftCommand { get; }
 
-        public async Task FetchProductAsync()
+        public async Task LoadDataAsync()
         {
             if (!VerifyInternetConnection())
             {
@@ -80,8 +84,8 @@ namespace SmartShop.ViewModels
 
             try
             {
-                var productTask = ProductService.GetProductAsync(productId);
-                await Task.WhenAll(productTask, Task.Delay(3000));
+                var productTask = ProductService.GetProductAsync(productId, SettingsService.AuthAccessToken);
+                await Task.WhenAll(productTask, Task.Delay(1000));
                 Product = await productTask;
             }
             catch (Exception ex)
@@ -126,7 +130,7 @@ namespace SmartShop.ViewModels
                     }
                     else
                     {
-                        Barrel.Current.Add(product.Id.ToString(), product.Id, TimeSpan.FromDays(90));
+                        Barrel.Current.Add(product.Id.ToString(), 1, TimeSpan.FromDays(90));
                     }
                 }
             }
@@ -135,6 +139,36 @@ namespace SmartShop.ViewModels
                 product.InCart = !product.InCart;
                 Debug.WriteLine(ex.Message);
             }
+        }
+
+        private async Task ToggleProduct(Product product)
+        {
+            if (!IsLoggedIn())
+            {
+                await OpenModalAsync(new LoginPage());
+                return;
+            }
+            if (!VerifyInternetConnection())
+            {
+                return;
+            }
+
+            product.Favourite = !product.Favourite;
+
+            try
+            {
+                await FavouriteService.ToogleFavourite(product.Id, SettingsService.AuthAccessToken);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                product.Favourite = !product.Favourite;
+            }
+        }
+
+        protected override async Task RefreshData()
+        {
+            await LoadDataAsync();
         }
     }
 }

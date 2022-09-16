@@ -1,6 +1,7 @@
 ﻿using SmartShop.Models;
 using SmartShop.Services.RequestProvider;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -9,16 +10,18 @@ namespace SmartShop.Services
 {
     public class CartService : ICartService
     {
-        private readonly string url = $"{Config.APIUrl}/carts";
+        private readonly string url = $"{Config.APIUrl}/cart";
         private readonly IRequestProvider _requestProvider;
         public CartService()
         {
             _requestProvider = DependencyService.Get<IRequestProvider>();
         }
 
-        public Task<List<Cart>> GetCarts(string token, int page = 0)
+        public async Task<IEnumerable<Cart>> GetCartProductsAsync(string token)
         {
-            throw new System.NotImplementedException();
+            var catalog = await _requestProvider.GetAsync<IEnumerable<Cart>>(url, token).ConfigureAwait(false);
+
+            return catalog ?? Enumerable.Empty<Cart>();
         }
 
         public async Task ToggleProductAsync(int productId, string token)

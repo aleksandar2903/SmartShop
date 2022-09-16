@@ -80,7 +80,7 @@
             <ffsvg:SvgCachedImage Source="error.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
             <Label HorizontalTextAlignment="Center" Text="Ups! Došlo je do greške." FontSize="Medium" FontAttributes="Bold"></Label>
             <Label HorizontalTextAlignment="Center"  Text="Proverite internet podešavanja i pokušajte ponovo."></Label>
-            <Button Text="Pokušaj ponovo" HorizontalOptions="Center" CornerRadius="45"></Button>
+            <Button Text="Pokušajte ponovo" HorizontalOptions="Center" Command="{Binding RefreshDataCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}" CornerRadius="45"></Button>
         </StackLayout>
     </DataTemplate>
     <DataTemplate x:Key="empty">
@@ -95,7 +95,7 @@
             <ffsvg:SvgCachedImage Source="offline.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
             <Label HorizontalTextAlignment="Center" Text="Ups! Trenutno ste van mreže." FontSize="Medium" FontAttributes="Bold"></Label>
             <Label HorizontalTextAlignment="Center"  Text="Proverite internet podešavanja i pokušajte ponovo."></Label>
-            <Button Text="Pokušaj ponovo" HorizontalOptions="Center" CornerRadius="45"></Button>
+            <Button Text="Pokušajte ponovo" HorizontalOptions="Center" Command="{Binding RefreshDataCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}" CornerRadius="45"></Button>
         </StackLayout>
     </DataTemplate>
     <DataTemplate x:Key="empty_favourites">
@@ -110,7 +110,6 @@
             <ffsvg:SvgCachedImage Source="empty_cart.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
             <Label HorizontalTextAlignment="Center" Text="Ups! Trenutno ste van mreže." FontSize="Medium" FontAttributes="Bold"></Label>
             <Label HorizontalTextAlignment="Center"  Text="Proverite internet podešavanja i pokušajte ponovo."></Label>
-            <Button Text="Pokušaj ponovo" HorizontalOptions="Center" CornerRadius="45"></Button>
         </StackLayout>
     </DataTemplate>
 </ResourceDictionary>

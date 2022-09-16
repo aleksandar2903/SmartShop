@@ -127,6 +127,10 @@ namespace SmartShop.ViewModels
                 }
             }
         }
+        protected override async Task RefreshData()
+        {
+            await LoadDataAsync();
+        }
         private async Task ToggleProduct(Product product)
         {
             if (!IsLoggedIn())

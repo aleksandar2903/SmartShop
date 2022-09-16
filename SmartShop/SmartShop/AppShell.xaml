@@ -32,7 +32,7 @@
     <TabBar>
         <ShellContent Title="Naslovna" Icon="{OnIdiom Desktop=Resources\\home.png, Phone=home.png}" Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
         <ShellContent Title="Pretraga" Icon="{OnIdiom Desktop=Resources\\search.png, Phone=search.png}" Route="ExplorePage" ContentTemplate="{DataTemplate local:CategoriesPage}" />
-        <ShellContent Title="Korpa" Icon="{OnIdiom Desktop=Resources\\shopping_cart.png, Phone=shopping_cart.png}" Route="CartPage" ContentTemplate="{DataTemplate local:AddReviewPage}" />
+        <ShellContent Title="Korpa" Icon="{OnIdiom Desktop=Resources\\shopping_cart.png, Phone=shopping_cart.png}" Route="CartPage" ContentTemplate="{DataTemplate local:CartPage}" />
         <ShellContent Title="Favoriti" Icon="{OnIdiom Desktop=Resources\\heart.png, Phone=heart.png}" Route="FavouritesPage" ContentTemplate="{DataTemplate local:FavouritesPage}" />
         <ShellContent Title="Nalog" Icon="{OnIdiom Desktop=Resources\\user.png, Phone=user.png}" Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}" />
     </TabBar>

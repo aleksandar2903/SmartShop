@@ -12,13 +12,18 @@ namespace SmartShop.ViewModels
     {
         Promotion promotion;
         public Promotion Promotion { get => promotion; set => SetProperty(ref promotion, value); }
+        int id;
 
         public async void OnInitialize(int id)
         {
-            await LoadPromotion(id);
+            if(id > 0)
+            {
+                this.id = id;
+                await LoadDataAsync(id);
+            }
         }
 
-        public async Task LoadPromotion(int id)
+        public async Task LoadDataAsync(int id)
         {
             if (!VerifyInternetConnection())
             {
@@ -45,6 +50,11 @@ namespace SmartShop.ViewModels
                     State = Promotion.Products.Count > 0 ? LayoutState.None : LayoutState.Empty;
                 }
             }
+        }
+
+        protected override async Task RefreshData()
+        {
+            await LoadDataAsync(id);
         }
     }
 }

@@ -81,5 +81,10 @@ namespace SmartShop.ViewModels
                 }
             }
         }
+
+        protected override async Task RefreshData()
+        {
+            await LoadDataAsync();
+        }
     }
 }

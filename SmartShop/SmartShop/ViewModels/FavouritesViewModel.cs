@@ -61,11 +61,11 @@ namespace SmartShop.ViewModels
             }
             else
             {
-                await LoadFavouriteProductsAsync();
+                await LoadDataAsync();
             }
         }
 
-        private async Task LoadFavouriteProductsAsync()
+        private async Task LoadDataAsync()
         {
             if (!VerifyInternetConnection())
             {
@@ -109,6 +109,11 @@ namespace SmartShop.ViewModels
         async void OnProductSelected(Product product)
         {
             await Shell.Current.Navigation.PushModalAsync(new ItemDetailPage(product.Id));
+        }
+
+        protected override async Task RefreshData()
+        {
+            await LoadDataAsync();
         }
     }
 }

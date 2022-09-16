@@ -36,5 +36,12 @@ namespace SmartShop.Services
 
             return product ?? new Product();
         }
+
+        public async Task<IEnumerable<Product>> GetBulkProductsAsync(string ids)
+        {
+            var catalog = await _requestProvider.GetAsync<IEnumerable<Product>>($"{url}/bulk?ids={ids}").ConfigureAwait(false);
+
+            return catalog ?? Enumerable.Empty<Product>();
+        }
     }
 }
