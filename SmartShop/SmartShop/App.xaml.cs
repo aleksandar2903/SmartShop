@@ -22,6 +22,7 @@ namespace SmartShop
             DependencyService.Register<PromotionService>();
             DependencyService.Register<SettingsService>();
             DependencyService.Register<IFavouriteService, FavouriteService>();
+            DependencyService.Register<IOrderService, OrderService>();
             DependencyService.RegisterSingleton(new CheckoutViewModel());
             MainPage = new AppShell();
         }

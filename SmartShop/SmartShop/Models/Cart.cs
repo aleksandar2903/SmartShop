@@ -6,6 +6,11 @@ namespace SmartShop.Models
 {
     public class Cart : INotifyPropertyChanged
     {
+        public Cart()
+        {
+
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
@@ -19,9 +24,33 @@ namespace SmartShop.Models
         [JsonProperty("id")]
         public int Id { get; set; }
         int _quantity = 1;
+        Product _product;
+
+        public Cart(int quantity, int productId, decimal price, decimal amount)
+        {
+            Quantity = quantity;
+            ProductId = productId;
+            Price = price;
+            Amount = amount;
+        }
+
         [JsonProperty("quantity")]
-        public int Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(); OnPropertyChanged(nameof(Amount)); } }
-        public Product Product { get; set; }
-        public decimal Amount => Quantity * Product.Price;
+        public int Quantity { get => _quantity; set { _quantity = value; Amount = value * Price; OnPropertyChanged(); OnPropertyChanged(nameof(Amount)); } }
+        public Product Product
+        {
+            get => _product;
+            set
+            {
+                _product = value;
+                Price = value.Price;
+                Amount = Quantity * value.Price;
+            }
+        }
+        [JsonProperty("price")]
+        public decimal Price { get; set; }
+        [JsonProperty("product_id")]
+        public int ProductId { get; set; }
+        [JsonProperty("total_amount")]
+        public decimal Amount { get; set; }
     }
 }

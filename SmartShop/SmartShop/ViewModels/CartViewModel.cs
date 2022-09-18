@@ -30,8 +30,8 @@ namespace SmartShop.ViewModels
             Cart = new ObservableCollection<Cart>();
             CheckoutCommand = new Command(async () => await Shell.Current.GoToAsync(nameof(ShippingPage)));
             ToggleProductCommand = new Command<Cart>(async (cart) => await ToggleProductInCart(cart));
-            DecreaseProductQuatityCommand = new Command<Cart>((cart) => { cart.Quantity--; Throttle(500, async _ => await UpdateQuantity(cart)); });
-            IncreaseProductQuatityCommand = new Command<Cart>((cart) => { cart.Quantity++; Throttle(500, async _ => await UpdateQuantity(cart)); });
+            DecreaseProductQuatityCommand = new Command<Cart>((cart) => { if (cart.Quantity > 0) { cart.Quantity--; Throttle(500, async _ => await UpdateQuantity(cart)); } });
+            IncreaseProductQuatityCommand = new Command<Cart>((cart) => { if (cart.Quantity < cart.Product.Quantity) { cart.Quantity++; Throttle(500, async _ => await UpdateQuantity(cart)); } });
         }
 
         private async void Checkout()

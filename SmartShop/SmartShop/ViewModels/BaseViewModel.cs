@@ -24,6 +24,7 @@ namespace SmartShop.ViewModels
         public IAuthService AuthService => DependencyService.Get<IAuthService>();
         public ISettingsService SettingsService => DependencyService.Get<ISettingsService>();
         public IFavouriteService FavouriteService => DependencyService.Get<IFavouriteService>();
+        public IOrderService OrderService => DependencyService.Get<IOrderService>();
 
         bool isBusy = false;
         LayoutState state = LayoutState.None;

@@ -59,7 +59,14 @@
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                         <Label Text="{Binding Product.Name}" TextColor="Black" FontAttributes="Bold" FontSize="18" HorizontalOptions="FillAndExpand"></Label>
-                        <Label Text="Nema na stanju" TextColor="Green" FontAttributes="Bold" FontSize="12" Margin="10, 0, 0, 0"></Label>
+                        <Label Text="Na stanju" TextColor="Green" FontAttributes="Bold" FontSize="12" Margin="10, 0, 0, 0">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding Product.Quantity, Converter={xct:IntToBoolConverter}}" Value="False">
+                                    <Setter Property="Text" Value="Nema na stanju"></Setter>
+                                    <Setter Property="TextColor" Value="Red"></Setter>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
                     </StackLayout>
                     <StackLayout
                         Orientation="Horizontal" Spacing="5" 
@@ -222,7 +229,7 @@
         <Frame Grid.Row="1" Padding="15, 10" BackgroundColor="White">
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="15">
                 <Label VerticalOptions="Center" FontAttributes="Bold" TextColor="Black" Text="{Binding Product.Price, StringFormat='{0:#,#0}'}" FontSize="24"></Label>
-                <Button Text="Dodaj u korpu" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Command="{Binding ToggleProductInCartCommand}" CommandParameter="{Binding Product}">
+                <Button Text="Dodaj u korpu" IsEnabled="{Binding Product.Quantity, Converter={xct:IntToBoolConverter}}" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Command="{Binding ToggleProductInCartCommand}" CommandParameter="{Binding Product}">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding Product.InCart}" Value="True">
                             <Setter Property="Text" Value="Dodato u korpu"></Setter>

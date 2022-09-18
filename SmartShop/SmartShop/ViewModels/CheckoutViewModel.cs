@@ -1,9 +1,12 @@
 ﻿using SmartShop.Models;
+using SmartShop.Services;
 using SmartShop.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -44,7 +47,7 @@ namespace SmartShop.ViewModels
         public CheckoutViewModel()
         {
             SaveShippingInformationsCommand = new Command(async () => await Shell.Current.GoToAsync(nameof(CheckoutPage)), () => ValidateShippingAddress());
-            PlaceOrderCommand = new Command(async () => await Shell.Current.GoToAsync(nameof(CheckoutPage)), () => ValidateCardInformations());
+            PlaceOrderCommand = new Command(async () => await AddOrderAsync(), () => ValidateCardInformations());
             Cart = new ObservableCollection<Cart>();
             this.PropertyChanged +=
                 (_, __) => SaveShippingInformationsCommand.ChangeCanExecute();
@@ -52,9 +55,65 @@ namespace SmartShop.ViewModels
                 (_, __) => PlaceOrderCommand.ChangeCanExecute();
         }
 
+
         public override async Task InitializeAsync()
         {
             await LoadDataAsync();
+        }
+        private async Task AddOrderAsync()
+        {
+            if (!VerifyInternetConnection())
+            {
+                State = LayoutState.Custom;
+                CustomStateKey = StateKeys.Offline;
+                return;
+            }
+
+            State = LayoutState.Loading;
+            try
+            {
+                var order = new Order(TotalAmount,
+                    new ShippingAddress(FirstName + " " + LastName, "", Phone, Address, City, ZipCode),
+                    2, Cart.Select(s => new Cart(s.Quantity, s.ProductId, s.Price, s.Amount)).ToList());
+                var orderTask = OrderService.AddOrderAsync(order, SettingsService.AuthAccessToken);
+
+                await Task.WhenAll(orderTask, Task.Delay(1000));
+
+                await orderTask;
+
+                InitProperties();
+            }
+
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                State = LayoutState.Error;
+            }
+            finally
+            {
+                if (State != LayoutState.Error)
+                {
+                    await Shell.Current.Navigation.PopToRootAsync();
+                    await Shell.Current.GoToAsync($"//{nameof(ProfilePage)}", true);
+                }
+
+                State = LayoutState.None;
+            }
+        }
+        private void InitProperties()
+        {
+            FirstName = string.Empty; 
+            LastName = string.Empty;
+            Phone = string.Empty;
+            Address = string.Empty;
+            City = string.Empty;
+            ZipCode = string.Empty;
+            CardNumber = string.Empty;
+            CardName = string.Empty;
+            Cvv = string.Empty;
+            ExpireDate = string.Empty;
+            TotalAmount = decimal.Zero;
+            Cart.Clear();
         }
         private bool ValidateShippingAddress()
         {
