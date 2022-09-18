@@ -54,8 +54,8 @@
                 </CollectionView>
 
                 <Grid Padding="0, 10" Grid.Row="1" RowDefinitions="Auto, Auto" RowSpacing="10">
-                    <Label FontAttributes="Bold" HorizontalTextAlignment="End" TextColor="Black" Text="{Binding TotalAmount, StringFormat='Ukupno za plaćanje {0:#,#0}'}" FontSize="Small"></Label>
-                    <Button Text="Nastavite" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="End"></Button>
+                    <Label FontAttributes="Bold" HorizontalTextAlignment="End" TextColor="Black" Text="{Binding TotalAmount, StringFormat='Ukupno za plaćanje {0:#,#0} RSD'}" FontSize="Small"></Label>
+                    <Button Text="Nastavite" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Command="{Binding CheckoutCommand}"></Button>
                 </Grid>
             </Grid>
         </local:AppFrame.Content>

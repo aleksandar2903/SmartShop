@@ -13,10 +13,16 @@ namespace SmartShop.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CheckoutPage : ContentPage
     {
+        CheckoutViewModel ViewModel;
         public CheckoutPage()
         {
             InitializeComponent();
-            BindingContext = DependencyService.Get<CheckoutViewModel>();
+            BindingContext = ViewModel = DependencyService.Get<CheckoutViewModel>();
+        }
+
+        protected override async void OnAppearing()
+        {
+            await ViewModel.InitializeAsync();
         }
     }
 }

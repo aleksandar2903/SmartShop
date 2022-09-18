@@ -1,5 +1,6 @@
 ﻿using MonkeyCache.FileStore;
 using SmartShop.Models;
+using SmartShop.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -18,6 +19,7 @@ namespace SmartShop.ViewModels
         public ObservableCollection<Cart> Cart { get; set; }
         public ICommand ToggleProductCommand { get; }
         public ICommand DecreaseProductQuatityCommand { get; }
+        public ICommand CheckoutCommand { get; }
         public ICommand IncreaseProductQuatityCommand { get; }
         private CancellationTokenSource cts = new CancellationTokenSource();
         private DateTime timerStarted { get; set; } = DateTime.UtcNow.AddYears(-1);
@@ -26,9 +28,22 @@ namespace SmartShop.ViewModels
         public CartViewModel()
         {
             Cart = new ObservableCollection<Cart>();
+            CheckoutCommand = new Command(async () => await Shell.Current.GoToAsync(nameof(ShippingPage)));
             ToggleProductCommand = new Command<Cart>(async (cart) => await ToggleProductInCart(cart));
             DecreaseProductQuatityCommand = new Command<Cart>((cart) => { cart.Quantity--; Throttle(500, async _ => await UpdateQuantity(cart)); });
             IncreaseProductQuatityCommand = new Command<Cart>((cart) => { cart.Quantity++; Throttle(500, async _ => await UpdateQuantity(cart)); });
+        }
+
+        private async void Checkout()
+        {
+            if (IsLoggedIn())
+            {
+                await Shell.Current.GoToAsync(nameof(CheckoutPage), true);
+            }
+            else
+            {
+                await Shell.Current.Navigation.PushModalAsync(new LoginPage(), true);
+            }
         }
 
         private async Task ToggleProductInCart(Cart cart)
