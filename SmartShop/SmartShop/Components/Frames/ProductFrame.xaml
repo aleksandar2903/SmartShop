@@ -17,8 +17,11 @@
             <ColumnDefinition Width="{Binding Source={x:Reference self}, Path=WidthRequest}"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <ff:CachedImage
-                Margin="10"
-                    DownsampleToViewSize="True"
+                    Margin="10"
+                    RetryCount="100"
+                    RetryDelay="500"
+                    CacheDuration="7"
+                    FadeAnimationEnabled="True"
                     Aspect="AspectFit"
                     Source="{Binding Image.Uri}" />
         <buttons:FavouriteButton

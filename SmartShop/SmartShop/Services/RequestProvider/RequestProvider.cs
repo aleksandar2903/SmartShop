@@ -72,7 +72,7 @@ namespace SmartShop.Services.RequestProvider
             return result;
         }
 
-        public async Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "")
+        public async Task<PResult> PutAsync<TResult, PResult>(string uri, TResult data, string token = "", string header = "")
         {
             HttpClient httpClient = GetOrCreateHttpClient(token);
 
@@ -88,7 +88,7 @@ namespace SmartShop.Services.RequestProvider
             await RequestProvider.HandleResponse(response).ConfigureAwait(false);
             string serialized = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            TResult result = JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings);
+            PResult result = JsonConvert.DeserializeObject<PResult>(serialized, _serializerSettings);
 
             return result;
         }

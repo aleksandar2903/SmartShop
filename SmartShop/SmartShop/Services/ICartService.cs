@@ -8,8 +8,8 @@ namespace SmartShop.Services
 {
     public interface ICartService
     {
-        Task ToggleProductAsync(int productId, string token);
-        Task<bool> UpdateQuantity(string token, int id, int quantity);
-        Task<IEnumerable<Cart>> GetCartProductsAsync(string token);
+        Task ToggleProductInCartAsync(int productId, string token, int quantity = 1);
+        Task UpdateQuantity(int cartId, int quantity, string token);
+        Task<IEnumerable<Cart>> GetCartAsync(string token);
     }
 }

@@ -27,16 +27,16 @@
                                                 <Label LineBreakMode="TailTruncation" TextColor="Black" FontAttributes="Bold" MaxLines="3" FontSize="Micro" Text="{Binding Product.Name}"></Label>
                                                 <Label FontSize="Small" TextColor="Gray" Text="{Binding Product.Price, StringFormat='{0:#,#0}'}"></Label>
                                             </StackLayout>
-                                            <Label Grid.Column="1" HorizontalTextAlignment="End" Text="{Binding Product.TotalAmount, StringFormat='{0:#,#0}'}" FontSize="Body" FontAttributes="Bold"></Label>
+                                            <Label Grid.Column="1" HorizontalTextAlignment="End" Text="{Binding Amount, StringFormat='{0:#,#0}'}" FontSize="Body" FontAttributes="Bold"></Label>
                                             <Label Text="Ukloni" FontSize="Micro" TextColor="Black" Padding="0, 5" TextDecorations="Underline" VerticalOptions="Center" Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Start">
                                                 <Label.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=ToggleProductCommand}" CommandParameter="{Binding .}" />
                                                 </Label.GestureRecognizers>
                                             </Label>
                                             <Grid ColumnDefinitions="35, 40, 35" Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="End">
-                                                <ImageButton HeightRequest="35" WidthRequest="35" CornerRadius="35" BackgroundColor="{StaticResource Light}" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=DecreaseProductQuatityCommand}" Aspect="AspectFit" VerticalOptions="Center" Padding="10" HorizontalOptions="Center" Source="minuss.png"></ImageButton>
+                                                <ImageButton HeightRequest="35" WidthRequest="35" CornerRadius="35" BackgroundColor="{StaticResource Light}" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=DecreaseProductQuatityCommand}" CommandParameter="{Binding .}" Aspect="AspectFit" VerticalOptions="Center" Padding="10" HorizontalOptions="Center" Source="minuss.png"></ImageButton>
                                                 <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Grid.Column="1" Text="{Binding Quantity}" FontSize="Body"></Label>
-                                                <ImageButton HeightRequest="35" Grid.Column="2" WidthRequest="35" BackgroundColor="{StaticResource Light}" CornerRadius="30" Aspect="AspectFit" VerticalOptions="Center" Padding="10" HorizontalOptions="Center" Source="plus.png"></ImageButton>
+                                                <ImageButton HeightRequest="35" Grid.Column="2" WidthRequest="35" BackgroundColor="{StaticResource Light}" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=IncreaseProductQuatityCommand}" CommandParameter="{Binding .}" CornerRadius="30" Aspect="AspectFit" VerticalOptions="Center" Padding="10" HorizontalOptions="Center" Source="plus.png"></ImageButton>
                                             </Grid>
                                         </Grid>
                                         <!--<StackLayout VerticalOptions="Center">
@@ -54,7 +54,7 @@
                 </CollectionView>
 
                 <Grid Padding="0, 10" Grid.Row="1" RowDefinitions="Auto, Auto" RowSpacing="10">
-                    <Label FontAttributes="Bold" HorizontalTextAlignment="End" TextColor="Black" Text="Ukupno za plaćanje 5620$" FontSize="Small"></Label>
+                    <Label FontAttributes="Bold" HorizontalTextAlignment="End" TextColor="Black" Text="{Binding TotalAmount, StringFormat='Ukupno za plaćanje {0:#,#0}'}" FontSize="Small"></Label>
                     <Button Text="Nastavite" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="End"></Button>
                 </Grid>
             </Grid>

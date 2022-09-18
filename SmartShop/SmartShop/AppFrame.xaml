@@ -51,7 +51,7 @@
             </ImageButton>
         </StackLayout>
     </Grid>
-    <Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.CurrentCustomStateKey="{Binding CustomStateKey}" xct:StateLayout.AnimateStateChanges="False">
+    <Grid Grid.Row="1" BackgroundColor="White" xct:StateLayout.CurrentState="{Binding State}" xct:StateLayout.CurrentCustomStateKey="{Binding CustomStateKey}" xct:StateLayout.AnimateStateChanges="False">
         <xct:StateLayout.StateViews>
             <xct:StateView StateKey="Loading" RepeatCount="1" Template="{Binding Source={x:Reference self}, Path=LoadingTemplate}" />
             <xct:StateView StateKey="Error" RepeatCount="1" Template="{StaticResource error}" />

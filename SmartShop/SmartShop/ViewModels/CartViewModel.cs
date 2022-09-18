@@ -1,39 +1,39 @@
 ﻿using MonkeyCache.FileStore;
 using SmartShop.Models;
-using SmartShop.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
 
 namespace SmartShop.ViewModels
 {
     public class CartViewModel : BaseViewModel
     {
+        private decimal _totalAmount;
         public ObservableCollection<Cart> Cart { get; set; }
         public ICommand ToggleProductCommand { get; }
         public ICommand DecreaseProductQuatityCommand { get; }
+        public ICommand IncreaseProductQuatityCommand { get; }
         private CancellationTokenSource cts = new CancellationTokenSource();
         private DateTime timerStarted { get; set; } = DateTime.UtcNow.AddYears(-1);
+        public decimal TotalAmount { get => _totalAmount; set => SetProperty(ref _totalAmount, value); }
+
         public CartViewModel()
         {
             Cart = new ObservableCollection<Cart>();
-            ToggleProductCommand = new Command<Cart>(async (cart) => await ToggleProduct(cart));
-            DecreaseProductQuatityCommand = new Command(() => Throttle(500, _ => DecreaseQuantity()));
+            ToggleProductCommand = new Command<Cart>(async (cart) => await ToggleProductInCart(cart));
+            DecreaseProductQuatityCommand = new Command<Cart>((cart) => { cart.Quantity--; Throttle(500, async _ => await UpdateQuantity(cart)); });
+            IncreaseProductQuatityCommand = new Command<Cart>((cart) => { cart.Quantity++; Throttle(500, async _ => await UpdateQuantity(cart)); });
         }
 
-        private async Task ToggleProduct(Cart product)
+        private async Task ToggleProductInCart(Cart cart)
         {
-            if (product == null)
+            if (cart == null)
             {
                 return;
             }
@@ -51,14 +51,14 @@ namespace SmartShop.ViewModels
             {
                 if (IsLoggedIn())
                 {
-                    await CartService.ToggleProductAsync(product.Id, SettingsService.AuthAccessToken);
+                    await CartService.ToggleProductInCartAsync(cart.Product.Id, SettingsService.AuthAccessToken);
                 }
                 else
                 {
-                    Barrel.Current.Empty(product.Id.ToString());
+                    Barrel.Current.Empty(cart.Product.Id.ToString());
                 }
 
-                Cart.Remove(product);
+                Cart.Remove(cart);
             }
             catch (Exception ex)
             {
@@ -66,6 +66,7 @@ namespace SmartShop.ViewModels
             }
             finally
             {
+                UpdateTotalAmount();
                 State = Cart.Count > 0 ? LayoutState.None : LayoutState.Empty;
             }
         }
@@ -80,9 +81,49 @@ namespace SmartShop.ViewModels
             await LoadDataAsync();
         }
 
-        private async Task  DecreaseQuantity()
+        private async Task UpdateQuantity(Cart cart)
         {
-            await ToggleProduct(new Cart());
+            if (!VerifyInternetConnection())
+            {
+                State = LayoutState.Custom;
+                CustomStateKey = StateKeys.Offline;
+                return;
+            }
+
+            State = LayoutState.Loading;
+
+            try
+            {
+                if(cart.Quantity > 0)
+                {
+                    if (IsLoggedIn())
+                    {
+                        await CartService.UpdateQuantity(cart.Id, cart.Quantity, SettingsService.AuthAccessToken);
+                    }
+                    else
+                    {
+                        Barrel.Current.Empty(cart.Product.Id.ToString());
+                        Barrel.Current.Add<int>(cart.Product.Id.ToString(), cart.Quantity, TimeSpan.FromDays(90));
+                    }
+                    UpdateTotalAmount();
+                }
+                else
+                {
+                    await ToggleProductInCart(cart);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                State = LayoutState.None;
+            }
+        }
+        void UpdateTotalAmount()
+        {
+            TotalAmount = Cart.Sum(s => s.Amount);
         }
         private void Throttle(int interval, Action<object> action, object param = null)
         {
@@ -119,11 +160,12 @@ namespace SmartShop.ViewModels
 
                 if (IsLoggedIn())
                 {
-                    var task = CartService.GetCartProductsAsync(SettingsService.AuthAccessToken);
+                    var task = CartService.GetCartAsync(SettingsService.AuthAccessToken);
                     await Task.WhenAll(task, Task.Delay(1000));
                     var result = await task;
                     foreach (var cart in result)
                     {
+                        TotalAmount += cart.Amount; 
                         Cart.Add(cart);
                     }
                 }
@@ -136,10 +178,12 @@ namespace SmartShop.ViewModels
 
                     foreach (var product in result)
                     {
+                        int quantity = Barrel.Current.Get<int>(product.Id.ToString());
+                        TotalAmount += (quantity * product.Price);
                         Cart.Add(new Cart
                         {
                             Id = product.Id,
-                            Quantity = Barrel.Current.Get<int>(product.Id.ToString()),
+                            Quantity = quantity,
                             Product = product
                         });
                     }

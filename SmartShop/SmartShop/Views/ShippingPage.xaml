@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:SmartShop"
+             x:Class="SmartShop.Views.ShippingPage"
+             Shell.NavBarIsVisible="False">
+    <local:AppFrame SearchLogoIsVisible="False" UserLogoIsVisible="False" Title="Podaci kupca">
+        <local:AppFrame.Content>
+            <Grid RowDefinitions="*, Auto" Padding="15, 0" VerticalOptions="FillAndExpand">
+                <StackLayout Spacing="15">
+                    <Frame HasShadow="False" CornerRadius="15" Margin="0,0,0,15" IsClippedToBounds="True" Padding="0" BackgroundColor="#1A0E84E5">
+                        <StackLayout Orientation="Horizontal" Spacing="15">
+                            <BoxView HeightRequest="60" WidthRequest="5" BackgroundColor="{StaticResource Primary}"></BoxView>
+                            <Label VerticalTextAlignment="Center" Text="Za Vašu porudžibu potrebno je da unesete adresu za isporuku." TextColor="Gray"></Label>
+                        </StackLayout>
+                    </Frame>
+                    <Entry Placeholder="Ime *"></Entry>
+                    <Entry Placeholder="Prezime *"></Entry>
+                    <Entry Placeholder="Telefon *"></Entry>
+                    <Entry Placeholder="Adresa dostave *"></Entry>
+                    <Grid ColumnSpacing="15">
+                        <Entry Grid.Column="0" Placeholder="Poštanski broj *"></Entry>
+                        <Entry Grid.Column="1" Placeholder="Grad *"></Entry>
+                    </Grid>
+                    <Label Text="Polja oznacena simbolom * su obavezna" TextColor="Gray" FontSize="Micro"></Label>
+                </StackLayout>
+                <Grid Padding="0, 10" Grid.Row="1" RowDefinitions="Auto, Auto" RowSpacing="10">
+                    <Button Text="Plati 151,221" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="End"></Button>
+                </Grid>
+            </Grid>
+        </local:AppFrame.Content>
+    </local:AppFrame>
+</ContentPage>

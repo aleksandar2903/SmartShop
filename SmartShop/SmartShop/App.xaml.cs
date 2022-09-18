@@ -1,6 +1,9 @@
-﻿using MonkeyCache.FileStore;
+﻿using FFImageLoading.Cache;
+using FFImageLoading.Forms;
+using MonkeyCache.FileStore;
 using SmartShop.Services;
 using SmartShop.Services.Settings;
+using SmartShop.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -8,7 +11,6 @@ namespace SmartShop
 {
     public partial class App : Application
     {
-
         public App()
         {
             InitializeComponent();
@@ -20,6 +22,7 @@ namespace SmartShop
             DependencyService.Register<PromotionService>();
             DependencyService.Register<SettingsService>();
             DependencyService.Register<IFavouriteService, FavouriteService>();
+            DependencyService.RegisterSingleton(new CheckoutViewModel());
             MainPage = new AppShell();
         }
 

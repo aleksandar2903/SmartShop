@@ -17,31 +17,30 @@ namespace SmartShop.Services
             _requestProvider = DependencyService.Get<IRequestProvider>();
         }
 
-        public async Task<IEnumerable<Cart>> GetCartProductsAsync(string token)
+        public async Task<IEnumerable<Cart>> GetCartAsync(string token)
         {
             var catalog = await _requestProvider.GetAsync<IEnumerable<Cart>>(url, token).ConfigureAwait(false);
 
             return catalog ?? Enumerable.Empty<Cart>();
         }
 
-        public async Task ToggleProductAsync(int productId, string token)
+        public async Task ToggleProductInCartAsync(int productId, string token, int quantity = 1)
         {
             var data = new
             {
                 product_id = productId,
+                quantity = quantity,
             };
             await _requestProvider.PostAsync<object, object>(url, data, token).ConfigureAwait(false);
         }
 
-        public async Task<bool> UpdateQuantity(string token, int id, int quantity)
+        public async Task UpdateQuantity(int cartId, int quantity, string token)
         {
-            var content = new FormUrlEncodedContent(new[]
+            var data = new
             {
-                new KeyValuePair<string, string>("quantity", quantity.ToString())
-            });
-
-
-            return false;
+                quantity = quantity,
+            };
+            await _requestProvider.PutAsync<object, object>($"{url}/{cartId}", data, token).ConfigureAwait(false);
         }
     }
 }

@@ -6,12 +6,12 @@ using Xamarin.Forms.Xaml;
 namespace SmartShop.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ProfilePage : ContentPage
+    public partial class ShippingPage : ContentPage
     {
-        public ProfilePage()
+        public ShippingPage()
         {
             InitializeComponent();
-            BindingContext = new ProfileViewModel();
+            BindingContext = DependencyService.Get<CheckoutViewModel>();
         }
     }
 }

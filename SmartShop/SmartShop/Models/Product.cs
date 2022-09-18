@@ -71,10 +71,6 @@ namespace SmartShop.Models
         public List<Product> PopularProducts { get; set; }
         [JsonProperty("stock")]
         public int Quantity { get; set; }
-        public int _orderQuantity = 1;
-        public int OrderQuantity { get => _orderQuantity; set { _orderQuantity = value; OnPropertyChanged(); TotalAmount = value * Price; } }
-        public decimal _totalAmount;
-        public decimal TotalAmount { get => _totalAmount > 0 ? _totalAmount : Price; set { _totalAmount = value; OnPropertyChanged(); } }
         [JsonProperty("subcategory_with_category")]
         public Subcategory Subcategory { get; set; }
         [JsonProperty("product_subcategory_id")]

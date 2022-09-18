@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:viewmodels="clr-namespace:SmartShop.ViewModels"
              mc:Ignorable="d"
              x:Class="SmartShop.Views.ProfilePage"
+             x:DataType="viewmodels:ProfileViewModel"
              Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -77,7 +78,9 @@
                     <Label Grid.Row="3" Grid.Column="2" Text="Total Amount" Style="{StaticResource stlBoardTitle}"/>
                     <Label Grid.Row="4" Grid.Column="2" Text="67k" Style="{StaticResource stlBoardDesc}"/>
                     <!--4. Contact information: Follow button-->
-                    <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White" BackgroundColor="Black" Text="Edit Profile" Margin="0,20,0,2" FontAttributes="Bold" FontSize="17" HeightRequest="45"/>
+                    <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White" 
+                            BackgroundColor="Black" Text="Odjavite se" Command="{Binding LogoutCommand}" 
+                            Margin="0,20,0,2" FontAttributes="Bold" FontSize="17" HeightRequest="45"/>
                 </Grid>
             </Frame>
 

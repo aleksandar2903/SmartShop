@@ -29,7 +29,13 @@
                     <CarouselView ItemsSource="{Binding Product.Images}" IndicatorView="IndicatorView" HeightRequest="300" VerticalOptions="Center" HorizontalOptions="Center">
                         <CarouselView.ItemTemplate>
                             <DataTemplate x:DataType="m:Image">
-                                <ff:CachedImage Source="{Binding Uri}" Aspect="AspectFit">
+                                <ff:CachedImage
+                                    RetryCount="100"
+                                    RetryDelay="500"
+                                    CacheDuration="7"
+                                    FadeAnimationEnabled="True"
+                                    Source="{Binding Uri}" 
+                                    Aspect="AspectFit">
                                 </ff:CachedImage>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>

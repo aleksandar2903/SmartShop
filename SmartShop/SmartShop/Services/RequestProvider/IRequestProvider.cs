@@ -11,7 +11,7 @@ namespace SmartShop.Services.RequestProvider
 
         Task<PResult> PostAsync<TResult, PResult>(string uri, TResult data, string token = "", string header = "");
 
-        Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "");
+        Task<PResult> PutAsync<TResult, PResult>(string uri, TResult data, string token = "", string header = "");
 
         Task DeleteAsync(string uri, string token = "");
     }

@@ -120,7 +120,7 @@ namespace SmartShop.ViewModels
             {
                 if (IsLoggedIn())
                 {
-                    await CartService.ToggleProductAsync(product.Id, SettingsService.AuthAccessToken);
+                    await CartService.ToggleProductInCartAsync(product.Id, SettingsService.AuthAccessToken);
                 }
                 else
                 {

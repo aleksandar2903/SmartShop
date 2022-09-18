@@ -1,9 +1,14 @@
-﻿using SmartShop.Models.Request;
+﻿using MonkeyCache.FileStore;
+using SmartShop.Models;
+using SmartShop.Models.Request;
 using SmartShop.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
@@ -25,10 +30,19 @@ namespace SmartShop.ViewModels
 
         private async void OnLoginClicked(object obj)
         {
-            if (IsBusy)
+            if (State == LayoutState.Loading)
+            {
                 return;
+            }
 
-            IsBusy = true;
+            if (!VerifyInternetConnection())
+            {
+                State = LayoutState.Custom;
+                CustomStateKey = StateKeys.Offline;
+                return;
+            }
+
+            State = LayoutState.Loading;
 
             try
             {
@@ -40,10 +54,30 @@ namespace SmartShop.ViewModels
 
                 var response = await AuthService.LogIn(request);
 
-                if(response != null)
+                if (response != null)
                 {
                     SettingsService.AuthAccessToken = response.Token;
-                    await Shell.Current.Navigation.PopModalAsync();
+                    var cart = await CartService.GetCartAsync(SettingsService.AuthAccessToken);
+                    var producstInCart = Barrel.Current.GetKeys();
+                    var tasks = new List<Task>();
+                    foreach (var productId in producstInCart)
+                    {
+                        if (Int32.TryParse(productId, out int id))
+                        {
+                            int quantity = Barrel.Current.Get<int>(productId);
+                            var current = cart.Where(c => c.Product.Id == id && c.Quantity != quantity).FirstOrDefault();
+                            if (current is null)
+                            {
+                                tasks.Add(CartService.ToggleProductInCartAsync(id, SettingsService.AuthAccessToken, quantity));
+                            }
+                            else
+                            {
+                                await CartService.UpdateQuantity(current.Id, quantity, SettingsService.AuthAccessToken);
+                            }
+                        }
+                    }
+                    var task = Task.WhenAll(tasks);
+                    await task;
                 }
             }
             catch (Exception ex)
@@ -52,7 +86,15 @@ namespace SmartShop.ViewModels
             }
             finally
             {
-                IsBusy = false;
+                State = LayoutState.None;
+                if (!IsLoggedIn())
+                {
+                    await Shell.Current.DisplayAlert("Greška", "Uneli ste neispravne podatke. Pokusajte ponovo", "U redu");
+                }
+                else
+                {
+                    await Shell.Current.Navigation.PopModalAsync();
+                }
             }
         }
     }

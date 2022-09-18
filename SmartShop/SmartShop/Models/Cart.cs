@@ -20,7 +20,8 @@ namespace SmartShop.Models
         public int Id { get; set; }
         int _quantity = 1;
         [JsonProperty("quantity")]
-        public int Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(); } }
+        public int Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(); OnPropertyChanged(nameof(Amount)); } }
         public Product Product { get; set; }
+        public decimal Amount => Quantity * Product.Price;
     }
 }

@@ -9,32 +9,34 @@
              xmlns:viewmodels="clr-namespace:SmartShop.ViewModels" xmlns:smartshop="clr-namespace:SmartShop"
              x:DataType="viewmodels:LoginViewModel"
              BackgroundColor="Transparent">
-    <ContentPage.Content>
-        <Grid BackgroundColor="Transparent" RowDefinitions="*" ColumnDefinitions="*">
-            <Frame CornerRadius="20" BackgroundColor="White" Margin="0,20,0,-20" Padding="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <StackLayout VerticalOptions="Center" Spacing="10" Padding="15, 0">
-                    <Image Source="shop.png" WidthRequest="70" Margin="0,0,0,20"></Image>
-                    <Frame Style="{StaticResource customEntry}">
-                        <smartshop:CustomEntry Placeholder="E-mail adresa" Text="{Binding Email}"></smartshop:CustomEntry>
-                    </Frame>
-                    <Frame Style="{StaticResource customEntry}">
-                        <smartshop:CustomEntry Placeholder="Lozinka" Text="{Binding Password}" IsPassword="True"></smartshop:CustomEntry>
-                    </Frame>
-                    <Button Margin="0,10,0,0" Text="Prijavite se" Command="{Binding LoginCommand}"/>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <Label FontSize="12" Text="Nemate nalog?"></Label>
-                        <Label FontSize="12" Text="Registrujte se" FontAttributes="Bold" TextColor="{StaticResource Primary}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding LoginCommand}"></TapGestureRecognizer>
-                            </Label.GestureRecognizers>
-                        </Label>
+    <smartshop:AppFrame SearchLogoIsVisible="False" UserLogoIsVisible="False" BackgroundColor="Transparent">
+        <smartshop:AppFrame.Content>
+            <Grid>
+                <Frame CornerRadius="20" BackgroundColor="White" Margin="0,20,0,-20" Padding="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <StackLayout VerticalOptions="Center" Spacing="10" Padding="15, 0">
+                        <Image Source="shop.png" WidthRequest="70" Margin="0,0,0,20"></Image>
+                        <Frame Style="{StaticResource customEntry}">
+                            <smartshop:CustomEntry Placeholder="E-mail adresa" Text="{Binding Email}"></smartshop:CustomEntry>
+                        </Frame>
+                        <Frame Style="{StaticResource customEntry}">
+                            <smartshop:CustomEntry Placeholder="Lozinka" Text="{Binding Password}" IsPassword="True"></smartshop:CustomEntry>
+                        </Frame>
+                        <Button Margin="0,10,0,0" Text="Prijavite se" Command="{Binding LoginCommand}"/>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <Label FontSize="12" Text="Nemate nalog?"></Label>
+                            <Label FontSize="12" Text="Registrujte se" FontAttributes="Bold" TextColor="{StaticResource Primary}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
                     </StackLayout>
-                </StackLayout>
-                <Frame.GestureRecognizers>
-                    <SwipeGestureRecognizer Command="{Binding BackwardCommand}" Direction="Down"></SwipeGestureRecognizer>
-                </Frame.GestureRecognizers>
-            </Frame>
-            <ImageButton HorizontalOptions="End" HeightRequest="40" WidthRequest="40" VerticalOptions="Start" CornerRadius="40" Margin="0,30,10,0" BackgroundColor="White" Source="cross.png" Padding="10" Command="{Binding BackwardCommand}"></ImageButton>
-        </Grid>
-    </ContentPage.Content>
+                    <Frame.GestureRecognizers>
+                        <SwipeGestureRecognizer Command="{Binding BackwardCommand}" Direction="Down"></SwipeGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <ImageButton HorizontalOptions="End" HeightRequest="40" WidthRequest="40" VerticalOptions="Start" CornerRadius="40" Margin="0,30,10,0" BackgroundColor="White" Source="cross.png" Padding="10" Command="{Binding BackwardCommand}"></ImageButton>
+            </Grid>
+        </smartshop:AppFrame.Content>
+    </smartshop:AppFrame>
 </ContentPage>
