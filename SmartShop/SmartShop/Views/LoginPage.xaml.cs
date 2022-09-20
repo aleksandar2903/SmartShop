@@ -12,10 +12,16 @@ namespace SmartShop.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        LoginViewModel viewModel;
         public LoginPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
+            this.BindingContext = viewModel = new LoginViewModel();
+        }
+
+        protected override async void OnAppearing()
+        {
+            await viewModel.InitializeAsync();
         }
     }
 }

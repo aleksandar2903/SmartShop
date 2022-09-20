@@ -1,36 +1,35 @@
 ﻿using MonkeyCache.FileStore;
 using SmartShop.Models.Request;
-using SmartShop.Views;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    public class RegisterViewModel : BaseViewModel
     {
         private string _email;
         private string _password;
-        public Command LoginCommand { get; }
-        public ICommand OpenRegisterPageCommand { get; }
+        private string _passwordConfirmation;
+        private string _name;
+        public Command RegisterCommand { get; }
         public string Password { get => _password; set => SetProperty(ref _password, value); }
+        public string PasswordConfirmation { get => _passwordConfirmation; set => SetProperty(ref _passwordConfirmation, value); }
         public string Email { get => _email; set => SetProperty(ref _email, value); }
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
 
-        public LoginViewModel()
+        public RegisterViewModel()
         {
-            LoginCommand = new Command(async () => await OnLoginClicked(), () => ValidateLoginRequest());
-            OpenRegisterPageCommand = new Command(async () => await Shell.Current.GoToAsync(nameof(RegisterPage)));
-            this.PropertyChanged += (_, __) => LoginCommand.ChangeCanExecute();
+            RegisterCommand = new Command(async () => await OnRegisterClicked(), () => ValidateRegisterRequest());
+            this.PropertyChanged += (_, __) => RegisterCommand.ChangeCanExecute();
         }
-
-        private bool ValidateLoginRequest()
+        private bool ValidateRegisterRequest()
         {
-            return !string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password) && Password.Length >= 8;
+            return !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password) && Password.Length >= 8 && !string.IsNullOrEmpty(Name) && Password == PasswordConfirmation;
         }
 
         public override async Task InitializeAsync()
@@ -65,7 +64,7 @@ namespace SmartShop.ViewModels
             var task = Task.WhenAll(tasks);
             await task;
         }
-        private async Task OnLoginClicked()
+        private async Task OnRegisterClicked()
         {
             if (State == LayoutState.Loading)
             {
@@ -83,13 +82,15 @@ namespace SmartShop.ViewModels
 
             try
             {
-                var request = new LoginRequest
+                var request = new RegisterRequest
                 {
                     Email = Email,
                     Password = Password,
+                    Name = Name,
+                    PasswordConfirmation = PasswordConfirmation
                 };
 
-                var response = await AuthService.LogIn(request);
+                var response = await AuthService.Register(request);
 
                 if (response != null)
                 {

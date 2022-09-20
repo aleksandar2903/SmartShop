@@ -1,15 +1,11 @@
 ﻿using SmartShop.Models;
-using SmartShop.Services;
+using SmartShop.Models.Request;
 using SmartShop.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
@@ -72,7 +68,7 @@ namespace SmartShop.ViewModels
             State = LayoutState.Loading;
             try
             {
-                var order = new Order(TotalAmount,
+                var order = new OrderRequest(TotalAmount,
                     new ShippingAddress(FirstName + " " + LastName, "", Phone, Address, City, ZipCode),
                     2, Cart.Select(s => new Cart(s.Quantity, s.ProductId, s.Price, s.Amount)).ToList());
                 var orderTask = OrderService.AddOrderAsync(order, SettingsService.AuthAccessToken);

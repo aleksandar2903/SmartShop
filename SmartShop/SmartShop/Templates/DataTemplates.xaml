@@ -98,6 +98,20 @@
             <Button Text="Pokušajte ponovo" HorizontalOptions="Center" Command="{Binding RefreshDataCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}" CornerRadius="45"></Button>
         </StackLayout>
     </DataTemplate>
+    <DataTemplate x:Key="empty_profile">
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15" Padding="20, 0">
+            <ffsvg:SvgCachedImage Source="profile_state.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <Label HorizontalTextAlignment="Center"  Text="Prijavite se da biste lakše upravljali Vašim porudžbinama i sačuvanim proizvodima."></Label>
+            <Button Text="Prijavite se" HorizontalOptions="Center" Command="{Binding UserTappedCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}" CornerRadius="45"></Button>
+        </StackLayout>
+    </DataTemplate>
+    <DataTemplate x:Key="empty_purchase">
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15" Padding="20, 0">
+            <ffsvg:SvgCachedImage Source="empty.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <Label HorizontalTextAlignment="Center" Text="Nemate izvršenih porudžbina" FontSize="Medium" FontAttributes="Bold"></Label>
+            <Label HorizontalTextAlignment="Center"  Text="Vratite se na ovoj stranici nakon što obavite kupovinu."></Label>
+        </StackLayout>
+    </DataTemplate>
     <DataTemplate x:Key="empty_favourites">
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15" Padding="20, 0">
             <ffsvg:SvgCachedImage Source="empty_favourites.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>

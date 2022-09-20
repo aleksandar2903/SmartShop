@@ -25,6 +25,7 @@ namespace SmartShop.ViewModels
         public ICommand ProductTapped { get; }
         public ICommand PromotionTapped { get; }
         public ICommand ToggleFavouriteProductCommand { get; }
+        public ICommand CategoryTappedCommand { get; }
 
 
         public HomeViewModel()
@@ -38,8 +39,7 @@ namespace SmartShop.ViewModels
             OpenCategoriesPageCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new ExplorePage(), true));
             PromotionTapped = new Command<Promotion>(async (promotion) => await Shell.Current.Navigation.PushAsync(new PromotionPage(promotion.Id), true));
             ToggleFavouriteProductCommand = new Command<Product>(async (product) => await ToggleProduct(product));
-            var deviceInfo = DeviceDisplay.MainDisplayInfo;
-            FrameSize = (int)(deviceInfo.Width / deviceInfo.Density / 1.15);
+            CategoryTappedCommand = new Command<Category>(async (category) => await Shell.Current.Navigation.PushAsync(new SubcategoriesPage(category)));
         }
 
         
@@ -135,7 +135,7 @@ namespace SmartShop.ViewModels
         {
             if (!IsLoggedIn())
             {
-                await OpenModalAsync(new LoginPage());
+                await Shell.Current.GoToAsync(nameof(LoginPage), true);
                 return;
             }
             if (!VerifyInternetConnection())

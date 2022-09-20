@@ -32,7 +32,7 @@ namespace SmartShop.Services.RequestProvider
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
                 DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-                NullValueHandling = NullValueHandling.Ignore
+                NullValueHandling = NullValueHandling.Ignore,
             };
             _serializerSettings.Converters.Add(new StringEnumConverter());
         }

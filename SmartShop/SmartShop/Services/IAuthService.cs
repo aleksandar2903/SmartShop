@@ -6,7 +6,8 @@ namespace SmartShop.Services
 {
     public interface IAuthService
     {
-        Task<AuthResponse> Register(string name, string email, string password, string confirmedPassword);
+        Task<AuthResponse> Register(RegisterRequest request);
+        Task<User> GetUserAsync(string token);
         Task<AuthResponse> LogIn(LoginRequest request);
         Task<bool> LogOut();
     }

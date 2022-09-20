@@ -19,9 +19,9 @@ namespace SmartShop.Services
         {
             _requestProvider = DependencyService.Get<IRequestProvider>();
         }
-        public async Task AddOrderAsync(Order request, string token)
+        public async Task AddOrderAsync(OrderRequest request, string token)
         {
-            await _requestProvider.PostAsync<Order, object>(url, request, token);
+            await _requestProvider.PostAsync<OrderRequest, object>(url, request, token);
         }
 
         public async Task<IEnumerable<Order>> GetOrdersAsync(string token)

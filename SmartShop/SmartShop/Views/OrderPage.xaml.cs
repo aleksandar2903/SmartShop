@@ -6,13 +6,13 @@ using Xamarin.Forms.Xaml;
 namespace SmartShop.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ProfilePage : ContentPage
+    public partial class OrderPage : ContentPage
     {
-        ProfileViewModel viewModel;
-        public ProfilePage()
+        OrdersViewModel viewModel;
+        public OrderPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new ProfileViewModel();
+            BindingContext = viewModel = new OrdersViewModel();
         }
 
         protected override async void OnAppearing()

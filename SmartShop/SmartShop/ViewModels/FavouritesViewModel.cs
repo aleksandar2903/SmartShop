@@ -56,7 +56,7 @@ namespace SmartShop.ViewModels
                 if (!isLoggedIn)
                 {
                     isLoggedIn = true;
-                    await Shell.Current.Navigation.PushModalAsync(new LoginPage());
+                    await Shell.Current.GoToAsync(nameof(LoginPage), true);
                 }
             }
             else

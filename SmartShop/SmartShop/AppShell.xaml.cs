@@ -14,6 +14,9 @@ namespace SmartShop
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(ShippingPage), typeof(ShippingPage));
             Routing.RegisterRoute(nameof(CheckoutPage), typeof(CheckoutPage));
+            Routing.RegisterRoute(nameof(OrderPage), typeof(OrderPage));
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
         }
     }
 }

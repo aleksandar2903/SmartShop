@@ -70,9 +70,9 @@ namespace SmartShop.ViewModels
             return !string.IsNullOrWhiteSpace(SettingsService.AuthAccessToken);
         }
 
-        protected async Task OpenModalAsync(Page page)
+        protected Task OpenModalAsync(Page page)
         {
-             await Shell.Current.Navigation.PushModalAsync(page);
+             return App.Current.MainPage.Navigation.PushModalAsync(page);
         }
 
         public LayoutState State
@@ -121,7 +121,7 @@ namespace SmartShop.ViewModels
             }
             else
             {
-                await Shell.Current.Navigation.PushModalAsync(new LoginPage(), true);
+                 await Shell.Current.GoToAsync(nameof(LoginPage), true);
             }
         }
     }

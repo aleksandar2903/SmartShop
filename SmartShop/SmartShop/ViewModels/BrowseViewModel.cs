@@ -24,6 +24,7 @@ namespace SmartShop.ViewModels
         public Command OpenFilterPopupCommand { get; }
         public Command OnProductTapped { get; }
         public Command SearchProductsCommand { get; }
+        public Command ToggleFavouriteProductCommand { get; }
         public BrowseViewModel()
         {
             filterViewModel = new FilterViewModel();
@@ -33,6 +34,7 @@ namespace SmartShop.ViewModels
             OpenFilterPopupCommand = new Command(OpenFilters);
             OnProductTapped = new Command<Product>(OnProductSelected);
             SearchProductsCommand = new Command<string>(async (query) => { this.query = query; await FilterProducts(); });
+            ToggleFavouriteProductCommand = new Command<Product>(async (product) => await ToggleProduct(product));
         }
 
         private async void FilterViewModel_FilterChanged(object sender, FilterRequest e)
@@ -90,6 +92,31 @@ namespace SmartShop.ViewModels
         protected override async Task RefreshData()
         {
             await LoadDataAsync();
+        }
+
+        private async Task ToggleProduct(Product product)
+        {
+            if (!IsLoggedIn())
+            {
+                await Shell.Current.GoToAsync(nameof(LoginPage), true);
+                return;
+            }
+            if (!VerifyInternetConnection())
+            {
+                return;
+            }
+
+            product.Favourite = !product.Favourite;
+
+            try
+            {
+                await FavouriteService.ToogleFavourite(product.Id, SettingsService.AuthAccessToken);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                product.Favourite = !product.Favourite;
+            }
         }
 
         async Task LoadDataAsync(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0, string sortBy = "")
