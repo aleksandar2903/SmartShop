@@ -39,6 +39,8 @@ namespace SmartShop.ViewModels
                 return;
             }
 
+            State = LayoutState.Loading;
+
             try
             {
                 var promotionTask = PromotionService.GetPromotion(id);

@@ -7,7 +7,7 @@
              x:Class="SmartShop.Views.PromotionPage"
              Shell.NavBarIsVisible="False"
              x:DataType="vm:PromotionViewModel">
-    <local:AppFrame BackwardButtonIsVisible="True" Title="{Binding Promotion.Title}" LoadingTemplate="{StaticResource loading}">
+    <local:AppFrame BackwardButtonIsVisible="True" Title="{Binding Promotion.Title}">
         <local:AppFrame.Content>
             <StackLayout Spacing="15">
                 <StackLayout Padding="15, 0" Spacing="15">

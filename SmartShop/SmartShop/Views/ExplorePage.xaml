@@ -33,7 +33,7 @@
             </ContentView>
         </local:AppFrame.ContentEnd>
         <local:AppFrame.Content>
-            <CollectionView ItemsSource="{Binding Products}">
+            <CollectionView ItemsSource="{Binding Products}" RemainingItemsThreshold="4" RemainingItemsThresholdReachedCommand="{Binding LoadMoreDataCommand}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10"></GridItemsLayout>
                 </CollectionView.ItemsLayout>
@@ -43,6 +43,11 @@
                         </cc:ProductFrame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <Grid Padding="20">
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="40"></ActivityIndicator>
+                    </Grid>
+                </CollectionView.Footer>
             </CollectionView>
         </local:AppFrame.Content>
     </local:AppFrame>

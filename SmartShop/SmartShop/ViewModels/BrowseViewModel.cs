@@ -1,4 +1,5 @@
-﻿using SmartShop.Models;
+﻿using FFImageLoading.Args;
+using SmartShop.Models;
 using SmartShop.Services;
 using SmartShop.Views;
 using System;
@@ -17,6 +18,9 @@ namespace SmartShop.ViewModels
     public class BrowseViewModel : BaseViewModel
     {
         private string query;
+        private int currentPage = 1;
+        private int lastPage = 1;
+        private bool _isInitialized;
         private FilterRequest searchRequest = new FilterRequest();
         private FilterViewModel filterViewModel;
         private FilterPage filterPage;
@@ -25,6 +29,7 @@ namespace SmartShop.ViewModels
         public Command OnProductTapped { get; }
         public Command SearchProductsCommand { get; }
         public Command ToggleFavouriteProductCommand { get; }
+        public Command LoadMoreDataCommand { get; }
         public BrowseViewModel()
         {
             filterViewModel = new FilterViewModel();
@@ -35,6 +40,7 @@ namespace SmartShop.ViewModels
             OnProductTapped = new Command<Product>(OnProductSelected);
             SearchProductsCommand = new Command<string>(async (query) => { this.query = query; await FilterProducts(); });
             ToggleFavouriteProductCommand = new Command<Product>(async (product) => await ToggleProduct(product));
+            LoadMoreDataCommand = new Command(async () => await LoadMoreDataAsync());
         }
 
         private async void FilterViewModel_FilterChanged(object sender, FilterRequest e)
@@ -62,25 +68,31 @@ namespace SmartShop.ViewModels
 
         async Task FilterProducts()
         {
-            await LoadDataAsync(query, searchRequest.Categories, searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice, searchRequest.SortBy);
+            await LoadDataAsync();
         }
 
         public async void OnAppearing(string subcategories = "", string brand = "")
         {
+            if (_isInitialized)
+            {
+                return;
+            }
+            _isInitialized = true;
+
+            if (string.IsNullOrWhiteSpace(filterPage.Categories) && string.IsNullOrWhiteSpace(filterPage.Brand) && string.IsNullOrWhiteSpace(query))
+            {
+                State = LayoutState.Custom;
+                CustomStateKey = StateKeys.EmptyQuery;
+                return;
+            }
+
             if (Products.Count == 0)
             {
                 filterPage.Categories = subcategories;
                 filterPage.Brand = brand;
-
-                if (string.IsNullOrEmpty(filterPage.Categories) && string.IsNullOrEmpty(filterPage.Brand) && string.IsNullOrEmpty(query))
-                {
-                    State = LayoutState.Custom;
-                    CustomStateKey = StateKeys.EmptyQuery;
-                }
-                else
-                {
-                    await LoadDataAsync(categories: subcategories, brands: brand);
-                }
+                searchRequest.Brands = brand;
+                searchRequest.Categories = subcategories;
+                await LoadDataAsync();
             }
         }
 
@@ -119,8 +131,28 @@ namespace SmartShop.ViewModels
             }
         }
 
-        async Task LoadDataAsync(string query = "", string categories = "", string brands = "", decimal priceMin = 0, decimal priceMax = 0, string sortBy = "")
+        async Task LoadMoreDataAsync()
         {
+            if (currentPage >= lastPage)
+            {
+                return;
+            }
+
+            currentPage++;
+
+            IsBusy = true;
+
+            await LoadDataAsync();
+
+            IsBusy = false;
+        }
+        async Task LoadDataAsync()
+        {
+            if (State == LayoutState.Loading)
+            {
+                return;
+            }
+
             if (!VerifyInternetConnection())
             {
                 State = LayoutState.Custom;
@@ -128,17 +160,25 @@ namespace SmartShop.ViewModels
                 return;
             }
 
-            State = LayoutState.Loading;
+            if (!IsBusy)
+            {
+                State = LayoutState.Loading;
+            }
 
             try
             {
-                Products.Clear();
+                if (!IsBusy)
+                {
+                    Products.Clear();
+                }
 
-                var responseTask = SearchService.SearchProducts(query, categories, brands, priceMin, priceMax, sortBy, token: SettingsService.AuthAccessToken);
+                var responseTask = SearchService.SearchProducts(query, searchRequest.Categories, searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice, searchRequest.SortBy, page: currentPage, token: SettingsService.AuthAccessToken);
 
                 await Task.WhenAll(responseTask, Task.Delay(1000));
 
                 var response = await responseTask;
+
+                response.LastPage = response.LastPage;
 
                 foreach (var product in response.Results)
                 {
