@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
       xmlns:local="clr-namespace:SmartShop"
-      xmlns:vm="clr-namespace:SmartShop.ViewModels"
+      xmlns:vm="clr-namespace:SmartShop.ViewModels" xmlns:forms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
       x:Class="SmartShop.AppFrame"
       x:Name="self"
       BackgroundColor="White">
@@ -17,7 +17,7 @@
         <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start" Spacing="5">
             <ImageButton HeightRequest="35" WidthRequest="35" Padding="8" CornerRadius="35"
              Source="angle_icon_left.png" IsVisible="{Binding BackwardButtonIsVisible, Source={x:Reference self}}" BackgroundColor="White" Command="{Binding Path=BackwardCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}"/>
-            <Image Source="logo.png" IsVisible="{Binding LogoIsVisible, Source={x:Reference self}}" HeightRequest="30" Margin="8, 0, 0, 0" VerticalOptions="Center" HorizontalOptions="Start"></Image>
+            <forms:SvgCachedImage Source="shop.svg" FadeAnimationForCachedImages="False" CacheType="None" IsVisible="{Binding LogoIsVisible, Source={x:Reference self}}" HeightRequest="30" Margin="8, 0, 0, 0" VerticalOptions="Center" HorizontalOptions="Start"></forms:SvgCachedImage>
         </StackLayout>
         <StackLayout Grid.Column="1" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
             <ContentView IsVisible="{Binding ContentCenter, Source={x:Reference self}, Converter={xct:IsNotNullOrEmptyConverter}}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"

@@ -11,7 +11,7 @@
 		</shape>
 	</item>
 	<item>
-		<bitmap android:src="@drawable/splash_logo"
+		<bitmap android:src="@mipmap/shopicon_adaptive_fore"
 		  android:gravity="center"
 		android:tileMode="disabled"/>
 	</item>
