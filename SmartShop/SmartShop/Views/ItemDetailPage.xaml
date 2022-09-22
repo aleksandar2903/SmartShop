@@ -57,9 +57,9 @@
                     <StackLayout>
                         <Label Text="{Binding Product.Brand.Name}" FontAttributes="Bold" Margin="0, 0, 0, 5" TextColor="{StaticResource Primary}" FontSize="13"></Label>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10" HorizontalOptions="FillAndExpand">
                         <Label Text="{Binding Product.Name}" TextColor="Black" FontAttributes="Bold" FontSize="18" HorizontalOptions="FillAndExpand"></Label>
-                        <Label Text="Na stanju" TextColor="Green" FontAttributes="Bold" FontSize="12" Margin="10, 0, 0, 0">
+                        <Label Text="Na stanju" Grid.Column="1" TextColor="Green" FontAttributes="Bold" FontSize="12" HorizontalTextAlignment="End">
                             <Label.Triggers>
                                 <DataTrigger TargetType="Label" Binding="{Binding Product.Quantity, Converter={xct:IntToBoolConverter}}" Value="False">
                                     <Setter Property="Text" Value="Nema na stanju"></Setter>
@@ -67,7 +67,7 @@
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
-                    </StackLayout>
+                    </Grid>
                     <StackLayout
                         Orientation="Horizontal" Spacing="5" 
                         IsVisible="{Binding Product.RatingCount}">

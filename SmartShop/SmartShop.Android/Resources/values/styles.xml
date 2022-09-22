@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
-
+	<style name="MainTheme.Splash" parent="MainTheme.Base">
+		<item name="android:windowBackground">@drawable/splash_screen</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowIsTranslucent">false</item>
+		<item name="android:windowIsFloating">false</item>
+		<item name="android:backgroundDimEnabled">true</item>
+		<item name="colorPrimary">#003366</item>
+		<item name="colorPrimaryDark">#001F3D</item>
+		<item name="colorAccent">#FFCC00</item>
+		<item name="android:statusBarColor">#003366</item>
+	</style>
   <style name="MainTheme" parent="MainTheme.Base">
     <!-- As of Xamarin.Forms 4.6 the theme has moved into the Forms binary -->
     <!-- If you want to override anything you can do that here. -->
