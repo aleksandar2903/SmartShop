@@ -71,7 +71,7 @@
     </DataTemplate>
     <DataTemplate x:Key="emptySearchEntry">
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
-            <ffsvg:SvgCachedImage Source="search_products.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <ffsvg:SvgCachedImage CacheType="None" Source="search_products.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
             <Label HorizontalTextAlignment="Center" Text="Brzo i jednostavno pronađite ono što Vam treba!"></Label>
         </StackLayout>
     </DataTemplate>
@@ -85,14 +85,14 @@
     </DataTemplate>
     <DataTemplate x:Key="empty">
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15">
-            <ffsvg:SvgCachedImage Source="empty.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <ffsvg:SvgCachedImage CacheType="None" Source="empty.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
             <Label HorizontalTextAlignment="Center" Text="Ups! Nismo uspeli da pronađemo to što tražite." FontSize="Medium" FontAttributes="Bold"></Label>
             <Label HorizontalTextAlignment="Center" Text="Pokušajte da unesete neke druge parametre."></Label>
         </StackLayout>
     </DataTemplate>
     <DataTemplate x:Key="offline">
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15" Padding="20, 0">
-            <ffsvg:SvgCachedImage Source="offline.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <ffsvg:SvgCachedImage CacheType="None" Source="offline.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
             <Label HorizontalTextAlignment="Center" Text="Ups! Trenutno ste van mreže." FontSize="Medium" FontAttributes="Bold"></Label>
             <Label HorizontalTextAlignment="Center"  Text="Proverite internet podešavanja i pokušajte ponovo."></Label>
             <Button Text="Pokušajte ponovo" HorizontalOptions="Center" Command="{Binding RefreshDataCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}" CornerRadius="45"></Button>
@@ -100,28 +100,28 @@
     </DataTemplate>
     <DataTemplate x:Key="empty_profile">
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15" Padding="20, 0">
-            <ffsvg:SvgCachedImage Source="profile_state.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <ffsvg:SvgCachedImage CacheType="None" Source="profile_state.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
             <Label HorizontalTextAlignment="Center"  Text="Prijavite se da biste lakše upravljali Vašim porudžbinama i sačuvanim proizvodima."></Label>
             <Button Text="Prijavite se" HorizontalOptions="Center" Command="{Binding UserTappedCommand, Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}}" CornerRadius="45"></Button>
         </StackLayout>
     </DataTemplate>
     <DataTemplate x:Key="empty_purchase">
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15" Padding="20, 0">
-            <ffsvg:SvgCachedImage Source="empty.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <ffsvg:SvgCachedImage CacheType="None" Source="empty.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
             <Label HorizontalTextAlignment="Center" Text="Nemate izvršenih porudžbina" FontSize="Medium" FontAttributes="Bold"></Label>
             <Label HorizontalTextAlignment="Center"  Text="Vratite se na ovoj stranici nakon što obavite kupovinu."></Label>
         </StackLayout>
     </DataTemplate>
     <DataTemplate x:Key="empty_favourites">
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15" Padding="20, 0">
-            <ffsvg:SvgCachedImage Source="empty_favourites.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <ffsvg:SvgCachedImage CacheType="None" Source="empty_favourites.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
             <Label HorizontalTextAlignment="Center" Text="Trenutno nemate odabranih favorita" FontSize="Medium" FontAttributes="Bold"></Label>
             <Label HorizontalTextAlignment="Center"  Text="Čim pronađete proizvod koji Vam se sviđa, sačuvajte ga u listi klikom na srce i biće ti uvek dostupan."></Label>
         </StackLayout>
     </DataTemplate>
     <DataTemplate x:Key="empty_cart">
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15" Padding="20, 0">
-            <ffsvg:SvgCachedImage Source="empty_cart.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+            <ffsvg:SvgCachedImage CacheType="None" Source="empty_cart.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
             <Label HorizontalTextAlignment="Center" Text="Tvoja korpa je prazna." FontSize="Medium" FontAttributes="Bold"></Label>
             <Label HorizontalTextAlignment="Center"  Text="Izgleda da nisi još ništa ubacio u korpu. Baci pogled na proizvode na sniženju i naruči svoj prvi paket već danas :)"></Label>
         </StackLayout>
