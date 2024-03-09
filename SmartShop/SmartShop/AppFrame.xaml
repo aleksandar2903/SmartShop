@@ -6,7 +6,11 @@
       xmlns:vm="clr-namespace:SmartShop.ViewModels" xmlns:forms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
       x:Class="SmartShop.AppFrame"
       x:Name="self"
+<<<<<<< Updated upstream
       BackgroundColor="White">
+=======
+      BackgroundColor="White" Margin="{OnPlatform Android='0, 0, 0, 0', iOS='0, 50, 0, 0'}">
+>>>>>>> Stashed changes
     <Grid.RowDefinitions>
         <RowDefinition Height="60"></RowDefinition>
         <RowDefinition Height="*"></RowDefinition>

@@ -13,6 +13,7 @@
              Shell.NavBarIsVisible="False">
     <local:AppFrame UserLogoIsVisible="False" SearchLogoIsVisible="False" BackwardButtonIsVisible="True">
         <local:AppFrame.ContentCenter>
+<<<<<<< Updated upstream
             <Frame BackgroundColor="{StaticResource Light}" Padding="15, 0, 0, 0" VerticalOptions="Center" HorizontalOptions="FillAndExpand" CornerRadius="{OnIdiom Desktop=0, Phone=40}">
                 <Grid ColumnDefinitions="Auto, *">
                     <Image behaviors:IconTintColorEffect.TintColor="Gray" Source="search1.png" HeightRequest="15" 
@@ -26,6 +27,17 @@
                     </local:CustomEntry>
                 </Grid>
             </Frame>
+=======
+            <ContentView x:Name="SearchContent">
+                <local:CustomEntry Grid.Column="1" x:Name="searchEntry" FontSize="14" ReturnType="Search" 
+                    ReturnCommandParameter="{Binding Source={Reference searchEntry}, Path=Text}" 
+                    ReturnCommand="{Binding SearchProductsCommand}"  
+                    ClearButtonVisibility="WhileEditing" TextColor="Black" 
+                    PlaceholderColor="DarkGray" HorizontalOptions="FillAndExpand" 
+                    Placeholder="Ukucajte nekoliko slova i pretražite..." HeightRequest="40">
+                </local:CustomEntry>
+            </ContentView>
+>>>>>>> Stashed changes
         </local:AppFrame.ContentCenter>
         <local:AppFrame.ContentEnd>
             <ContentView>

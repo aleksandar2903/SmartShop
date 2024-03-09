@@ -58,7 +58,11 @@
 
                             </StackLayout>
                         </Frame>
+<<<<<<< Updated upstream
                         <Frame HasShadow="True" CornerRadius="15" Margin="0,0,0,15" IsClippedToBounds="True" Padding="0">
+=======
+                        <!--<Frame HasShadow="True" CornerRadius="15" Margin="0,0,0,15" IsClippedToBounds="True" Padding="0">
+>>>>>>> Stashed changes
                             <StackLayout>
                                 <StackLayout Margin="15, 10">
                                     <Label FontAttributes="Bold" FontSize="Small" Text="Plaćanje" ></Label>
@@ -75,7 +79,11 @@
                                     <Label Text="Polja oznacena simbolom * su obavezna" TextColor="Gray" FontSize="Micro"></Label>
                                 </StackLayout>
                             </StackLayout>
+<<<<<<< Updated upstream
                         </Frame>
+=======
+                        </Frame>-->
+>>>>>>> Stashed changes
                     </StackLayout>
                 </ScrollView>
                 <Grid Padding="15, 10" Grid.Row="1" RowDefinitions="Auto, Auto" RowSpacing="10">

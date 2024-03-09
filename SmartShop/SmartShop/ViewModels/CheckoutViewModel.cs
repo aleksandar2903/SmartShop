@@ -2,11 +2,19 @@
 using SmartShop.Models.Request;
 using SmartShop.Views;
 using System;
+<<<<<<< Updated upstream
+=======
+using System.Collections.Generic;
+>>>>>>> Stashed changes
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
+<<<<<<< Updated upstream
+=======
+using Xamarin.Essentials;
+>>>>>>> Stashed changes
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
@@ -22,7 +30,11 @@ namespace SmartShop.ViewModels
         private string _cardName = "Aleksandar Stojanovic";
         private string _cardNumber = "4242424242424242";
         private string _cvv = "123";
+<<<<<<< Updated upstream
         private string _expireDate = "05/23" ;
+=======
+        private string _expireDate = "05/23";
+>>>>>>> Stashed changes
         private decimal _totalAmount;
 
         public string FirstName { get => _firstName; set => SetProperty(ref _firstName, value); }
@@ -36,13 +48,21 @@ namespace SmartShop.ViewModels
         public string Cvv { get => _cvv; set => SetProperty(ref _cvv, value); }
         public string ExpireDate { get => _expireDate; set => SetProperty(ref _expireDate, value); }
         public decimal TotalAmount { get => _totalAmount; set => SetProperty(ref _totalAmount, value); }
+<<<<<<< Updated upstream
         public ObservableCollection<Cart> Cart { get;  }
+=======
+        public ObservableCollection<Cart> Cart { get; }
+>>>>>>> Stashed changes
         public Command SaveShippingInformationsCommand { get; }
         public Command PlaceOrderCommand { get; }
 
         public CheckoutViewModel()
         {
+<<<<<<< Updated upstream
             SaveShippingInformationsCommand = new Command(async () => await Shell.Current.GoToAsync(nameof(CheckoutPage)), () => ValidateShippingAddress());
+=======
+            SaveShippingInformationsCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new CheckoutPage(), true), () => ValidateShippingAddress());
+>>>>>>> Stashed changes
             PlaceOrderCommand = new Command(async () => await AddOrderAsync(), () => ValidateCardInformations());
             Cart = new ObservableCollection<Cart>();
             this.PropertyChanged +=
@@ -75,18 +95,32 @@ namespace SmartShop.ViewModels
 
                 await Task.WhenAll(orderTask, Task.Delay(1000));
 
+<<<<<<< Updated upstream
                 await orderTask;
 
                 InitProperties();
+=======
+                var checkoutUrl = await orderTask;
+
+                var checkoutPageModal = new CheckoutWebViewPage(checkoutUrl);
+
+                checkoutPageModal.CloseCheckoutPage += CloseCheckoutPageModal;
+
+                await Shell.Current.Navigation.PushModalAsync(checkoutPageModal);
+>>>>>>> Stashed changes
             }
 
             catch (Exception ex)
             {
+<<<<<<< Updated upstream
                 Debug.WriteLine(ex);
+=======
+>>>>>>> Stashed changes
                 State = LayoutState.Error;
             }
             finally
             {
+<<<<<<< Updated upstream
                 if (State != LayoutState.Error)
                 {
                     await Shell.Current.Navigation.PopToRootAsync();
@@ -99,6 +133,15 @@ namespace SmartShop.ViewModels
         private void InitProperties()
         {
             FirstName = string.Empty; 
+=======
+                State = LayoutState.None;
+            }
+        }
+
+        private void InitProperties()
+        {
+            FirstName = string.Empty;
+>>>>>>> Stashed changes
             LastName = string.Empty;
             Phone = string.Empty;
             Address = string.Empty;
@@ -123,7 +166,11 @@ namespace SmartShop.ViewModels
         {
             return !string.IsNullOrWhiteSpace(CardName) &&
                 ExpireDate.Length == 5 &&
+<<<<<<< Updated upstream
                 CardNumber.Length == 16 && 
+=======
+                CardNumber.Length == 16 &&
+>>>>>>> Stashed changes
                 Cvv.Length == 3;
         }
         private async Task LoadDataAsync()
@@ -166,5 +213,14 @@ namespace SmartShop.ViewModels
                 }
             }
         }
+<<<<<<< Updated upstream
+=======
+        private async void CloseCheckoutPageModal(object sender, string e)
+        {
+            await Task.Delay(3000).ContinueWith(t => Shell.Current.Navigation.PopToRootAsync());
+
+            ((CheckoutWebViewPage)sender).CloseCheckoutPage -= CloseCheckoutPageModal;
+        }
+>>>>>>> Stashed changes
     }
 }

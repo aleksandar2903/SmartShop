@@ -122,7 +122,11 @@
     <DataTemplate x:Key="empty_cart">
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="15" Padding="20, 0">
             <ffsvg:SvgCachedImage CacheType="None" Source="empty_cart.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="200" WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"></ffsvg:SvgCachedImage>
+<<<<<<< Updated upstream
             <Label HorizontalTextAlignment="Center" Text="Tvoja korpa je prazna." FontSize="Medium" FontAttributes="Bold"></Label>
+=======
+            <Label HorizontalTextAlignment="Center" Text="Vaša korpa je prazna." FontSize="Medium" FontAttributes="Bold"></Label>
+>>>>>>> Stashed changes
             <Label HorizontalTextAlignment="Center"  Text="Izgleda da nisi još ništa ubacio u korpu. Baci pogled na proizvode na sniženju i naruči svoj prvi paket već danas :)"></Label>
         </StackLayout>
     </DataTemplate>
