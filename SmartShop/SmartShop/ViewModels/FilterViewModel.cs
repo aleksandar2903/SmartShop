@@ -115,6 +115,7 @@ namespace SmartShop.ViewModels
                 this.query = query;
                 SetPrice();
                 IsBusy = true;
+                State = LayoutState.Loading;
                 await Task.Delay(600);
                 await FilterProducts();
             }

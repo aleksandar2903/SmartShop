@@ -20,6 +20,7 @@ namespace SmartShop.Views
         public ExplorePage(string subcategories = "", string brand = "")
         {
             InitializeComponent();
+          
             BindingContext = viewModel = new BrowseViewModel();
             this.subcategories = subcategories;
             this.brand = brand;

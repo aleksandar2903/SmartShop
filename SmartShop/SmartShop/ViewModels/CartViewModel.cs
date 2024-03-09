@@ -15,7 +15,7 @@ namespace SmartShop.ViewModels
 {
     public class CartViewModel : BaseViewModel
     {
-        private decimal _totalAmount;
+        private decimal _totalAmount = 0;
         public ObservableCollection<Cart> Cart { get; set; }
         public ICommand ToggleProductCommand { get; }
         public ICommand DecreaseProductQuatityCommand { get; }
@@ -28,7 +28,7 @@ namespace SmartShop.ViewModels
         public CartViewModel()
         {
             Cart = new ObservableCollection<Cart>();
-            CheckoutCommand = new Command(async () => await Shell.Current.GoToAsync(nameof(ShippingPage)));
+            CheckoutCommand = new Command(Checkout);
             ToggleProductCommand = new Command<Cart>(async (cart) => await ToggleProductInCart(cart));
             DecreaseProductQuatityCommand = new Command<Cart>((cart) => { if (cart.Quantity > 0) { cart.Quantity--; Throttle(500, async _ => await UpdateQuantity(cart)); } });
             IncreaseProductQuatityCommand = new Command<Cart>((cart) => { if (cart.Quantity < cart.Product.Quantity) { cart.Quantity++; Throttle(500, async _ => await UpdateQuantity(cart)); } });
@@ -38,7 +38,7 @@ namespace SmartShop.ViewModels
         {
             if (IsLoggedIn())
             {
-                await Shell.Current.GoToAsync(nameof(CheckoutPage), true);
+                await Shell.Current.Navigation.PushAsync(new ShippingPage(), true);
             }
             else
             {
@@ -89,6 +89,8 @@ namespace SmartShop.ViewModels
         public async void OnAppearing()
         {
             await LoadDataAsync();
+
+
         }
 
         protected override async Task RefreshData()
@@ -109,7 +111,7 @@ namespace SmartShop.ViewModels
 
             try
             {
-                if(cart.Quantity > 0)
+                if (cart.Quantity > 0)
                 {
                     if (IsLoggedIn())
                     {
@@ -130,10 +132,14 @@ namespace SmartShop.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                State = LayoutState.Error;
             }
             finally
             {
-                State = LayoutState.None;
+                if (State != LayoutState.Error && State != LayoutState.Empty)
+                {
+                    State = LayoutState.None;
+                }
             }
         }
         void UpdateTotalAmount()
@@ -172,6 +178,7 @@ namespace SmartShop.ViewModels
             try
             {
                 Cart.Clear();
+                TotalAmount = 0;
 
                 if (IsLoggedIn())
                 {
@@ -180,7 +187,7 @@ namespace SmartShop.ViewModels
                     var result = await task;
                     foreach (var cart in result)
                     {
-                        TotalAmount += cart.Amount; 
+                        TotalAmount += cart.Amount;
                         Cart.Add(cart);
                     }
                 }

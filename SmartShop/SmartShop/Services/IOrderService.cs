@@ -9,7 +9,7 @@ namespace SmartShop.Services
 {
     public interface IOrderService
     {
-        Task AddOrderAsync(OrderRequest request, string token);
+        Task<string> AddOrderAsync(OrderRequest request, string token);
         Task<IEnumerable<Order>> GetOrdersAsync(string token);
     }
 }

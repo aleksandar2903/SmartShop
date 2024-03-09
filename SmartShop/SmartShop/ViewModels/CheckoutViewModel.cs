@@ -2,11 +2,13 @@
 using SmartShop.Models.Request;
 using SmartShop.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
@@ -22,7 +24,7 @@ namespace SmartShop.ViewModels
         private string _cardName = "Aleksandar Stojanovic";
         private string _cardNumber = "4242424242424242";
         private string _cvv = "123";
-        private string _expireDate = "05/23" ;
+        private string _expireDate = "05/23";
         private decimal _totalAmount;
 
         public string FirstName { get => _firstName; set => SetProperty(ref _firstName, value); }
@@ -36,13 +38,13 @@ namespace SmartShop.ViewModels
         public string Cvv { get => _cvv; set => SetProperty(ref _cvv, value); }
         public string ExpireDate { get => _expireDate; set => SetProperty(ref _expireDate, value); }
         public decimal TotalAmount { get => _totalAmount; set => SetProperty(ref _totalAmount, value); }
-        public ObservableCollection<Cart> Cart { get;  }
+        public ObservableCollection<Cart> Cart { get; }
         public Command SaveShippingInformationsCommand { get; }
         public Command PlaceOrderCommand { get; }
 
         public CheckoutViewModel()
         {
-            SaveShippingInformationsCommand = new Command(async () => await Shell.Current.GoToAsync(nameof(CheckoutPage)), () => ValidateShippingAddress());
+            SaveShippingInformationsCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new CheckoutPage(), true), () => ValidateShippingAddress());
             PlaceOrderCommand = new Command(async () => await AddOrderAsync(), () => ValidateCardInformations());
             Cart = new ObservableCollection<Cart>();
             this.PropertyChanged +=
@@ -75,30 +77,28 @@ namespace SmartShop.ViewModels
 
                 await Task.WhenAll(orderTask, Task.Delay(1000));
 
-                await orderTask;
+                var checkoutUrl = await orderTask;
 
-                InitProperties();
+                var checkoutPageModal = new CheckoutWebViewPage(checkoutUrl);
+
+                checkoutPageModal.CloseCheckoutPage += CloseCheckoutPageModal;
+
+                await Shell.Current.Navigation.PushModalAsync(checkoutPageModal);
             }
 
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
                 State = LayoutState.Error;
             }
             finally
             {
-                if (State != LayoutState.Error)
-                {
-                    await Shell.Current.Navigation.PopToRootAsync();
-                    await Shell.Current.GoToAsync($"//{nameof(ProfilePage)}", true);
-                }
-
                 State = LayoutState.None;
             }
         }
+
         private void InitProperties()
         {
-            FirstName = string.Empty; 
+            FirstName = string.Empty;
             LastName = string.Empty;
             Phone = string.Empty;
             Address = string.Empty;
@@ -123,7 +123,7 @@ namespace SmartShop.ViewModels
         {
             return !string.IsNullOrWhiteSpace(CardName) &&
                 ExpireDate.Length == 5 &&
-                CardNumber.Length == 16 && 
+                CardNumber.Length == 16 &&
                 Cvv.Length == 3;
         }
         private async Task LoadDataAsync()
@@ -165,6 +165,12 @@ namespace SmartShop.ViewModels
                     State = Cart.Count > 0 ? LayoutState.None : LayoutState.Error;
                 }
             }
+        }
+        private async void CloseCheckoutPageModal(object sender, string e)
+        {
+            await Task.Delay(3000).ContinueWith(t => Shell.Current.Navigation.PopToRootAsync());
+
+            ((CheckoutWebViewPage)sender).CloseCheckoutPage -= CloseCheckoutPageModal;
         }
     }
 }
