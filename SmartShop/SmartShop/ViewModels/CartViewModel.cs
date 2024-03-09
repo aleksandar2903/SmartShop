@@ -15,11 +15,7 @@ namespace SmartShop.ViewModels
 {
     public class CartViewModel : BaseViewModel
     {
-<<<<<<< Updated upstream
         private decimal _totalAmount;
-=======
-        private decimal _totalAmount = 0;
->>>>>>> Stashed changes
         public ObservableCollection<Cart> Cart { get; set; }
         public ICommand ToggleProductCommand { get; }
         public ICommand DecreaseProductQuatityCommand { get; }
@@ -32,11 +28,7 @@ namespace SmartShop.ViewModels
         public CartViewModel()
         {
             Cart = new ObservableCollection<Cart>();
-<<<<<<< Updated upstream
             CheckoutCommand = new Command(async () => await Shell.Current.GoToAsync(nameof(ShippingPage)));
-=======
-            CheckoutCommand = new Command(Checkout);
->>>>>>> Stashed changes
             ToggleProductCommand = new Command<Cart>(async (cart) => await ToggleProductInCart(cart));
             DecreaseProductQuatityCommand = new Command<Cart>((cart) => { if (cart.Quantity > 0) { cart.Quantity--; Throttle(500, async _ => await UpdateQuantity(cart)); } });
             IncreaseProductQuatityCommand = new Command<Cart>((cart) => { if (cart.Quantity < cart.Product.Quantity) { cart.Quantity++; Throttle(500, async _ => await UpdateQuantity(cart)); } });
@@ -46,11 +38,7 @@ namespace SmartShop.ViewModels
         {
             if (IsLoggedIn())
             {
-<<<<<<< Updated upstream
                 await Shell.Current.GoToAsync(nameof(CheckoutPage), true);
-=======
-                await Shell.Current.Navigation.PushAsync(new ShippingPage(), true);
->>>>>>> Stashed changes
             }
             else
             {
@@ -101,11 +89,6 @@ namespace SmartShop.ViewModels
         public async void OnAppearing()
         {
             await LoadDataAsync();
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
         }
 
         protected override async Task RefreshData()
@@ -126,11 +109,7 @@ namespace SmartShop.ViewModels
 
             try
             {
-<<<<<<< Updated upstream
                 if(cart.Quantity > 0)
-=======
-                if (cart.Quantity > 0)
->>>>>>> Stashed changes
                 {
                     if (IsLoggedIn())
                     {
@@ -151,21 +130,10 @@ namespace SmartShop.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-<<<<<<< Updated upstream
             }
             finally
             {
                 State = LayoutState.None;
-=======
-                State = LayoutState.Error;
-            }
-            finally
-            {
-                if (State != LayoutState.Error && State != LayoutState.Empty)
-                {
-                    State = LayoutState.None;
-                }
->>>>>>> Stashed changes
             }
         }
         void UpdateTotalAmount()
@@ -204,10 +172,6 @@ namespace SmartShop.ViewModels
             try
             {
                 Cart.Clear();
-<<<<<<< Updated upstream
-=======
-                TotalAmount = 0;
->>>>>>> Stashed changes
 
                 if (IsLoggedIn())
                 {
@@ -216,11 +180,7 @@ namespace SmartShop.ViewModels
                     var result = await task;
                     foreach (var cart in result)
                     {
-<<<<<<< Updated upstream
                         TotalAmount += cart.Amount; 
-=======
-                        TotalAmount += cart.Amount;
->>>>>>> Stashed changes
                         Cart.Add(cart);
                     }
                 }

@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-<<<<<<< Updated upstream
-=======
-             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms" 
->>>>>>> Stashed changes
              x:Class="SmartShop.Views.LoginPage"
              Shell.NavBarIsVisible="False"
              xmlns:viewmodels="clr-namespace:SmartShop.ViewModels" xmlns:smartshop="clr-namespace:SmartShop"
@@ -12,11 +8,7 @@
     <smartshop:AppFrame SearchLogoIsVisible="False" UserLogoIsVisible="False" BackwardButtonIsVisible="True" Title="Prijavite se">
         <smartshop:AppFrame.Content>
             <StackLayout VerticalOptions="Center" Spacing="10" Padding="15, 0">
-<<<<<<< Updated upstream
                 <Image WidthRequest="150" HorizontalOptions="Center" Source="shop.png" Margin="0,0,0,20"></Image>
-=======
-                <ffsvg:SvgCachedImage CacheType="None" Source="shop.svg" CacheDuration="30" FadeAnimationForCachedImages="True" HeightRequest="40" VerticalOptions="Start" HorizontalOptions="Center" Margin="0,0,0,20"></ffsvg:SvgCachedImage>
->>>>>>> Stashed changes
                 <Entry Placeholder="E-mail adresa *" Text="{Binding Email}"></Entry>
                 <Entry Placeholder="Lozinka *" Text="{Binding Password}" IsPassword="True"></Entry>
                 <Label Text="Polja oznacena simbolom * su obavezna" TextColor="Gray" FontSize="Micro"></Label>

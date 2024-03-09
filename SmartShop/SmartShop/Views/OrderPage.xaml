@@ -30,13 +30,7 @@
                                                 </MultiBinding>
                                             </Label.Text>
                                         </Label>
-<<<<<<< Updated upstream
                                         <Label FontAttributes="Bold" FontSize="Micro" Text="Status porudžbine" ></Label>
-=======
-                                        <Label FontAttributes="Bold" FontSize="Micro" Text="Status plaćanja" ></Label>
-                                        <Label Text="{Binding PaidStatus}" FontSize="Micro"></Label>
-                                        <Label FontAttributes="Bold" FontSize="Micro" Text="Status isporuke" ></Label>
->>>>>>> Stashed changes
                                         <Label Text="{Binding DeliveryStatus}" FontSize="Micro"></Label>
                                         <Label FontAttributes="Bold" FontSize="Micro" Text="Vreme poručivanja" ></Label>
                                         <Label FontSize="Micro" Text="{Binding CreatedAt, StringFormat='{0:dd MM yyyy H:m}'}" ></Label>

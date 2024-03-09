@@ -21,11 +21,6 @@ namespace SmartShop.ViewModels
         private int currentPage = 1;
         private int lastPage = 1;
         private bool _isInitialized;
-<<<<<<< Updated upstream
-=======
-        private string _subcategories = string.Empty;
-        private string _brand = string.Empty;
->>>>>>> Stashed changes
         private FilterRequest searchRequest = new FilterRequest();
         private FilterViewModel filterViewModel;
         private FilterPage filterPage;
@@ -82,18 +77,9 @@ namespace SmartShop.ViewModels
             {
                 return;
             }
-<<<<<<< Updated upstream
             _isInitialized = true;
 
             if (string.IsNullOrWhiteSpace(filterPage.Categories) && string.IsNullOrWhiteSpace(filterPage.Brand) && string.IsNullOrWhiteSpace(query))
-=======
-
-            _isInitialized = true;
-            this._subcategories = subcategories;
-            this._brand = brand;
-
-            if (string.IsNullOrWhiteSpace(subcategories) && string.IsNullOrWhiteSpace(brand) && string.IsNullOrWhiteSpace(filterPage.Categories) && string.IsNullOrWhiteSpace(filterPage.Brand) && string.IsNullOrWhiteSpace(query))
->>>>>>> Stashed changes
             {
                 State = LayoutState.Custom;
                 CustomStateKey = StateKeys.EmptyQuery;
@@ -186,11 +172,7 @@ namespace SmartShop.ViewModels
                     Products.Clear();
                 }
 
-<<<<<<< Updated upstream
                 var responseTask = SearchService.SearchProducts(query, searchRequest.Categories, searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice, searchRequest.SortBy, page: currentPage, token: SettingsService.AuthAccessToken);
-=======
-                var responseTask = SearchService.SearchProducts(query, !string.IsNullOrWhiteSpace(_subcategories) ? _subcategories : searchRequest.Categories, !string.IsNullOrWhiteSpace(_brand) ? _brand : searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice, searchRequest.SortBy, page: currentPage, token: SettingsService.AuthAccessToken);
->>>>>>> Stashed changes
 
                 await Task.WhenAll(responseTask, Task.Delay(1000));
 
