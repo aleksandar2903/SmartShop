@@ -17,15 +17,17 @@ namespace SmartShop.ViewModels
 {
     public class BrowseViewModel : BaseViewModel
     {
-        private string query;
-        private int currentPage = 1;
-        private int lastPage = 1;
+        private string _query;
+        private int _currentPage = 1;
+        private int _lastPage = 1;
         private bool _isInitialized;
         private string _subcategories = string.Empty;
         private string _brand = string.Empty;
         private FilterRequest searchRequest = new FilterRequest();
         private FilterViewModel filterViewModel;
         private FilterPage filterPage;
+        public string Query => _query;
+        public bool IsInitialized => _isInitialized;
         public ObservableCollection<Product> Products { get; set; }
         public Command OpenFilterPopupCommand { get; }
         public Command OnProductTapped { get; }
@@ -40,7 +42,7 @@ namespace SmartShop.ViewModels
             Products = new ObservableCollection<Product>();
             OpenFilterPopupCommand = new Command(OpenFilters);
             OnProductTapped = new Command<Product>(OnProductSelected);
-            SearchProductsCommand = new Command<string>(async (query) => { this.query = query; await FilterProducts(); });
+            SearchProductsCommand = new Command<string>(async (query) => { _query = query; await FilterProducts(); });
             ToggleFavouriteProductCommand = new Command<Product>(async (product) => await ToggleProduct(product));
             LoadMoreDataCommand = new Command(async () => await LoadMoreDataAsync());
         }
@@ -60,11 +62,11 @@ namespace SmartShop.ViewModels
 
         void OpenFilters()
         {
-            if (string.IsNullOrEmpty(filterPage.Categories) && string.IsNullOrEmpty(filterPage.Brand) && string.IsNullOrEmpty(query))
+            if (string.IsNullOrEmpty(filterPage.Categories) && string.IsNullOrEmpty(filterPage.Brand) && string.IsNullOrEmpty(Query))
             {
                 return;
             }
-            filterPage.Query = query;
+            filterPage.Query = Query;
             Shell.Current.Navigation.PushModalAsync(filterPage);
         }
 
@@ -75,7 +77,7 @@ namespace SmartShop.ViewModels
 
         public async void OnAppearing(string subcategories = "", string brand = "")
         {
-            if (_isInitialized)
+            if (IsInitialized)
             {
                 return;
             }
@@ -84,7 +86,7 @@ namespace SmartShop.ViewModels
             this._subcategories = subcategories;
             this._brand = brand;
 
-            if (string.IsNullOrWhiteSpace(subcategories) && string.IsNullOrWhiteSpace(brand) && string.IsNullOrWhiteSpace(filterPage.Categories) && string.IsNullOrWhiteSpace(filterPage.Brand) && string.IsNullOrWhiteSpace(query))
+            if (string.IsNullOrWhiteSpace(subcategories) && string.IsNullOrWhiteSpace(brand) && string.IsNullOrWhiteSpace(filterPage.Categories) && string.IsNullOrWhiteSpace(filterPage.Brand) && string.IsNullOrWhiteSpace(Query))
             {
                 State = LayoutState.Custom;
                 CustomStateKey = StateKeys.EmptyQuery;
@@ -138,12 +140,12 @@ namespace SmartShop.ViewModels
 
         async Task LoadMoreDataAsync()
         {
-            if (currentPage >= lastPage)
+            if (_currentPage >= _lastPage)
             {
                 return;
             }
 
-            currentPage++;
+            _currentPage++;
 
             IsBusy = true;
 
@@ -177,7 +179,7 @@ namespace SmartShop.ViewModels
                     Products.Clear();
                 }
 
-                var responseTask = SearchService.SearchProducts(query, !string.IsNullOrWhiteSpace(_subcategories) ? _subcategories : searchRequest.Categories, !string.IsNullOrWhiteSpace(_brand) ? _brand : searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice, searchRequest.SortBy, page: currentPage, token: SettingsService.AuthAccessToken);
+                var responseTask = SearchService.SearchProducts(Query, !string.IsNullOrWhiteSpace(_subcategories) ? _subcategories : searchRequest.Categories, !string.IsNullOrWhiteSpace(_brand) ? _brand : searchRequest.Brands, searchRequest.MinPrice, searchRequest.MaxPrice, searchRequest.SortBy, page: _currentPage, token: SettingsService.AuthAccessToken);
 
                 await Task.WhenAll(responseTask, Task.Delay(1000));
 

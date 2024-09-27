@@ -46,6 +46,8 @@ namespace SmartShop.Models
                 Amount = Quantity * value.Price;
             }
         }
+        [JsonProperty("qty")]
+        public int Qty { get => Quantity; set => Quantity = value;  }
         [JsonProperty("price")]
         public decimal Price { get; set; }
         [JsonProperty("product_id")]

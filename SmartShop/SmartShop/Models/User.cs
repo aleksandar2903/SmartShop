@@ -18,7 +18,7 @@ namespace SmartShop.Models
         [JsonProperty("delivered_orders_count")]
         public int DeliveredOrdersCount { get; set; }
         [JsonProperty("client")]
-        public Client Client { get; set; }
+        public Client Client { get; set; } = new Client();
         public string Initials { get; set; }
     }
 

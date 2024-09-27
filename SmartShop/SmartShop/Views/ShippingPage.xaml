@@ -5,7 +5,7 @@
              x:Class="SmartShop.Views.ShippingPage"
              Shell.NavBarIsVisible="False"
              x:DataType="viewmodels:CheckoutViewModel">
-    <local:AppFrame SearchLogoIsVisible="False" BackwardButtonIsVisible="True" UserLogoIsVisible="False" Title="Informacije o dostavi">
+    <local:AppFrame SearchLogoIsVisible="False" BackwardButtonIsVisible="True" UserLogoIsVisible="False" Title="Informacije o dostavi i plaćanju">
         <local:AppFrame.Content>
             <Grid RowDefinitions="*, Auto" Padding="15, 0" VerticalOptions="FillAndExpand">
                 <StackLayout Spacing="15">

@@ -29,7 +29,7 @@ namespace SmartShop.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            if (viewModel.Products.Count == 0)
+            if (!viewModel.IsInitialized && string.IsNullOrWhiteSpace(brand) && string.IsNullOrWhiteSpace(subcategories))
             {
                 await Task.Delay(600);
                 Entry entry = this.FindByName<Entry>("searchEntry");

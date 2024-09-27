@@ -21,6 +21,7 @@ namespace SmartShop.ViewModels
         public ICommand DecreaseProductQuatityCommand { get; }
         public ICommand CheckoutCommand { get; }
         public ICommand IncreaseProductQuatityCommand { get; }
+        public ICommand EnterProductQuatityCommand { get; }
         private CancellationTokenSource cts = new CancellationTokenSource();
         private DateTime timerStarted { get; set; } = DateTime.UtcNow.AddYears(-1);
         public decimal TotalAmount { get => _totalAmount; set => SetProperty(ref _totalAmount, value); }
@@ -32,6 +33,7 @@ namespace SmartShop.ViewModels
             ToggleProductCommand = new Command<Cart>(async (cart) => await ToggleProductInCart(cart));
             DecreaseProductQuatityCommand = new Command<Cart>((cart) => { if (cart.Quantity > 0) { cart.Quantity--; Throttle(500, async _ => await UpdateQuantity(cart)); } });
             IncreaseProductQuatityCommand = new Command<Cart>((cart) => { if (cart.Quantity < cart.Product.Quantity) { cart.Quantity++; Throttle(500, async _ => await UpdateQuantity(cart)); } });
+            EnterProductQuatityCommand = new Command<Cart>((cart) => { if (cart.Quantity <= cart.Product.Quantity) { Throttle(500, async _ => await UpdateQuantity(cart)); } });
         }
 
         private async void Checkout()
@@ -89,8 +91,6 @@ namespace SmartShop.ViewModels
         public async void OnAppearing()
         {
             await LoadDataAsync();
-
-
         }
 
         protected override async Task RefreshData()

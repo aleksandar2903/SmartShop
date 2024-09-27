@@ -13,6 +13,13 @@ using Xamarin.Forms;
 
 namespace SmartShop.ViewModels
 {
+    public enum PaymentTypes
+    {
+        Cart = 1,
+        Cash = 2,
+        Bank = 3
+    };
+
     public class CheckoutViewModel : BaseViewModel
     {
         private string _firstName = "Aleksandar";
@@ -25,7 +32,11 @@ namespace SmartShop.ViewModels
         private string _cardNumber = "4242424242424242";
         private string _cvv = "123";
         private string _expireDate = "05/23";
+        private PaymentTypes _paymentType = PaymentTypes.Cart;
         private decimal _totalAmount;
+        private bool _cartChecked = true;
+        private bool _cashChecked = false;
+        private bool _bankChecked = false;
 
         public string FirstName { get => _firstName; set => SetProperty(ref _firstName, value); }
         public string LastName { get => _lastName; set => SetProperty(ref _lastName, value); }
@@ -38,13 +49,41 @@ namespace SmartShop.ViewModels
         public string Cvv { get => _cvv; set => SetProperty(ref _cvv, value); }
         public string ExpireDate { get => _expireDate; set => SetProperty(ref _expireDate, value); }
         public decimal TotalAmount { get => _totalAmount; set => SetProperty(ref _totalAmount, value); }
+        public PaymentTypes PaymentType { get => _paymentType; set => SetProperty(ref _paymentType, value); }
+        public bool CartChecked { get => _cartChecked;
+            set
+            {
+                PaymentType = PaymentTypes.Cart;
+                SetProperty(ref _cartChecked, value);
+            }
+        }
+        public bool CashChecked
+        {
+            get => _cashChecked;
+            set
+            {
+                PaymentType = PaymentTypes.Cash;
+                SetProperty(ref _cashChecked, value);
+            }
+        }
+        public bool BankChecked
+        {
+            get => _bankChecked;
+            set
+            {
+                PaymentType = PaymentTypes.Bank;
+                SetProperty(ref _bankChecked, value);
+            }
+        }
         public ObservableCollection<Cart> Cart { get; }
         public Command SaveShippingInformationsCommand { get; }
+        public Command SavePaymentInformationsCommand { get; }
         public Command PlaceOrderCommand { get; }
 
         public CheckoutViewModel()
         {
-            SaveShippingInformationsCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new CheckoutPage(), true), () => ValidateShippingAddress());
+            SaveShippingInformationsCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new PaymentPage(), true), () => ValidateShippingAddress());
+            SavePaymentInformationsCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new CheckoutPage(), true));
             PlaceOrderCommand = new Command(async () => await AddOrderAsync(), () => ValidateCardInformations());
             Cart = new ObservableCollection<Cart>();
             this.PropertyChanged +=
@@ -72,18 +111,25 @@ namespace SmartShop.ViewModels
             {
                 var order = new OrderRequest(TotalAmount,
                     new ShippingAddress(FirstName + " " + LastName, "", Phone, Address, City, ZipCode),
-                    2, Cart.Select(s => new Cart(s.Quantity, s.ProductId, s.Price, s.Amount)).ToList());
+                    (int)PaymentType, Cart.Select(s => new Cart(s.Quantity, s.ProductId, s.Price, s.Amount)).ToList());
                 var orderTask = OrderService.AddOrderAsync(order, SettingsService.AuthAccessToken);
 
                 await Task.WhenAll(orderTask, Task.Delay(1000));
 
                 var checkoutUrl = await orderTask;
 
-                var checkoutPageModal = new CheckoutWebViewPage(checkoutUrl);
+                if (PaymentType == PaymentTypes.Cart)
+                {
+                    var checkoutPageModal = new CheckoutWebViewPage(checkoutUrl);
 
-                checkoutPageModal.CloseCheckoutPage += CloseCheckoutPageModal;
+                    checkoutPageModal.CloseCheckoutPage += CloseCheckoutPageModal;
 
-                await Shell.Current.Navigation.PushModalAsync(checkoutPageModal);
+                    await Shell.Current.Navigation.PushModalAsync(checkoutPageModal);
+                } else
+                {
+                    await Task.Delay(3000).ContinueWith(t => Shell.Current.Navigation.PopToRootAsync());
+                }
+
             }
 
             catch (Exception ex)

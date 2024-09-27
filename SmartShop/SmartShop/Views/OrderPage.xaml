@@ -68,7 +68,7 @@
                                                                     <Grid Grid.Column="1" VerticalOptions="Center" ColumnSpacing="15" ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto">
                                                                         <Label LineBreakMode="TailTruncation" TextColor="Black" MaxLines="3" FontSize="Micro" Text="{Binding Product.Name}"></Label>
                                                                         <Label Grid.Column="1" HorizontalTextAlignment="End" Text="{Binding Amount, StringFormat='{0:#,#0}'}" FontSize="Small" FontAttributes="Bold"></Label>
-                                                                        <Label Grid.Row="1" Text="{Binding Quantity, StringFormat='Količina: {0}'}" TextColor="Gray" Grid.ColumnSpan="2" FontSize="Micro"></Label>
+                                                                        <Label Grid.Row="1" Text="{Binding Qty, StringFormat='Količina: {0}'}" TextColor="Gray" Grid.ColumnSpan="2" FontSize="Micro"></Label>
                                                                     </Grid>
                                                                 </Grid>
                                                             </DataTemplate>
